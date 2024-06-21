@@ -2,7 +2,7 @@ import PrimaryPort from "./PrimaryPort";
 import SecondaryPort from "./SecondaryPort";
 import {DomainModuleProps} from "@/app/lib/definitions";
 
-export default function DomainModule({geometry, fill, text, rotate = 0, displayPorts = false}: DomainModuleProps) {
+export default function DomainModule({geometry, fill, text, rotate = 0, displayPrimaryPorts = false, displaySecondaryPorts = false}: DomainModuleProps) {
   const {scale, center, nwPort, swPort, nePort, sePort} = geometry;
 
   const sideRoot3 = scale * Math.sqrt(3);
@@ -35,10 +35,10 @@ export default function DomainModule({geometry, fill, text, rotate = 0, displayP
       <g transform={transform}>
         <polygon points={points} fill={fill} mask="url(#foo)" />
         <text x={0} y={0} textAnchor="middle" dominantBaseline="middle">{text}</text>
-        <PrimaryPort sideLength={scale} fill="none" port={nwPort} displayOutline={displayPorts}/>
-        <PrimaryPort sideLength={scale} fill="none" port={swPort} displayOutline={displayPorts}/>
-        <SecondaryPort sideLength={scale} fill="none" port={nePort} displayOutline={displayPorts}/>
-        <SecondaryPort sideLength={scale} fill="none" port={sePort} displayOutline={displayPorts}/>
+        <PrimaryPort sideLength={scale} fill="none" port={nwPort} displayOutline={displayPrimaryPorts}/>
+        <PrimaryPort sideLength={scale} fill="none" port={swPort} displayOutline={displayPrimaryPorts}/>
+        <SecondaryPort sideLength={scale} fill="none" port={nePort} displayOutline={displaySecondaryPorts}/>
+        <SecondaryPort sideLength={scale} fill="none" port={sePort} displayOutline={displaySecondaryPorts}/>
       </g>
     </>
   )

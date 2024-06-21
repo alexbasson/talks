@@ -19,26 +19,68 @@ export default function Page() {
   const scale = height / 7;
   const geometry = systemGeometry(scale, 600, 300);
 
-  const [domainColor, setDomainColor] = useState("dodgerBlue");
-  const [adapterColor, setAdapterColor] = useState("red");
-  const [deployableColor, setDeployableColor] = useState("green");
-  const [focused, setFocused] = useState(false);
+  const domainFill = () => {
+    switch (slug) {
+      case "domain": return "yellow";
+      case "ports": return "gray";
+      case "primary-ports": return "gray";
+      case "secondary-ports": return "gray";
+      case "adapters": return "gray";
+      default: return "dodgerBlue";
+    }
+  }
 
-  const [displayPorts, setDisplayPorts] = useState(false);
+  const adapterFill = () => {
+    switch (slug) {
+      case "domain": return "gray";
+      case "ports": return "gray";
+      case "primary-ports": return "gray";
+      case "secondary-ports": return "gray";
+      case "adapters": return "yellow";
+      default: return "red";
+    }
+  }
+
+  const deployableFill = () => {
+    switch (slug) {
+      case "domain": return "gray";
+      case "ports": return "gray";
+      case "primary-ports": return "gray";
+      case "secondary-ports": return "gray";
+      case "adapters": return "gray";
+      default: return "green";
+    }
+  }
+
+  const displayPrimaryPorts = () => {
+    switch (slug) {
+      case "ports": return true;
+      case "primary-ports": return true;
+      default: return false;
+    }
+  }
+
+  const displaySecondaryPorts = () => {
+    switch (slug) {
+      case "ports": return true;
+      case "secondary-ports": return true;
+      default: return false;
+    }
+  }
 
   return (
     <div>
       <h1>hexagonal architecture</h1>
 
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-        <DomainModule geometry={geometry} fill={domainColor} text="domain model" displayPorts={displayPorts}/>
+        <DomainModule geometry={geometry} fill={domainFill()} text="domain model" displayPrimaryPorts={displayPrimaryPorts()} displaySecondaryPorts={displaySecondaryPorts()}/>
 
-        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterColor} text={'API'}/>
-        <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterColor} text={'subscriber'}/>
-        <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterColor} text={'database'}/>
-        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterColor} text={'svc client'}/>
-        <DeployableModule geometry={geometry} stroke={deployableColor} width={2 * scale} height={1.5 * scale}/>
-        <text x={500} y={100} stroke={deployableColor}>application</text>
+        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterFill()} text={'API'}/>
+        <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterFill()} text={'subscriber'}/>
+        <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterFill()} text={'database'}/>
+        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterFill()} text={'svc client'}/>
+        <DeployableModule geometry={geometry} stroke={deployableFill()} width={2 * scale} height={1.5 * scale}/>
+        <text className={"text-3xl"} x={500} y={100} stroke={deployableFill()} fill={deployableFill()}>application</text>
       </svg>
 
     </div>

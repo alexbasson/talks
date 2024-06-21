@@ -41,7 +41,8 @@ export type DomainModuleProps = {
   fill: string;
   text: string;
   rotate?: number;
-  displayPorts?: boolean;
+  displayPrimaryPorts?: boolean;
+  displaySecondaryPorts?: boolean;
 }
 
 export type AdapterProps = {
