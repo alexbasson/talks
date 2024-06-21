@@ -1,13 +1,14 @@
 'use client'
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { Slide } from '@/app/lib/definitions';
 import { slides } from '@/app/modular-monoliths/slides/slides';
 
 export default function Layout({ children }: {children: React.ReactNode}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const nextHref = (pathname: string): string => {
     const pathComponents = pathname.split("/");
@@ -22,11 +23,19 @@ export default function Layout({ children }: {children: React.ReactNode}) {
     return `/modular-monoliths/${currentSlide.next}`
   }
 
-  return (
-    <>
-      {children}
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowRight" || e.key === " ") {
+      router.push(nextHref(pathname));
+    }
 
-      <Link href={nextHref(pathname)}>next</Link>
-    </>
+    if (e.key === "ArrowLeft") {
+      router.back();
+    }
+  }
+
+  return (
+    <div tabIndex={0} onKeyDown={handleKeyDown}>
+      <Link href={nextHref(pathname)}>{children}</Link>
+    </div>
   )
 }
