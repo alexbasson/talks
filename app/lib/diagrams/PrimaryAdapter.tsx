@@ -15,7 +15,7 @@ export default function PrimaryAdapter({geometry, portName, fill, text}: Adapter
       <rect x={-0.5 * scale} y={-0.4 * scale} width={scale} height={0.4 * scale} fill={fill}/>
       <rect x={-1 * scale / 12} y={0} width={scale / 6} height={3} fill={fill}/>
       <PrimaryPort sideLength={0.8 * scale} fill={fill} translate={{x: 0, y: 3}} />
-      <text y={-0.2 * scale} textAnchor="middle" dominantBaseline="middle">{text}</text>
+      <text className={"text-base"} y={-0.2 * scale} textAnchor="middle" dominantBaseline="middle">{text}</text>
     </g>
   )
 }

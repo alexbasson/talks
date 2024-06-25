@@ -8,6 +8,34 @@ export type Point = {
   y: number;
 }
 
+export class Rect {
+  constructor(
+    public x: number = 0,
+    public y: number = 0,
+    public width: number = 0,
+    public height: number = 0) {}
+
+  public leftEdgeCenter: Point = {
+    x: this.x,
+    y: this.y + this.height / 2,
+  };
+
+  public rightEdgeCenter: Point = {
+    x: this.x + this.width,
+    y: this.y + this.height / 2,
+  };
+
+  public topEdgeCenter: Point = {
+    x: this.x + this.width / 2,
+    y: this.y,
+  };
+
+  public bottomEdgeCenter: Point = {
+    x: this.x + this.width / 2,
+    y: this.y + this.height,
+  };
+}
+
 export type Translation = {
   x: number;
   y: number;
@@ -58,3 +86,25 @@ export type DeployableModuleProps = {
   width: number;
   height: number;
 }
+
+export type ArrowProps = {
+  from: Point,
+  to: Point,
+  width: number,
+}
+
+export const layoutPadding = 4;
+
+export const domainBlue = {
+  className: "text-cyan-400",
+  hexValue: "#22d3ee",
+};
+export const adapterRed = {
+  className: "text-red-500",
+  hexValue: "#ef4444",
+};
+export const deployableGreen = {
+  className: "text-green-700",
+  hexValue: "#15803d",
+};
+

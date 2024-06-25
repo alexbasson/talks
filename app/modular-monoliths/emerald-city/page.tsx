@@ -25,6 +25,7 @@ export default function Page() {
 
   return (
     <div>
+      <h1>foo</h1>
       { displayTitle() ? <p>10 bajillion microservice</p> : <></> }
       { displayList() ?
       <ul>

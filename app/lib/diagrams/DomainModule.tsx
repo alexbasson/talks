@@ -34,7 +34,7 @@ export default function DomainModule({geometry, fill, text, rotate = 0, displayP
       </defs>
       <g transform={transform}>
         <polygon points={points} fill={fill} mask="url(#foo)" />
-        <text x={0} y={0} textAnchor="middle" dominantBaseline="middle">{text}</text>
+        <text className={"text-base"} x={0} y={0} textAnchor="middle" dominantBaseline="middle">{text}</text>
         <PrimaryPort sideLength={scale} fill="none" port={nwPort} displayOutline={displayPrimaryPorts}/>
         <PrimaryPort sideLength={scale} fill="none" port={swPort} displayOutline={displayPrimaryPorts}/>
         <SecondaryPort sideLength={scale} fill="none" port={nePort} displayOutline={displaySecondaryPorts}/>

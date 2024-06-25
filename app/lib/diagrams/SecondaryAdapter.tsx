@@ -15,7 +15,7 @@ export default function SecondaryAdapter({geometry, portName, fill, text}: Adapt
       <rect x={-0.5 * scale} y={-0.4 * scale} width={scale} height={0.4 * scale} fill={fill} />
       <rect x={-1 * scale / 8} y={0} width={scale / 4} height={2} fill={fill} />
       <SecondaryPort sideLength={0.8 * scale} fill={fill} translate={{x: 0, y: 2}}/>
-      <text y={-0.2 * scale} textAnchor="middle" dominantBaseline="middle" >{text}</text>
+      <text className={"text-base"} y={-0.2 * scale} textAnchor="middle" dominantBaseline="middle" >{text}</text>
     </g>
   )
 }

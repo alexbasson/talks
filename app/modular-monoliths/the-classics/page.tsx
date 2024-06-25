@@ -12,9 +12,9 @@ export default function Page() {
 
   return (
     <div>
-      <p>just the classics:</p>
+      <h1>just the classics:</h1>
       {displayList ?
-        <ul>
+        <ul className={"pl-16 list-disc"}>
           <li>hexagonal architecture</li>
           <li>domain-driven design</li>
           <li>good old SOLID principles</li>

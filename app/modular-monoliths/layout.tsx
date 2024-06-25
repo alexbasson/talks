@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Slide } from '@/app/lib/definitions';
+import {layoutPadding, Slide} from '@/app/lib/definitions';
 import { slides } from '@/app/modular-monoliths/slides/slides';
 
 export default function Layout({ children }: {children: React.ReactNode}) {
@@ -34,8 +34,8 @@ export default function Layout({ children }: {children: React.ReactNode}) {
   }
 
   return (
-    <div tabIndex={0} onKeyDown={handleKeyDown}>
-      <Link href={nextHref(pathname)}>{children}</Link>
+    <div className={`bg-neutral-800 h-screen text-base p-[${layoutPadding}px]`} tabIndex={0} onKeyDown={handleKeyDown}>
+      <Link className={"h-screen"} href={nextHref(pathname)}>{children}</Link>
     </div>
   )
 }

@@ -5,7 +5,7 @@ export default function DeployableModule({geometry, stroke, width, height}: Depl
 
   return (
     <g>
-      <ellipse cx={center.x} cy={center.y} rx={width} ry={height} fill="none" stroke={stroke} strokeWidth={8} />
+      <ellipse cx={center.x} cy={center.y} rx={width} ry={height} fill="none" stroke={stroke} strokeWidth={12} />
     </g>
   )
 }

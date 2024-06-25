@@ -1,23 +1,18 @@
 'use client'
 
-import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
+import {adapterRed, deployableGreen, domainBlue, layoutPadding} from "@/app/lib/definitions";
 
 type Slug = "domain" | "ports" | "primary-ports" | "secondary-ports" | "adapters" | "whole-picture";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug") as Slug;
-
-  const { innerWidth: width, innerHeight: height } = window;
-
-  const scale = height / 7;
-  const geometry = systemGeometry(scale, 600, 300);
 
   const domainFill = () => {
     switch (slug) {
@@ -26,7 +21,7 @@ export default function Page() {
       case "primary-ports": return "gray";
       case "secondary-ports": return "gray";
       case "adapters": return "gray";
-      default: return "dodgerBlue";
+      default: return domainBlue.hexValue;
     }
   }
 
@@ -37,7 +32,7 @@ export default function Page() {
       case "primary-ports": return "gray";
       case "secondary-ports": return "gray";
       case "adapters": return "yellow";
-      default: return "red";
+      default: return adapterRed.hexValue;
     }
   }
 
@@ -48,7 +43,7 @@ export default function Page() {
       case "primary-ports": return "gray";
       case "secondary-ports": return "gray";
       case "adapters": return "gray";
-      default: return "green";
+      default: return deployableGreen.hexValue;
     }
   }
 
@@ -68,10 +63,14 @@ export default function Page() {
     }
   }
 
+  const height = window.innerHeight - 2*layoutPadding;
+  const width = window.innerWidth - 2*layoutPadding;
+
+  const scale = height / 4;
+  const geometry = systemGeometry(scale, width/2, height/2);
+
   return (
     <div>
-      <h1>hexagonal architecture</h1>
-
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
         <DomainModule geometry={geometry} fill={domainFill()} text="domain model" displayPrimaryPorts={displayPrimaryPorts()} displaySecondaryPorts={displaySecondaryPorts()}/>
 
@@ -80,7 +79,7 @@ export default function Page() {
         <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterFill()} text={'database'}/>
         <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterFill()} text={'svc client'}/>
         <DeployableModule geometry={geometry} stroke={deployableFill()} width={2 * scale} height={1.5 * scale}/>
-        <text className={"text-3xl"} x={500} y={100} stroke={deployableFill()} fill={deployableFill()}>application</text>
+        <text className={"text-base"} x={width/5} y={height/5} stroke={deployableFill()} fill={deployableFill()}>application</text>
       </svg>
 
     </div>
