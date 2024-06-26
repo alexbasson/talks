@@ -159,34 +159,34 @@ export const slides: Slide[] = [
   },
   {
     route: "spring-directory-structure?slug=policy",
-    next: "why-is-this-nice",
+    next: "why-is-this-nice?state=0",
   },
   {
-    route: "why-is-this-nice",
-    next: "why-is-this-nice?slug=pieces-stay-small",
+    route: "why-is-this-nice?state=0",
+    next: "why-is-this-nice?state=1",
   },
   {
-    route: "why-is-this-nice?slug=pieces-stay-small",
-    next: "why-is-this-nice?slug=separation-of-concerns",
+    route: "why-is-this-nice?state=1",
+    next: "why-is-this-nice?state=2",
   },
   {
-    route: "why-is-this-nice?slug=separation-of-concerns",
-    next: "why-is-this-nice?slug=cheap-adapters",
+    route: "why-is-this-nice?state=2",
+    next: "why-is-this-nice?state=3",
   },
   {
-    route: "why-is-this-nice?slug=cheap-adapters",
-    next: "why-is-this-nice?slug=testing-in-isolation",
+    route: "why-is-this-nice?state=3",
+    next: "why-is-this-nice?state=4",
   },
   {
-    route: "why-is-this-nice?slug=testing-in-isolation",
+    route: "why-is-this-nice?state=4",
     next: "how-does-this-go-wrong",
   },
   {
     route: "how-does-this-go-wrong",
-    next: "why-is-this-nice?slug=how-does-this-go-wrong"
+    next: "why-is-this-nice?state=5"
   },
   {
-    route: "why-is-this-nice?slug=how-does-this-go-wrong",
+    route: "why-is-this-nice?state=5",
     next: "bounded-contexts",
   },
   {

@@ -8,8 +8,11 @@ const config: Config = {
   ],
   theme: {
     fontSize: {
+      sm: ['30px', '40px'],
       base: ['40px', '96px'],
       lg: ['64px', '100px'],
+      xl: ['96px', '140px'],
+      xxl: ['270px', '300px'],
     },
     extend: {
       backgroundImage: {

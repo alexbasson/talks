@@ -93,7 +93,7 @@ export type ArrowProps = {
   width: number,
 }
 
-export const layoutPadding = 4;
+export const layoutPadding = 16;
 
 export const domainBlue = {
   className: "text-cyan-400",

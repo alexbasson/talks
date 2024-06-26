@@ -18,7 +18,7 @@ function ModuleRect({rect, text, fill}: {rect: Rect, text: string, fill: string}
 }
 
 export default function Page() {
-  const leftColumnWidth = 500;
+  const leftColumnWidth = 400;
   const height = window.innerHeight - 2 * layoutPadding;
   const width = window.innerWidth - leftColumnWidth - 2 * layoutPadding;
 
@@ -59,12 +59,22 @@ export default function Page() {
   );
 
   return (
-    <div style={{display: 'grid', gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
-      <div>
-        <h1>module structure</h1>
+    <div className={'grid'} style={{gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
+      <div className={'flex flex-col justify-between pl-16'}>
+        <div>
+          <h1>module structure</h1>
+        </div>
+
+        <div>
+          <svg viewBox={`0 0 ${leftColumnWidth} 400`}>
+            <Arrow from={{x: 0, y: 30}} to={{x: leftColumnWidth * 0.8, y: 30}} width={15} />
+            <text className={"text-base"} y={100} fill='purple'>&ldquo;depends on&rdquo;</text>
+            <text className={"text-base"} y={170} fill='purple'>&ldquo;imports from&rdquo;</text>
+          </svg>
+        </div>
       </div>
 
-      <div>
+      <div className={"pt-6"}>
         <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
           <ModuleRect rect={deployableRect} text={"deployable"} fill={deployableGreen.hexValue} />
           <ModuleRect rect={leftAdapterRect} text={"adapter"} fill={adapterRed.hexValue} />

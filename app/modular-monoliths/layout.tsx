@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import {layoutPadding, Slide} from '@/app/lib/definitions';
-import { slides } from '@/app/modular-monoliths/slides/slides';
+import { slides } from '@/app/lib/slides/slides';
 
 export default function Layout({ children }: {children: React.ReactNode}) {
   const pathname = usePathname();
@@ -14,7 +14,8 @@ export default function Layout({ children }: {children: React.ReactNode}) {
     const pathComponents = pathname.split("/");
     const lastComponent = pathComponents[pathComponents.length - 1];
     const slug = searchParams.get("slug");
-    const route = lastComponent + (slug ? `?slug=${slug}` : "");
+    const state = searchParams.get("state");
+    const route = lastComponent + (slug ? `?slug=${slug}` : "") + (state ? `?state=${state}` : "");
     const defaultSlide: Slide = {
       route: "",
       next: "title",

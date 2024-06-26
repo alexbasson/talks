@@ -2,65 +2,71 @@
 
 import { useSearchParams } from "next/navigation";
 
-type Slug = "pieces-stay-small" | "separation-of-concerns" | "cheap-adapters" | "testing-in-isolation" | "how-does-this-go-wrong";
+type State = {
+  title: string,
+  displayPiecesStaySmall: boolean,
+  displaySeparationOfConcerns: boolean,
+  displayCheapAdatpers: boolean,
+  displayTestingInIsolation: boolean
+}
 
 export default function Page() {
   const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const state = parseInt(searchParams.get("state") ?? "0") ?? 0;
 
-  const title = () => {
-    switch (slug) {
-      case "how-does-this-go-wrong": return "how does this go wrong?";
-      default: return "why is this nice?";
-    }
-  };
-
-  const displayPiecesStaySmall = () => {
-    switch (slug) {
-      case "pieces-stay-small": return true;
-      case "separation-of-concerns": return true;
-      case "cheap-adapters": return true;
-      case "testing-in-isolation": return true;
-      case "how-does-this-go-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displaySeparationOfConcerns = () => {
-    switch (slug) {
-      case "separation-of-concerns": return true;
-      case "cheap-adapters": return true;
-      case "testing-in-isolation": return true;
-      case "how-does-this-go-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displayCheapAdapters = () => {
-    switch (slug) {
-      case "cheap-adapters": return true;
-      case "testing-in-isolation": return true;
-      case "how-does-this-go-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displayTestingInIsolation = () => {
-    switch (slug) {
-      case "testing-in-isolation": return true;
-      case "how-does-this-go-wrong": return true;
-      default: return false;
-    }
-  }
+  const states: State[] = [
+    {
+      title: "why is this nice?",
+      displayPiecesStaySmall: false,
+      displaySeparationOfConcerns: false,
+      displayCheapAdatpers: false,
+      displayTestingInIsolation: false,
+    },
+    {
+      title: "why is this nice?",
+      displayPiecesStaySmall: true,
+      displaySeparationOfConcerns: false,
+      displayCheapAdatpers: false,
+      displayTestingInIsolation: false,
+    },
+    {
+      title: "why is this nice?",
+      displayPiecesStaySmall: true,
+      displaySeparationOfConcerns: true,
+      displayCheapAdatpers: false,
+      displayTestingInIsolation: false,
+    },
+    {
+      title: "why is this nice?",
+      displayPiecesStaySmall: true,
+      displaySeparationOfConcerns: true,
+      displayCheapAdatpers: true,
+      displayTestingInIsolation: false,
+    },
+    {
+      title: "why is this nice?",
+      displayPiecesStaySmall: true,
+      displaySeparationOfConcerns: true,
+      displayCheapAdatpers: true,
+      displayTestingInIsolation: true,
+    },
+    {
+      title: "how does this go wrong?",
+      displayPiecesStaySmall: true,
+      displaySeparationOfConcerns: true,
+      displayCheapAdatpers: true,
+      displayTestingInIsolation: true,
+    },
+  ]
 
   return (
     <div>
-      <h1>{title()}</h1>
-      <ul>
-        { displayPiecesStaySmall() ? <li>each piece stays small</li> : <></> }
-        { displaySeparationOfConcerns() ? <li>enforces separation of concerns</li>: <></> }
-        { displayCheapAdapters() ? <li>adapters are cheap and easy to replace</li> : <></> }
-        { displayTestingInIsolation() ? <li>facilitates testing modules in isolation</li> : <></> }
+      <h1>{states[state].title}</h1>
+      <ul className={"pl-16 list-disc"}>
+        { states[state].displayPiecesStaySmall ? <li>each piece stays small</li> : <></> }
+        { states[state].displaySeparationOfConcerns ? <li>enforces separation of concerns</li>: <></> }
+        { states[state].displayCheapAdatpers ? <li>adapters are cheap and easy to replace</li> : <></> }
+        { states[state].displayTestingInIsolation ? <li>facilitates testing modules in isolation</li> : <></> }
       </ul>
     </div>
   )

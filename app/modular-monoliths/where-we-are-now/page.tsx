@@ -61,11 +61,11 @@ export default function Page() {
       { displayRepo() ? <p>which repo was that code in?</p> : <></> }
 
       { displayDoingItWrong() ? (
-        <>
-          <h2>DOING IT WRONG</h2>
-          <h2>EAT YOUR VEGETABLES</h2>
-          <h2>DOING IT WRONG</h2>
-        </>
+        <div className={'text-red-600 font-bold z-10'}>
+          <h2 className={'rotate-12 mt-[-200px]'}>DOING IT WRONG</h2>
+          <h2 className={'-rotate-12 mt-[-250px]'}>EAT YOUR VEGETABLES</h2>
+          <h2 className={'rotate-6 mt-[230px] ml-[50px]'}>DOING IT WRONG</h2>
+        </div>
         ) : <></>
       }
     </div>
