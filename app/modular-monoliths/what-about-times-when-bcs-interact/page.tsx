@@ -54,19 +54,23 @@ export default function Page() {
     <div>
       <h1>what about times when BCs interact?</h1>
 
-      <div>
-        <p>Feature: Starting a game</p>
+      <div className={"font-mono text-sm"}>
+        <div className={"mb-8"}>
+          <p>Feature: Starting a game</p>
+        </div>
 
-        <p>Given I have <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>invited</span> Cedar to
-          play</p>
-        <p>And Cedar has <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>accepted</span> my <span
-          className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>invitation</span></p>
+        <div className={"mb-8"}>
+          <p>Given I have <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>invited</span> Cedar to play</p>
+          <p>And Cedar has <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>accepted</span> my <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>invitation</span></p>
+        </div>
 
-        <p>When I start the <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>game</span></p>
+        <div className={"mb-8"}>
+          <p>When I start the <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>game</span></p>
+        </div>
 
-        <p>Then I am taken to a <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>board</span> with
-          all the <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pieces</span> in the
-          starting <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>position</span></p>
+        <div>
+          <p>Then I am taken to a <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>board</span> with all the <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pieces</span> in the starting <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>position</span></p>
+        </div>
       </div>
     </div>
   )
