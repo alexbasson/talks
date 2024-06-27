@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import useFrame from "@/app/lib/useFrame";
 
 type Frame = {
@@ -27,15 +28,30 @@ export default function Page() {
 
   return (
     <div>
-      <h1>foo</h1>
-      { frame.displayTitle ? <p>10 bajillion microservice</p> : <></> }
-      { frame.displayList ?
-      <ul>
-        <li>all perfectly decoupled</li>
-        <li>all independently deployable</li>
-        <li>all maintained by autonomous teams innovating without friction</li>
-        <li>all choreographed with high availability and resiliency and telemetry and and and</li>
-      </ul> : <></> }
+      <div style={{
+        zIndex: 0,
+        position: "fixed",
+        width: "100vw",
+        height: "100vh"
+      }}>
+        <Image
+          src="/emerald-city.jpg"
+          alt="emerald city with yellow brick road"
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+
+      <div>
+        { frame.displayTitle ? <p>10 bajillion microservices</p> : <></> }
+        { frame.displayList ?
+        <ul>
+          <li>all perfectly decoupled</li>
+          <li>all independently deployable</li>
+          <li>all maintained by autonomous teams innovating without friction</li>
+          <li>all choreographed with high availability and resiliency and telemetry and and and</li>
+        </ul> : <></> }
+      </div>
     </div>
   )
 }

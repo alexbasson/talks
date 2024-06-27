@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, domainBlue, layoutPadding} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, policyBlue, layoutPadding} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
@@ -56,7 +56,7 @@ export default function Page() {
 
       <div className={'mt-[-80px]'}>
         <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-          <DomainModule geometry={geometry} fill={domainBlue.hexValue} text="game policy"/>
+          <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="game policy"/>
 
           <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={'game-api'}/>
           <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={'game-db'}/>
@@ -66,13 +66,13 @@ export default function Page() {
 
           {frame.displayPolicy ?
             <g>
-              <text y={policyTextStart + 0 * 50} fill={domainBlue.hexValue}>move</text>
-              <text y={policyTextStart + 1 * 50} fill={domainBlue.hexValue}>board state</text>
-              <text y={policyTextStart + 2 * 50} fill={domainBlue.hexValue}>make move</text>
-              <text y={policyTextStart + 3 * 50} fill={domainBlue.hexValue}>move is illegal</text>
-              <text y={policyTextStart + 4 * 50} fill={domainBlue.hexValue}>checkmate</text>
+              <text y={policyTextStart + 0 * 50} fill={policyBlue.hexValue}>move</text>
+              <text y={policyTextStart + 1 * 50} fill={policyBlue.hexValue}>board state</text>
+              <text y={policyTextStart + 2 * 50} fill={policyBlue.hexValue}>make move</text>
+              <text y={policyTextStart + 3 * 50} fill={policyBlue.hexValue}>move is illegal</text>
+              <text y={policyTextStart + 4 * 50} fill={policyBlue.hexValue}>checkmate</text>
 
-              <line x1={300} y1={policyTextStart + 2 * 50} x2={950} y2={460} stroke={domainBlue.hexValue} strokeWidth={5} strokeDasharray={30} />
+              <line x1={300} y1={policyTextStart + 2 * 50} x2={950} y2={460} stroke={policyBlue.hexValue} strokeWidth={5} strokeDasharray={30} />
             </g> : <></>
           }
 

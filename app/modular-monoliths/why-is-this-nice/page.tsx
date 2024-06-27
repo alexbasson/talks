@@ -54,6 +54,13 @@ export default function Page() {
       displayCheapAdapters: true,
       displayTestingInIsolation: true,
     },
+    {
+      title: "how does this go wrong?",
+      displayPiecesStaySmall: true,
+      displaySeparationOfConcerns: true,
+      displayCheapAdapters: true,
+      displayTestingInIsolation: true,
+    },
   ];
 
   const frame = frames[useFrame()];

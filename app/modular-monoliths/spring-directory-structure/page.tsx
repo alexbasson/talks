@@ -1,14 +1,17 @@
 'use client'
 
-import {adapterRed, deployableGreen, domainBlue} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, highlightYellow, policyBlue} from "@/app/lib/definitions";
 import clsx from "clsx";
 import useFrame from "@/app/lib/useFrame";
 
 type Frame = {
   settings: boolean,
   deployable: boolean,
+  highlightDeployable: boolean,
   apiAdapter: boolean,
+  highlightApiAdapter: boolean,
   sqlAdapter: boolean,
+  highlightSqlAdapter: boolean,
   policy: boolean,
 }
 
@@ -17,50 +20,98 @@ export default function Page() {
     {
       settings: false,
       deployable: false,
+      highlightDeployable: false,
       apiAdapter: false,
+      highlightApiAdapter: false,
       sqlAdapter: false,
+      highlightSqlAdapter: false,
       policy: false,
     },
     {
       settings: true,
       deployable: false,
+      highlightDeployable: false,
       apiAdapter: false,
+      highlightApiAdapter: false,
       sqlAdapter: false,
+      highlightSqlAdapter: false,
       policy: false,
     },
     {
       settings: false,
       deployable: true,
+      highlightDeployable: false,
       apiAdapter: false,
+      highlightApiAdapter: false,
       sqlAdapter: false,
+      highlightSqlAdapter: false,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: true,
+      highlightDeployable: true,
+      apiAdapter: false,
+      highlightApiAdapter: false,
+      sqlAdapter: false,
+      highlightSqlAdapter: false,
       policy: false,
     },
     {
       settings: false,
       deployable: false,
+      highlightDeployable: false,
       apiAdapter: true,
+      highlightApiAdapter: false,
       sqlAdapter: false,
+      highlightSqlAdapter: false,
       policy: false,
     },
     {
       settings: false,
       deployable: false,
+      highlightDeployable: false,
+      apiAdapter: true,
+      highlightApiAdapter: true,
+      sqlAdapter: false,
+      highlightSqlAdapter: false,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: false,
+      highlightDeployable: false,
       apiAdapter: false,
+      highlightApiAdapter: false,
       sqlAdapter: true,
+      highlightSqlAdapter: false,
       policy: false,
     },
     {
       settings: false,
       deployable: false,
+      highlightDeployable: false,
       apiAdapter: false,
+      highlightApiAdapter: false,
+      sqlAdapter: true,
+      highlightSqlAdapter: true,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: false,
+      highlightDeployable: false,
+      apiAdapter: false,
+      highlightApiAdapter: false,
       sqlAdapter: false,
+      highlightSqlAdapter: false,
       policy: true,
     },
   ];
 
   const frame = frames[useFrame()];
 
-  const border = "border-4 border-amber-500";
+  const border = `border-4 border-yellow-300`;
 
   return (
     <div className={'grid gap-8'} style={{gridTemplateColumns: "56% 44%"}}>
@@ -88,7 +139,7 @@ export default function Page() {
               <li>src/main/.../SqlMoveRepository.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: frame.policy}, `${domainBlue.className} p-2`)}>
+          <li className={clsx({[border]: frame.policy}, `${policyBlue.className} p-2`)}>
             <p>game-policy/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../MakeMove.java</li>
@@ -133,7 +184,7 @@ export default function Page() {
 
             <div>
               <p className={"mb-8"}>&#47;&#47; ChessApplication.java</p>
-              <p className={"text-amber-600"}>@SpringBootApplication</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightDeployable})}>@SpringBootApplication</p>
               <p>@Import(SqlMoveRepo.class)</p>
               <p>@Import(MovesCtlr.class)</p>
               <p>@Import(MakeMove.class)</p>
@@ -160,7 +211,7 @@ export default function Page() {
               <p className={"mb-8"}>&#47;&#47; MovesController.java</p>
               <p>@RestController</p>
               <p>class MovesController &#123;</p>
-              <p className={"pl-16"}>private final MakeMove makeMove;</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-16')}>private final MakeMove makeMove;</p>
               <p className={"pl-16"}>...</p>
               <p>&#125;</p>
             </div>
@@ -183,13 +234,13 @@ export default function Page() {
 
             <div>
               <p className={"mb-8"}>&#47;&#47; SqlMoveRepository.java</p>
-              <p>class SqlMoveRepository implements MoveRepository</p>
+              <p>class SqlMoveRepository implements <span className={clsx({[highlightYellow.className]: frame.highlightSqlAdapter})}>MoveRepository</span></p>
             </div>
           </div> : <></>
         }
 
         {frame.policy ?
-          <div className={`font-mono text-sm leading-normal ${domainBlue.className}`}>
+          <div className={`font-mono text-sm leading-normal ${policyBlue.className}`}>
             <div className={"mb-8"}>
               <p>&#47;&#47; build.gradle</p>
             </div>

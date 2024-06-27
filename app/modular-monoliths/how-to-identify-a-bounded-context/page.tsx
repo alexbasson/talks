@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import useFrame from "@/app/lib/useFrame";
+import {highlightYellow} from "@/app/lib/definitions";
 
 type Frame = {
   displayGameplayStories: boolean,
@@ -61,39 +62,39 @@ export default function Page() {
 
   return (
     <div>
-      <h1>how to identify a bounded context?</h1>
+      <h1 className={"mb-16"}>how to identify a bounded context?</h1>
 
       {frame.displayGameplayStories ?
-        <div className={"grid grid-cols-2 gap-8"}>
+        <div className={"grid grid-cols-2 gap-16"}>
           <section className={"font-mono text-sm"}>
             <div className={"mb-8"}>
               <p>Feature: Promoting a pawn</p>
             </div>
 
             <div className={"mb-8"}>
-              <p>Given it is my <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>turn</span>
+              <p>Given it is my <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>turn</span>
               </p>
               <p>And I have a <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pawn</span> that can <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>legally move</span> onto the last
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>pawn</span> that can <span
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>legally move</span> onto the last
                 row</p>
             </div>
 
             <div className={"mb-8"}>
               <p>When I <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>move</span> the <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pawn</span> forward</p>
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>move</span> the <span
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>pawn</span> forward</p>
             </div>
 
             <div>
-              <p>Then <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>I am asked</span> to
+              <p>Then <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>I am asked</span> to
                 choose between <span
-                  className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>bishop</span>, <span
-                  className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>knight</span>, <span
-                  className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>rook</span>, and <span
-                  className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>queen</span></p>
+                  className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>bishop</span>, <span
+                  className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>knight</span>, <span
+                  className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>rook</span>, and <span
+                  className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>queen</span></p>
               <p>And the <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pawn</span> becomes the type of
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>pawn</span> becomes the type of
                 piece I choose</p>
             </div>
           </section>
@@ -104,46 +105,46 @@ export default function Page() {
             </div>
 
             <div className={"mb-8"}>
-              <p>Given it is my <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>turn</span>
+              <p>Given it is my <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>turn</span>
               </p>
               <p>And I have an otherwise <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>legal</span> move that would put
-                my <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>king</span> in check</p>
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>legal</span> move that would put
+                my <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>king</span> in check</p>
             </div>
 
             <div className={"mb-8"}>
               <p>When I try to make that <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>move</span></p>
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>move</span></p>
             </div>
 
             <div>
               <p>Then <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>I am told</span> the <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>move</span> is <span
-                className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>illegal</span></p>
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>I am told</span> the <span
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>move</span> is <span
+                className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>illegal</span></p>
             </div>
           </section>
         </div> : <></>}
 
       {frame.displayFriendsStories ?
-        <div className={"grid grid-cols-2 gap-8"}>
+        <div className={"grid grid-cols-2 gap-16"}>
           <section className={"font-mono text-sm"}>
             <div className={"mb-8"}>
               <p>Feature: Per-opponent wins/losses</p>
             </div>
 
             <div className={"mb-8"}>
-              <p>Given Cedar is in my <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>friends list</span>
+              <p>Given Cedar is in my <span className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>friends list</span>
               </p>
               <p>And ahs been my <span
-                className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>opponent</span> in 6 <span
-                className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>games</span></p>
+                className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>opponent</span> in 6 <span
+                className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>games</span></p>
               <p>And I won 3, Cedar won 2, and 1 was a stalemate</p>
             </div>
 
             <div className={"mb-8"}>
               <p>When I view my <span
-                className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>friends list</span></p>
+                className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>friends list</span></p>
             </div>
 
             <div>
@@ -158,15 +159,15 @@ export default function Page() {
             </div>
 
             <div className={"mb-8"}>
-              <p>Given Cedar is in my <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>friends list</span>
+              <p>Given Cedar is in my <span className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>friends list</span>
               </p>
               <p>And I have created a <span
-                className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>game</span></p>
+                className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>game</span></p>
             </div>
 
             <div className={"mb-8"}>
               <p>When I choose Cedar as my <span
-                className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>opponent</span></p>
+                className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>opponent</span></p>
             </div>
 
             <div>
@@ -177,24 +178,24 @@ export default function Page() {
       }
 
       {frame.displayStoriesInDifferentContexts ?
-        <div className={"grid grid-cols-2 gap-8"}>
+        <div className={"grid grid-cols-2 gap-16"}>
           <section className={"font-mono text-sm"}>
             <div className={"mb-8"}>
               <p>Feature: Promoting a pawn</p>
             </div>
 
             <div className={"mb-8"}>
-              <p>Given it is my <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>turn</span></p>
-              <p>And I have a <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pawn</span> that can <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>legally move</span> onto the last row</p>
+              <p>Given it is my <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>turn</span></p>
+              <p>And I have a <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>pawn</span> that can <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>legally move</span> onto the last row</p>
             </div>
 
             <div className={"mb-8"}>
-              <p>When I <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>move</span> the <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pawn</span> forward</p>
+              <p>When I <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>move</span> the <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>pawn</span> forward</p>
             </div>
 
             <div>
-              <p>Then <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>I am asked</span> to choose between <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>bishop</span>, <span                 className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>knight</span>, <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>rook</span>, and <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>queen</span></p>
-              <p>And the <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pawn</span> becomes the type of piece I choose</p>
+              <p>Then <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>I am asked</span> to choose between <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>bishop</span>, <span                 className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>knight</span>, <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>rook</span>, and <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>queen</span></p>
+              <p>And the <span className={clsx({[highlightYellow.className]: frame.highlightGameplayLanguage})}>pawn</span> becomes the type of piece I choose</p>
             </div>
           </section>
 
@@ -204,12 +205,12 @@ export default function Page() {
             </div>
 
             <div className={"mb-8"}>
-              <p>Given Cedar is in my <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>friends list</span></p>
-              <p>And I have created a <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>game</span></p>
+              <p>Given Cedar is in my <span className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>friends list</span></p>
+              <p>And I have created a <span className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>game</span></p>
             </div>
 
             <div className={"mb-8"}>
-              <p>When I choose Cedar as my <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>opponent</span></p>
+              <p>When I choose Cedar as my <span className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>opponent</span></p>
             </div>
 
             <div>

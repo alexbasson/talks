@@ -5,7 +5,7 @@ import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
-import {adapterRed, deployableGreen, domainBlue, layoutPadding} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, policyBlue, highlightYellow, gray, layoutPadding} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
 
 type Frame = {
@@ -19,49 +19,49 @@ type Frame = {
 export default function Page() {
   const frames: Frame[] = [
     {
-      domainFill: domainBlue.hexValue,
+      domainFill: policyBlue.hexValue,
       adapterFill: adapterRed.hexValue,
       deployableFill: deployableGreen.hexValue,
       highlightPrimaryPorts: false,
       highlightSecondaryPorts: false,
     },
     {
-      domainFill: "yellow",
-      adapterFill: "gray",
-      deployableFill: "gray",
+      domainFill: highlightYellow.hexValue,
+      adapterFill: gray.hexValue,
+      deployableFill: gray.hexValue,
       highlightPrimaryPorts: false,
       highlightSecondaryPorts: false,
     },
     {
-      domainFill: "gray",
-      adapterFill: "gray",
-      deployableFill: "gray",
+      domainFill: gray.hexValue,
+      adapterFill: gray.hexValue,
+      deployableFill: gray.hexValue,
       highlightPrimaryPorts: true,
       highlightSecondaryPorts: true,
     },
     {
-      domainFill: "gray",
-      adapterFill: "gray",
-      deployableFill: "gray",
+      domainFill: gray.hexValue,
+      adapterFill: gray.hexValue,
+      deployableFill: gray.hexValue,
       highlightPrimaryPorts: true,
       highlightSecondaryPorts: false,
     },
     {
-      domainFill: "gray",
-      adapterFill: "gray",
-      deployableFill: "gray",
+      domainFill: gray.hexValue,
+      adapterFill: gray.hexValue,
+      deployableFill: gray.hexValue,
       highlightPrimaryPorts: false,
       highlightSecondaryPorts: true,
     },
     {
-      domainFill: "gray",
-      adapterFill: "yellow",
-      deployableFill: "gray",
+      domainFill: gray.hexValue,
+      adapterFill: highlightYellow.hexValue,
+      deployableFill: gray.hexValue,
       highlightPrimaryPorts: false,
       highlightSecondaryPorts: false,
     },
     {
-      domainFill: domainBlue.hexValue,
+      domainFill: policyBlue.hexValue,
       adapterFill: adapterRed.hexValue,
       deployableFill: deployableGreen.hexValue,
       highlightPrimaryPorts: false,
@@ -75,10 +75,12 @@ export default function Page() {
   const width = window.innerWidth - 2*layoutPadding;
 
   const scale = height / 4;
-  const geometry = systemGeometry(scale, width/2, height/2);
+  const geometry = systemGeometry(scale, width/2, 0.4 * height);
 
   return (
     <div>
+      <h1>hexagonal architecture</h1>
+
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
         <DomainModule geometry={geometry} fill={frame.domainFill} text="domain model" displayPrimaryPorts={frame.highlightPrimaryPorts} displaySecondaryPorts={frame.highlightSecondaryPorts}/>
 
@@ -87,7 +89,7 @@ export default function Page() {
         <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={frame.adapterFill} text={'database'}/>
         <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={frame.adapterFill} text={'svc client'}/>
         <DeployableModule geometry={geometry} stroke={frame.deployableFill} width={2 * scale} height={1.5 * scale}/>
-        <text className={"text-base"} x={width/5} y={height/5} stroke={frame.deployableFill} fill={frame.deployableFill}>application</text>
+        <text className={"text-base"} x={width/5} y={100} stroke={frame.deployableFill} fill={frame.deployableFill}>application</text>
       </svg>
 
     </div>

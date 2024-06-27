@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, domainBlue, layoutPadding, Point, Rect} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, policyBlue, layoutPadding, Point, Rect} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/diagrams/Arrow";
 
 function ModuleRect({rect, text, fill}: {rect: Rect, text: string, fill: string}) {
@@ -11,7 +11,7 @@ function ModuleRect({rect, text, fill}: {rect: Rect, text: string, fill: string}
             y={rect.height / 2}
             textAnchor="middle"
             dominantBaseline="middle"
-            fill="white">{text}
+            fill="black">{text}
       </text>
     </g>
   )
@@ -79,7 +79,7 @@ export default function Page() {
           <ModuleRect rect={deployableRect} text={"deployable"} fill={deployableGreen.hexValue} />
           <ModuleRect rect={leftAdapterRect} text={"adapter"} fill={adapterRed.hexValue} />
           <ModuleRect rect={rightAdapterRect} text={"adapter"} fill={adapterRed.hexValue} />
-          <ModuleRect rect={policyRect} text={"policy"} fill={domainBlue.hexValue} />
+          <ModuleRect rect={policyRect} text={"policy"} fill={policyBlue.hexValue} />
 
           <Arrow
             from={{x: deployableRect.leftEdgeCenter.x - buffer, y: deployableRect.leftEdgeCenter.y}}
