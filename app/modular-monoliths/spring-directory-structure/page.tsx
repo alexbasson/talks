@@ -1,20 +1,64 @@
 'use client'
 
-import {useSearchParams} from "next/navigation";
 import {adapterRed, deployableGreen, domainBlue} from "@/app/lib/definitions";
 import clsx from "clsx";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "settings" | "deployable" | "api-adapter" | "sql-adapter" | "policy";
+type Frame = {
+  settings: boolean,
+  deployable: boolean,
+  apiAdapter: boolean,
+  sqlAdapter: boolean,
+  policy: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      settings: false,
+      deployable: false,
+      apiAdapter: false,
+      sqlAdapter: false,
+      policy: false,
+    },
+    {
+      settings: true,
+      deployable: false,
+      apiAdapter: false,
+      sqlAdapter: false,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: true,
+      apiAdapter: false,
+      sqlAdapter: false,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: false,
+      apiAdapter: true,
+      sqlAdapter: false,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: false,
+      apiAdapter: false,
+      sqlAdapter: true,
+      policy: false,
+    },
+    {
+      settings: false,
+      deployable: false,
+      apiAdapter: false,
+      sqlAdapter: false,
+      policy: true,
+    },
+  ];
 
-  const settings = slug === "settings";
-  const deployable = slug === "deployable";
-  const apiAdapter = slug === "api-adapter";
-  const sqlAdapter = slug === "sql-adapter";
-  const policy = slug === "policy";
+  const frame = frames[useFrame()];
 
   const border = "border-4 border-amber-500";
 
@@ -23,28 +67,28 @@ export default function Page() {
       <div className={"font-mono leading-normal"}>
         <p className={"mb-8"}>online-chess/</p>
         <ul className={"pl-16 list-none"}>
-          <li className={clsx({[border]: settings}, "mb-4 p-2")}>
+          <li className={clsx({[border]: frame.settings}, "mb-4 p-2")}>
             <p>settings.gradle</p>
           </li>
-          <li className={clsx({[border]: deployable}, `mb-4 ${deployableGreen.className} p-2`)}>
+          <li className={clsx({[border]: frame.deployable}, `mb-4 ${deployableGreen.className} p-2`)}>
             <p>chess-app/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../ChessApplication.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: apiAdapter}, `mb-4 ${adapterRed.className} p-2`)}>
+          <li className={clsx({[border]: frame.apiAdapter}, `mb-4 ${adapterRed.className} p-2`)}>
             <p>game-api-adapter/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../MovesController.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: sqlAdapter}, `mb-4 ${adapterRed.className} p-2`)}>
+          <li className={clsx({[border]: frame.sqlAdapter}, `mb-4 ${adapterRed.className} p-2`)}>
             <p>game-db-adapter/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../SqlMoveRepository.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: policy}, `${domainBlue.className} p-2`)}>
+          <li className={clsx({[border]: frame.policy}, `${domainBlue.className} p-2`)}>
             <p>game-policy/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../MakeMove.java</li>
@@ -55,7 +99,7 @@ export default function Page() {
       </div>
 
       <div className={"font-mono text-sm leading-loose"}>
-        {settings ?
+        {frame.settings ?
           <div>
             <p className={"mb-8"}>&#47;&#47; settings.gradle</p>
             <p>include(</p>
@@ -69,7 +113,7 @@ export default function Page() {
           </div> : <></>
         }
 
-        {deployable ?
+        {frame.deployable ?
           <div className={`font-mono text-sm leading-normal ${deployableGreen.className}`}>
             <div className={"mb-8"}>
               <p>&#47;&#47; build.gradle</p>
@@ -98,7 +142,7 @@ export default function Page() {
           </div> : <></>
         }
 
-        {apiAdapter ?
+        {frame.apiAdapter ?
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
             <div className={"mb-8"}>
               <p>&#47;&#47; build.gradle</p>
@@ -123,7 +167,7 @@ export default function Page() {
           </div> : <></>
         }
 
-        {sqlAdapter ?
+        {frame.sqlAdapter ?
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
             <div className={"mb-8"}>
               <p>&#47;&#47; build.gradle</p>
@@ -144,7 +188,7 @@ export default function Page() {
           </div> : <></>
         }
 
-        {policy ?
+        {frame.policy ?
           <div className={`font-mono text-sm leading-normal ${domainBlue.className}`}>
             <div className={"mb-8"}>
               <p>&#47;&#47; build.gradle</p>

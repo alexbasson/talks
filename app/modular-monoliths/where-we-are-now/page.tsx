@@ -1,66 +1,71 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "five-microservices" | "run-locally" | "features" | "repo" | "doing-it-wrong";
+type Frame = {
+  displayTitle: boolean,
+  displayRunLocally: boolean,
+  displayFeatures: boolean,
+  displayRepo: boolean,
+  displayDoingItWrong: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      displayTitle: false,
+      displayRunLocally: false,
+      displayFeatures: false,
+      displayRepo: false,
+      displayDoingItWrong: false,
+    },
+    {
+      displayTitle: true,
+      displayRunLocally: false,
+      displayFeatures: false,
+      displayRepo: false,
+      displayDoingItWrong: false,
+    },
+    {
+      displayTitle: true,
+      displayRunLocally: true,
+      displayFeatures: false,
+      displayRepo: false,
+      displayDoingItWrong: false,
+    },
+    {
+      displayTitle: true,
+      displayRunLocally: true,
+      displayFeatures: true,
+      displayRepo: false,
+      displayDoingItWrong: false,
+    },
+    {
+      displayTitle: true,
+      displayRunLocally: true,
+      displayFeatures: true,
+      displayRepo: true,
+      displayDoingItWrong: false,
+    },
+    {
+      displayTitle: true,
+      displayRunLocally: true,
+      displayFeatures: true,
+      displayRepo: true,
+      displayDoingItWrong: true,
+    },
+  ];
 
-  const displayFiveMicroservices = () => {
-    switch (slug) {
-      case "five-microservices": return true;
-      case "run-locally": return true;
-      case "features": return true;
-      case "repo": return true;
-      case "doing-it-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displayRunLocally = () => {
-    switch (slug) {
-      case "run-locally": return true;
-      case "features": return true;
-      case "repo": return true;
-      case "doing-it-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displayFeatures = () => {
-    switch (slug) {
-      case "features": return true;
-      case "repo": return true;
-      case "doing-it-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displayRepo = () => {
-    switch (slug) {
-      case "repo": return true;
-      case "doing-it-wrong": return true;
-      default: return false;
-    }
-  }
-
-  const displayDoingItWrong = () => {
-    switch (slug) {
-      case "doing-it-wrong": return true;
-      default: return false;
-    }
-  }
+  const frame = frames[useFrame()];
 
   return (
     <div>
-      { displayFiveMicroservices() ? <p>5 microservices</p> : <></> }
-      { displayRunLocally() ? <p>ugh, i&apos;ll have to...<em>run everything locally...</em></p> : <></> }
-      { displayFeatures() ? <p>can&apos;t wait to work on features again...</p> : <></> }
-      { displayRepo() ? <p>which repo was that code in?</p> : <></> }
+      { frame.displayTitle ? <p>5 microservices</p> : <></> }
+      { frame.displayRunLocally ? <p>ugh, i&apos;ll have to...<em>run everything locally...</em></p> : <></> }
+      { frame.displayFeatures ? <p>can&apos;t wait to work on features again...</p> : <></> }
+      { frame.displayRepo ? <p>which repo was that code in?</p> : <></> }
 
-      { displayDoingItWrong() ? (
+      { frame.displayDoingItWrong ? (
         <div className={'text-red-600 font-bold z-10'}>
           <h2 className={'rotate-12 mt-[-200px]'}>DOING IT WRONG</h2>
           <h2 className={'-rotate-12 mt-[-250px]'}>EAT YOUR VEGETABLES</h2>

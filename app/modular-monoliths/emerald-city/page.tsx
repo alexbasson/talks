@@ -1,33 +1,35 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "microservices" | "all-the-things";
+type Frame = {
+  displayTitle: boolean,
+  displayList: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      displayTitle: false,
+      displayList: false,
+    },
+    {
+      displayTitle: true,
+      displayList: false,
+    },
+    {
+      displayTitle: true,
+      displayList: true,
+    },
+  ]
 
-  const displayTitle = () => {
-    switch (slug) {
-      case "microservices": return true;
-      case "all-the-things": return true;
-      default: return false;
-    }
-  }
-
-  const displayList = () => {
-    switch (slug) {
-      case "all-the-things": return true;
-      default: false;
-    }
-  }
+  const frame = frames[useFrame()];
 
   return (
     <div>
       <h1>foo</h1>
-      { displayTitle() ? <p>10 bajillion microservice</p> : <></> }
-      { displayList() ?
+      { frame.displayTitle ? <p>10 bajillion microservice</p> : <></> }
+      { frame.displayList ?
       <ul>
         <li>all perfectly decoupled</li>
         <li>all independently deployable</li>

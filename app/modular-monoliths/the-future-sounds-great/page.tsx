@@ -1,19 +1,27 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "hurt-this-bad";
+type Frame = {
+  displayHurtThisBad: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      displayHurtThisBad: false,
+    },
+    {
+      displayHurtThisBad: true,
+    },
+  ]
 
-  const displayHurtThisBad = slug === "hurt-this-bad";
+  const frame = frames[useFrame()];
 
   return (
     <div>
       <p>the future sounds great...</p>
-      { displayHurtThisBad ? <p>...but does the present have to hurt this bad?</p> : <></> }
+      { frame.displayHurtThisBad ? <p>...but does the present have to hurt this bad?</p> : <></> }
     </div>
   )
 }

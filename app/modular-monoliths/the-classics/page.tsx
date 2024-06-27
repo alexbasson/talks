@@ -1,19 +1,27 @@
 'use client'
 
-import {useSearchParams} from "next/navigation";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "list";
+type Frame = {
+  displayList: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      displayList: false,
+    },
+    {
+      displayList: true,
+    },
+  ];
 
-  const displayList = slug === "list";
+  const frame = frames[useFrame()];
 
   return (
     <div>
       <h1>just the classics:</h1>
-      {displayList ?
+      {frame.displayList ?
         <ul className={"pl-16 list-disc"}>
           <li>hexagonal architecture</li>
           <li>domain-driven design</li>

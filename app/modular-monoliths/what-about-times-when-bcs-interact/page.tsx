@@ -1,16 +1,54 @@
 'use client'
 
-import {useSearchParams} from "next/navigation";
 import clsx from "clsx";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "friends-language" | "gameplay-language" | "little-overlap" | "high-overlap" | "one-module" | "medium-overlap" | "three-modules" | "this-story";
+type Frame = {
+  highlightFriendsLanguage: boolean,
+  highlightGameplayLanguage: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: true,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: true,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+    {
+      highlightFriendsLanguage: false,
+      highlightGameplayLanguage: false,
+    },
+  ];
 
-  const highlightFriendsLanguage = slug === "friends-language";
-  const highlightGameplayLanguage = slug === "gameplay-language";
+  const frame = frames[useFrame()];
 
   return (
     <div>
@@ -19,16 +57,16 @@ export default function Page() {
       <div>
         <p>Feature: Starting a game</p>
 
-        <p>Given I have <span className={clsx({"text-yellow-600": highlightFriendsLanguage})}>invited</span> Cedar to
+        <p>Given I have <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>invited</span> Cedar to
           play</p>
-        <p>And Cedar has <span className={clsx({"text-yellow-600": highlightFriendsLanguage})}>accepted</span> my <span
-          className={clsx({"text-yellow-600": highlightFriendsLanguage})}>invitation</span></p>
+        <p>And Cedar has <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>accepted</span> my <span
+          className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>invitation</span></p>
 
-        <p>When I start the <span className={clsx({"text-yellow-600": highlightFriendsLanguage})}>game</span></p>
+        <p>When I start the <span className={clsx({"text-yellow-600": frame.highlightFriendsLanguage})}>game</span></p>
 
-        <p>Then I am taken to a <span className={clsx({"text-yellow-600": highlightGameplayLanguage})}>board</span> with
-          all the <span className={clsx({"text-yellow-600": highlightGameplayLanguage})}>pieces</span> in the
-          starting <span className={clsx({"text-yellow-600": highlightGameplayLanguage})}>position</span></p>
+        <p>Then I am taken to a <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>board</span> with
+          all the <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>pieces</span> in the
+          starting <span className={clsx({"text-yellow-600": frame.highlightGameplayLanguage})}>position</span></p>
       </div>
     </div>
   )

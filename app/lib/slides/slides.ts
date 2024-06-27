@@ -1,413 +1,122 @@
-import {Slide} from "@/app/lib/definitions";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
-export const slides: Slide[] = [
-  {
-    route: "title",
-    next: "title?slug=highlighted",
-  },
-  {
-    route: "title?slug=highlighted",
-    next: "what-this-talk-is-not",
-  },
-  {
-    route: "what-this-talk-is-not",
-    next: "what-this-talk-is",
-  },
-  {
-    route: "what-this-talk-is",
-    next: "emerald-city",
-  },
-  {
-    route: "emerald-city",
-    next: "emerald-city?slug=microservices",
-  },
-  {
-    route: "emerald-city?slug=microservices",
-    next: "emerald-city?slug=all-the-things",
-  },
-  {
-    route: "emerald-city?slug=all-the-things",
-    next: "where-we-are-now",
-  },
-  {
-    route: "where-we-are-now",
-    next: "where-we-are-now?slug=five-microservices",
-  },
-  {
-    route: "where-we-are-now?slug=five-microservices",
-    next: "where-we-are-now?slug=run-locally",
-  },
-  {
-    route: "where-we-are-now?slug=run-locally",
-    next: "where-we-are-now?slug=features",
-  },
-  {
-    route: "where-we-are-now?slug=features",
-    next: "where-we-are-now?slug=repo",
-  },
-  {
-    route: "where-we-are-now?slug=repo",
-    next: "where-we-are-now?slug=doing-it-wrong",
-  },
-  {
-    route: "where-we-are-now?slug=doing-it-wrong",
-    next: "the-future-sounds-great",
-  },
-  {
-    route: "the-future-sounds-great",
-    next: "the-future-sounds-great?slug=hurt-this-bad",
-  },
-  {
-    route: "the-future-sounds-great?slug=hurt-this-bad",
-    next: "thesis-statement",
-  },
-  {
-    route: "thesis-statement",
-    next: "the-classics",
-  },
-  {
-    route: "the-classics",
-    next: "the-classics?slug=list",
-  },
-  {
-    route: "the-classics?slug=list",
-    next: "hexagonal-architecture",
-  },
-  {
-    route: "hexagonal-architecture",
-    next: "hexagonal-architecture?slug=domain",
-  },
-  {
-    route: "hexagonal-architecture?slug=domain",
-    next: "hexagonal-architecture?slug=ports",
-  },
-  {
-    route: "hexagonal-architecture?slug=ports",
-    next: "hexagonal-architecture?slug=primary-ports",
-  },
-  {
-    route: "hexagonal-architecture?slug=primary-ports",
-    next: "hexagonal-architecture?slug=secondary-ports",
-  },
-  {
-    route: "hexagonal-architecture?slug=secondary-ports",
-    next: "hexagonal-architecture?slug=adapters",
-  },
-  {
-    route: "hexagonal-architecture?slug=adapters",
-    next: "hexagonal-architecture?slug=whole-picture",
-  },
-  {
-    route: "hexagonal-architecture?slug=whole-picture",
-    next: "three-kinds-of-modules",
-  },
-  {
-    route: "three-kinds-of-modules",
-    next: "policy-modules",
-  },
-  {
-    route: "policy-modules",
-    next: "adapter-modules",
-  },
-  {
-    route: "adapter-modules",
-    next: "deployable-modules",
-  },
-  {
-    route: "deployable-modules",
-    next: "module-structure",
-  },
-  {
-    route: "module-structure",
-    next: "example-online-chess",
-  },
-  {
-    route: "example-online-chess",
-    next: "example-online-chess?slug=policy",
-  },
-  {
-    route: "example-online-chess?slug=policy",
-    next: "example-online-chess?slug=adapters",
-  },
-  {
-    route: "example-online-chess?slug=adapters",
-    next: "example-online-chess?slug=deployable",
-  },
-  {
-    route: "example-online-chess?slug=deployable",
-    next: "spring-directory-structure",
-  },
-  {
-    route: "spring-directory-structure",
-    next: "spring-directory-structure?slug=settings",
-  },
-  {
-    route: "spring-directory-structure?slug=settings",
-    next: "spring-directory-structure?slug=deployable",
-  },
-  {
-    route: "spring-directory-structure?slug=deployable",
-    next: "spring-directory-structure?slug=api-adapter",
-  },
-  {
-    route: "spring-directory-structure?slug=api-adapter",
-    next: "spring-directory-structure?slug=sql-adapter",
-  },
-  {
-    route: "spring-directory-structure?slug=sql-adapter",
-    next: "spring-directory-structure?slug=policy",
-  },
-  {
-    route: "spring-directory-structure?slug=policy",
-    next: "why-is-this-nice?state=0",
-  },
-  {
-    route: "why-is-this-nice?state=0",
-    next: "why-is-this-nice?state=1",
-  },
-  {
-    route: "why-is-this-nice?state=1",
-    next: "why-is-this-nice?state=2",
-  },
-  {
-    route: "why-is-this-nice?state=2",
-    next: "why-is-this-nice?state=3",
-  },
-  {
-    route: "why-is-this-nice?state=3",
-    next: "why-is-this-nice?state=4",
-  },
-  {
-    route: "why-is-this-nice?state=4",
-    next: "how-does-this-go-wrong",
-  },
-  {
-    route: "how-does-this-go-wrong",
-    next: "why-is-this-nice?state=5"
-  },
-  {
-    route: "why-is-this-nice?state=5",
-    next: "bounded-contexts",
-  },
-  {
-    route: "bounded-contexts",
-    next: "bounded-contexts?slug=definition",
-  },
-  {
-    route: "bounded-contexts?slug=definition",
-    next: "bounded-contexts?slug=model",
-  },
-  {
-    route: "bounded-contexts?slug=model",
-    next: "how-to-identify-a-bounded-context",
-  },
-  {
-    route: "how-to-identify-a-bounded-context",
-    next: "how-to-identify-a-bounded-context?slug=gameplay-stories",
-  },
-  {
-    route: "how-to-identify-a-bounded-context?slug=gameplay-stories",
-    next: "how-to-identify-a-bounded-context?slug=gameplay-language",
-  },
-  {
-    route: "how-to-identify-a-bounded-context?slug=gameplay-language",
-    next: "how-to-identify-a-bounded-context?slug=friends-stories",
-  },
-  {
-    route: "how-to-identify-a-bounded-context?slug=friends-stories",
-    next: "how-to-identify-a-bounded-context?slug=friends-language",
-  },
-  {
-    route: "how-to-identify-a-bounded-context?slug=friends-language",
-    next: "how-to-identify-a-bounded-context?slug=contrast-stories",
-  },
-  {
-    route: "how-to-identify-a-bounded-context?slug=contrast-stories",
-    next: "one-giant-model",
-  },
-  {
-    route: "one-giant-model",
-    next: "two-smaller-models",
-  },
-  {
-    route: "two-smaller-models",
-    next: "single-service-multiple-modules",
-  },
-  {
-    route: "single-service-multiple-modules",
-    next: "what-about-times-when-bcs-interact",
-  },
-  {
-    route: "what-about-times-when-bcs-interact",
-    next: "what-about-times-when-bcs-interact?slug=friends-language",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=friends-language",
-    next: "what-about-times-when-bcs-interact?slug=gameplay-language",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=gameplay-language",
-    next: "what-about-times-when-bcs-interact?slug=little-overlap",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=little-overlap",
-    next: "what-about-times-when-bcs-interact?slug=high-overlap",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=high-overlap",
-    next: "what-about-times-when-bcs-interact?slug=one-module",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=one-module",
-    next: "what-about-times-when-bcs-interact?slug=medium-overlap",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=medium-overlap",
-    next: "what-about-times-when-bcs-interact?slug=three-modules",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=three-modules",
-    next: "what-about-times-when-bcs-interact?slug=this-story",
-  },
-  {
-    route: "what-about-times-when-bcs-interact?slug=this-story",
-    next: "describe-the-interaction-twice",
-  },
-  {
-    route: "describe-the-interaction-twice",
-    next: "single-adapter-module",
-  },
-  {
-    route: "single-adapter-module",
-    next: "zoom-in-on-single-adapter",
-  },
-  {
-    route: "zoom-in-on-single-adapter",
-    next: "single-adapter-code-example",
-  },
-  {
-    route: "single-adapter-code-example",
-    next: "why-is-single-adapter-nice",
-  },
-  {
-    route: "why-is-single-adapter-nice",
-    next: "but-microservice",
-  },
-  {
-    route: "but-microservice",
-    next: "when-to-transition",
-  },
-  {
-    route: "when-to-transition",
-    next: "how-to-transition",
-  },
-  {
-    route: "how-to-transition",
-    next: "how-to-transition?slug=deployable-mitosis",
-  },
-  {
-    route: "how-to-transition?slug=deployable-mitosis",
-    next: "deployable-mitosis",
-  },
-  {
-    route: "deployable-mitosis",
-    next: "deployable-mitosis-dependency-diagram",
-  },
-  {
-    route: "deployable-mitosis-dependency-diagram",
-    next: "deployable-mitosis-git-show",
-  },
-  {
-    route: "deployable-mitosis-git-show",
-    next: "how-to-transition?slug=adapter-division",
-  },
-  {
-    route: "how-to-transition?slug=adapter-division",
-    next: "adapter-division",
-  },
-  {
-    route: "adapter-division",
-    next: "adapter-division?slug=highlighted-adapter",
-  },
-  {
-    route: "adapter-division?slug=highlighted-adapter",
-    next: "adapter-division?slug=hidden-adapter",
-  },
-  {
-    route: "adapter-division?slug=hidden-adapter",
-    next: "adapter-division?slug=divided-adapter",
-  },
-  {
-    route: "adapter-division?slug=divided-adapter",
-    next: "how-to-transition?slug=adapter-extraction",
-  },
-  {
-    route: "how-to-transition?slug=adapter-extraction",
-    next: "adapter-extraction",
-  },
-  {
-    route: "adapter-extraction",
-    next: "adapter-extraction?slug=highlighted-adapter",
-  },
-  {
-    route: "adapter-extraction?slug=highlighted-adapter",
-    next: "adapter-extraction?slug=extracted-adapter",
-  },
-  {
-    route: "adapter-extraction?slug=extracted-adapter",
-    next: "adapter-extraction?slug=added-adapters",
-  },
-  {
-    route: "adapter-extraction?slug=added-adapters",
-    next: "adapter-extraction?slug=added-deployable",
-  },
-  {
-    route: "adapter-extraction?slug=added-deployable",
-    next: "separate-deployables",
-  },
-  {
-    route: "separate-deployables",
-    next: "nothing-moves",
-  },
-  {
-    route: "nothing-moves",
-    next: "what-does-this-mean",
-  },
-  {
-    route: "what-does-this-mean",
-    next: "thesis-statement?slug=recap",
-  },
-  {
-    route: "thesis-statement?slug=recap",
-    next: "what-does-this-mean?slug=inexpensive",
-  },
-  {
-    route: "what-does-this-mean?slug=inexpensive",
-    next: "what-does-this-mean?slug=low-overhead",
-  },
-  {
-    route: "what-does-this-mean?slug=low-overhead",
-    next: "what-does-this-mean?slug=domain-boundaries",
-  },
-  {
-    route: "what-does-this-mean?slug=domain-boundaries",
-    next: "what-does-this-not-mean",
-  },
-  {
-    route: "what-does-this-not-mean",
-    next: "what-does-this-not-mean?slug=never-a-good-idea",
-  },
-  {
-    route: "what-does-this-not-mean?slug=never-a-good-idea",
-    next: "what-does-this-not-mean?slug=never-plan-ahead",
-  },
-  {
-    route: "what-does-this-not-mean?slug=never-plan-ahead",
-    next: "what-does-this-not-mean?slug=not-a-best-practice",
-  },
-  {
-    route: "what-does-this-not-mean?slug=not-a-best-practice",
-    next: "may-the-hexagons-be-with-you",
-  },
+export const routes: string[] = [
+  "title?frame=0",
+  "title?frame=1",
+  "what-this-talk-is-not?frame=0",
+  "what-this-talk-is?frame=0",
+  "emerald-city?frame=0",
+  "emerald-city?frame=1",
+  "emerald-city?frame=2",
+  "where-we-are-now?frame=0",
+  "where-we-are-now?frame=1",
+  "where-we-are-now?frame=2",
+  "where-we-are-now?frame=3",
+  "where-we-are-now?frame=4",
+  "where-we-are-now?frame=5",
+  "the-future-sounds-great?frame=0",
+  "the-future-sounds-great?frame=1",
+  "thesis-statement?frame=0",
+  "the-classics?frame=0",
+  "the-classics?frame=1",
+  "hexagonal-architecture?frame=0",
+  "hexagonal-architecture?frame=1",
+  "hexagonal-architecture?frame=2",
+  "hexagonal-architecture?frame=3",
+  "hexagonal-architecture?frame=4",
+  "hexagonal-architecture?frame=5",
+  "hexagonal-architecture?frame=6",
+  "three-kinds-of-modules?frame=0",
+  "policy-modules?frame=0",
+  "adapter-modules?frame=0",
+  "deployable-modules?frame=0",
+  "module-structure?frame=0",
+  "example-online-chess?frame=0",
+  "example-online-chess?frame=1",
+  "example-online-chess?frame=2",
+  "example-online-chess?frame=3",
+  "spring-directory-structure?frame=0",
+  "spring-directory-structure?frame=1",
+  "spring-directory-structure?frame=2",
+  "spring-directory-structure?frame=3",
+  "spring-directory-structure?frame=4",
+  "spring-directory-structure?frame=5",
+  "why-is-this-nice?frame=0",
+  "why-is-this-nice?frame=1",
+  "why-is-this-nice?frame=2",
+  "why-is-this-nice?frame=3",
+  "why-is-this-nice?frame=4",
+  "how-does-this-go-wrong?frame=0",
+  "bounded-contexts?frame=0",
+  "bounded-contexts?frame=1",
+  "bounded-contexts?frame=2",
+  "how-to-identify-a-bounded-context?frame=0",
+  "how-to-identify-a-bounded-context?frame=1",
+  "how-to-identify-a-bounded-context?frame=2",
+  "how-to-identify-a-bounded-context?frame=3",
+  "how-to-identify-a-bounded-context?frame=4",
+  "how-to-identify-a-bounded-context?frame=5",
+  "one-giant-model?frame=0",
+  "two-smaller-models?frame=0",
+  "single-service-multiple-modules?frame=0",
+  "what-about-times-when-bcs-interact?frame=0",
+  "what-about-times-when-bcs-interact?frame=1",
+  "what-about-times-when-bcs-interact?frame=2",
+  "what-about-times-when-bcs-interact?frame=3",
+  "what-about-times-when-bcs-interact?frame=4",
+  "what-about-times-when-bcs-interact?frame=5",
+  "what-about-times-when-bcs-interact?frame=6",
+  "what-about-times-when-bcs-interact?frame=7",
+  "what-about-times-when-bcs-interact?frame=8",
+  "describe-the-interaction-twice?frame=0",
+  "single-adapter-module?frame=0",
+  "zoom-in-on-single-adapter?frame=0",
+  "single-adapter-code-example?frame=0",
+  "why-is-single-adapter-nice?frame=0",
+  "but-microservice?frame=0",
+  "when-to-transition?frame=0",
+  "how-to-transition?frame=0",
+  "how-to-transition?frame=1",
+  "deployable-mitosis?frame=0",
+  "deployable-mitosis-dependency-diagram?frame=0",
+  "deployable-mitosis-git-show?frame=0",
+  "how-to-transition?frame=2",
+  "adapter-division?frame=0",
+  "adapter-division?frame=1",
+  "adapter-division?frame=2",
+  "adapter-division?frame=3",
+  "how-to-transition?frame=3",
+  "adapter-extraction?frame=0",
+  "adapter-extraction?frame=1",
+  "adapter-extraction?frame=2",
+  "adapter-extraction?frame=3",
+  "adapter-extraction?frame=4",
+  "separate-deployables?frame=0",
+  "nothing-moves?frame=0",
+  "what-does-this-mean?frame=0",
+  "thesis-statement?frame=1",
+  "what-does-this-mean?frame=0",
+  "what-does-this-mean?frame=1",
+  "what-does-this-mean?frame=2",
+  "what-does-this-not-mean?frame=0",
+  "what-does-this-not-mean?frame=1",
+  "what-does-this-not-mean?frame=2",
+  "what-does-this-not-mean?frame=3",
 ];
 
+export const useNextHref = (): string => {
+  const pathname = usePathname();
+  const pathComponents = pathname.split("/");
+  const lastComponent = pathComponents[pathComponents.length - 1];
+
+  const params: String[] = [];
+  const searchParams = useSearchParams();
+  const frame = searchParams.get("frame");
+  if (frame) { params.push(`frame=${frame}`) }
+
+  const route = lastComponent + (params.length > 0 ? `?${params.join('&')}` : '');
+
+  const currentRouteIndex = routes.indexOf(route) ?? 0;
+  const nextRouteIndex = (currentRouteIndex < routes.length - 1) ? (currentRouteIndex + 1) : 0;
+  return `/modular-monoliths/${routes[nextRouteIndex]}`
+}

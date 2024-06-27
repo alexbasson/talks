@@ -1,12 +1,27 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+type Frame = {
 
-type Slug = "highlighted-adapter" | "extracted-adapter" | "added-adapters" | "added-deployable";
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+
+    },
+    {
+
+    },
+    {
+
+    },
+    {
+
+    },
+    {
+
+    },
+  ];
 
   return (
     <div>

@@ -1,44 +1,46 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "never-a-good-idea" | "never-plan-ahead" | "not-a-best-practice";
+type Frame = {
+  displayNeverGoodIdea: boolean,
+  displayNeverPlanAhead: boolean,
+  displayNotABestPractice: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      displayNeverGoodIdea: false,
+      displayNeverPlanAhead: false,
+      displayNotABestPractice: false,
+    },
+    {
+      displayNeverGoodIdea: true,
+      displayNeverPlanAhead: false,
+      displayNotABestPractice: false,
+    },
+    {
+      displayNeverGoodIdea: true,
+      displayNeverPlanAhead: true,
+      displayNotABestPractice: false,
+    },
+    {
+      displayNeverGoodIdea: true,
+      displayNeverPlanAhead: true,
+      displayNotABestPractice: true,
+    },
+  ];
 
-  const displayNeverGoodIdea = () => {
-    switch (slug) {
-      case "never-a-good-idea": return true;
-      case "never-plan-ahead": return true;
-      case "not-a-best-practice": return true;
-      default: false;
-    }
-  }
-
-  const displayNeverPlanAhead = () => {
-    switch (slug) {
-      case "never-plan-ahead": return true;
-      case "not-a-best-practice": return true;
-      default: false;
-    }
-  }
-
-  const displayNotABestPractice = () => {
-    switch (slug) {
-      case "not-a-best-practice": return true;
-      default: return false;
-    }
-  }
+  const frame = frames[useFrame()];
 
   return (
     <div>
       <h1>what does this <span>not</span> mean?</h1>
       <ul>
-        { displayNeverGoodIdea() ? <li>&ldquo;starting out with separate deployables is never a good idea!&rdquo;</li> : <></> }
-        { displayNeverPlanAhead() ? <li>&ldquo;fantastic, I&apos;ll never bother planning ahead ever again!&rdquo;</li> : <></> }
-        { displayNotABestPractice() ? <li>&ldquo;MODULAR MONOLITHS ARE A BEST PRACTICE&rdquo;</li> : <></> }
+        { frame.displayNeverGoodIdea ? <li>&ldquo;starting out with separate deployables is never a good idea!&rdquo;</li> : <></> }
+        { frame.displayNeverPlanAhead ? <li>&ldquo;fantastic, I&apos;ll never bother planning ahead ever again!&rdquo;</li> : <></> }
+        { frame.displayNotABestPractice ? <li>&ldquo;MODULAR MONOLITHS ARE A BEST PRACTICE&rdquo;</li> : <></> }
       </ul>
     </div>
   );

@@ -1,67 +1,75 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import {adapterRed, deployableGreen, domainBlue, layoutPadding} from "@/app/lib/definitions";
+import useFrame from "@/app/lib/useFrame";
 
-type Slug = "domain" | "ports" | "primary-ports" | "secondary-ports" | "adapters" | "whole-picture";
+type Frame = {
+  domainFill: string,
+  adapterFill: string,
+  deployableFill: string,
+  highlightPrimaryPorts: boolean,
+  highlightSecondaryPorts: boolean,
+}
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("slug") as Slug;
+  const frames: Frame[] = [
+    {
+      domainFill: domainBlue.hexValue,
+      adapterFill: adapterRed.hexValue,
+      deployableFill: deployableGreen.hexValue,
+      highlightPrimaryPorts: false,
+      highlightSecondaryPorts: false,
+    },
+    {
+      domainFill: "yellow",
+      adapterFill: "gray",
+      deployableFill: "gray",
+      highlightPrimaryPorts: false,
+      highlightSecondaryPorts: false,
+    },
+    {
+      domainFill: "gray",
+      adapterFill: "gray",
+      deployableFill: "gray",
+      highlightPrimaryPorts: true,
+      highlightSecondaryPorts: true,
+    },
+    {
+      domainFill: "gray",
+      adapterFill: "gray",
+      deployableFill: "gray",
+      highlightPrimaryPorts: true,
+      highlightSecondaryPorts: false,
+    },
+    {
+      domainFill: "gray",
+      adapterFill: "gray",
+      deployableFill: "gray",
+      highlightPrimaryPorts: false,
+      highlightSecondaryPorts: true,
+    },
+    {
+      domainFill: "gray",
+      adapterFill: "yellow",
+      deployableFill: "gray",
+      highlightPrimaryPorts: false,
+      highlightSecondaryPorts: false,
+    },
+    {
+      domainFill: domainBlue.hexValue,
+      adapterFill: adapterRed.hexValue,
+      deployableFill: deployableGreen.hexValue,
+      highlightPrimaryPorts: false,
+      highlightSecondaryPorts: false,
+    },
+  ];
 
-  const domainFill = () => {
-    switch (slug) {
-      case "domain": return "yellow";
-      case "ports": return "gray";
-      case "primary-ports": return "gray";
-      case "secondary-ports": return "gray";
-      case "adapters": return "gray";
-      default: return domainBlue.hexValue;
-    }
-  }
-
-  const adapterFill = () => {
-    switch (slug) {
-      case "domain": return "gray";
-      case "ports": return "gray";
-      case "primary-ports": return "gray";
-      case "secondary-ports": return "gray";
-      case "adapters": return "yellow";
-      default: return adapterRed.hexValue;
-    }
-  }
-
-  const deployableFill = () => {
-    switch (slug) {
-      case "domain": return "gray";
-      case "ports": return "gray";
-      case "primary-ports": return "gray";
-      case "secondary-ports": return "gray";
-      case "adapters": return "gray";
-      default: return deployableGreen.hexValue;
-    }
-  }
-
-  const displayPrimaryPorts = () => {
-    switch (slug) {
-      case "ports": return true;
-      case "primary-ports": return true;
-      default: return false;
-    }
-  }
-
-  const displaySecondaryPorts = () => {
-    switch (slug) {
-      case "ports": return true;
-      case "secondary-ports": return true;
-      default: return false;
-    }
-  }
+  const frame = frames[useFrame()];
 
   const height = window.innerHeight - 2*layoutPadding;
   const width = window.innerWidth - 2*layoutPadding;
@@ -72,14 +80,14 @@ export default function Page() {
   return (
     <div>
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-        <DomainModule geometry={geometry} fill={domainFill()} text="domain model" displayPrimaryPorts={displayPrimaryPorts()} displaySecondaryPorts={displaySecondaryPorts()}/>
+        <DomainModule geometry={geometry} fill={frame.domainFill} text="domain model" displayPrimaryPorts={frame.highlightPrimaryPorts} displaySecondaryPorts={frame.highlightSecondaryPorts}/>
 
-        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterFill()} text={'API'}/>
-        <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterFill()} text={'subscriber'}/>
-        <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterFill()} text={'database'}/>
-        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterFill()} text={'svc client'}/>
-        <DeployableModule geometry={geometry} stroke={deployableFill()} width={2 * scale} height={1.5 * scale}/>
-        <text className={"text-base"} x={width/5} y={height/5} stroke={deployableFill()} fill={deployableFill()}>application</text>
+        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={frame.adapterFill} text={'API'}/>
+        <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={frame.adapterFill} text={'subscriber'}/>
+        <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={frame.adapterFill} text={'database'}/>
+        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={frame.adapterFill} text={'svc client'}/>
+        <DeployableModule geometry={geometry} stroke={frame.deployableFill} width={2 * scale} height={1.5 * scale}/>
+        <text className={"text-base"} x={width/5} y={height/5} stroke={frame.deployableFill} fill={frame.deployableFill}>application</text>
       </svg>
 
     </div>
