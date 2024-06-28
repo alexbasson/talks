@@ -18,10 +18,10 @@ export default function Page() {
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
         <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="ONLINE CHESS"/>
 
-        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={''}/>
-        <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterRed.hexValue} text={''}/>
-        <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterRed.hexValue} text={''}/>
-        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={''}/>
+        <PrimaryAdapter geometry={geometry} portName={'nwPort'} />
+        <PrimaryAdapter geometry={geometry} portName={'swPort'} />
+        <SecondaryAdapter geometry={geometry} portName={'nePort'} />
+        <SecondaryAdapter geometry={geometry} portName={'sePort'} />
       </svg>
     </div>
   )

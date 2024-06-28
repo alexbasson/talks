@@ -1,7 +1,7 @@
 import SecondaryPort from "./SecondaryPort";
-import {AdapterProps} from "@/app/lib/definitions";
+import {AdapterProps, adapterRed} from "@/app/lib/definitions";
 
-export default function SecondaryAdapter({geometry, portName, fill, text}: AdapterProps) {
+export default function SecondaryAdapter({geometry, portName, fill = adapterRed.hexValue, text = ""}: AdapterProps) {
   const {center, scale} = geometry;
   const port = geometry[portName];
 

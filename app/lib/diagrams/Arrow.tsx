@@ -1,4 +1,4 @@
-import {ArrowProps} from "@/app/lib/definitions";
+import {ArrowProps, arrowPurple} from "@/app/lib/definitions";
 
 export default function Arrow({from, to, width}: ArrowProps) {
 
@@ -19,7 +19,7 @@ export default function Arrow({from, to, width}: ArrowProps) {
 
   return (
     <g transform={`rotate(${angle}, ${to.x}, ${to.y}), translate(${to.x}, ${to.y})`}>
-      <polygon id="arrow" points={arrowPoints} fill={"purple"}/>
+      <polygon id="arrow" points={arrowPoints} fill={arrowPurple.hexValue}/>
     </g>
   )
 }

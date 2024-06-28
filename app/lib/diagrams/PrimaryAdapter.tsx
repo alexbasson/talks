@@ -1,7 +1,7 @@
 import PrimaryPort from "./PrimaryPort";
-import {AdapterProps} from "@/app/lib/definitions";
+import {AdapterProps, adapterRed} from "@/app/lib/definitions";
 
-export default function PrimaryAdapter({geometry, portName, fill, text}: AdapterProps) {
+export default function PrimaryAdapter({geometry, portName, fill = adapterRed.hexValue, text = ""}: AdapterProps) {
   const {center, scale} = geometry;
   const port = geometry[portName];
 

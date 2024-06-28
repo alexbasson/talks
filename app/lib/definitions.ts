@@ -17,13 +17,33 @@ export class Rect {
 
   public leftEdgeCenter: Point = {
     x: this.x,
-    y: this.y + this.height / 2,
+    y: this.y + 0.5 * this.height,
   };
+
+  public leftEdgeTopAnchor: Point = {
+    x: this.x,
+    y: this.y + 0.25 * this.height,
+  }
+
+  public leftEdgeBottomAnchor: Point = {
+    x: this.x,
+    y: this.y + 0.75 * this.height,
+  }
 
   public rightEdgeCenter: Point = {
     x: this.x + this.width,
-    y: this.y + this.height / 2,
+    y: this.y + 0.5 * this.height,
   };
+
+  public rightEdgeTopAnchor: Point = {
+    x: this.x + this.width,
+    y: this.y + 0.25 * this.height,
+  }
+
+  public rightEdgeBottomAnchor: Point = {
+    x: this.x + this.width,
+    y: this.y + 0.75 * this.height,
+  }
 
   public topEdgeCenter: Point = {
     x: this.x + this.width / 2,
@@ -76,8 +96,8 @@ export type DomainModuleProps = {
 export type AdapterProps = {
   geometry: Geometry;
   portName: "nwPort" | "swPort" | "nePort" | "sePort";
-  fill: string;
-  text: string;
+  fill?: string;
+  text?: string;
 }
 
 export type DeployableModuleProps = {
@@ -114,4 +134,8 @@ export const highlightYellow = {
 export const gray = {
   className: "text-zinc-400",
   hexValue: "#a1a1aa"
+};
+export const arrowPurple = {
+  className: "text-purple-700",
+  hexValue: "#7e22ce"
 };
