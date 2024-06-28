@@ -1,6 +1,5 @@
 'use client'
 
-import useFrame from "@/app/lib/useFrame";
 import {adapterRed, deployableGreen, Geometry, layoutPadding, policyBlue, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
@@ -10,18 +9,7 @@ import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 
-type Frame = {
-
-}
-
 export default function Page() {
-  const frames: Frame[] = [
-    {
-    },
-  ];
-
-  const frame = useFrame<Frame>(frames);
-
   const height = window.innerHeight - 2*layoutPadding;
   const width = window.innerWidth - 2*layoutPadding;
 
