@@ -1,6 +1,6 @@
 'use client'
 
-import useFrame from "@/app/lib/useFrame";
+import useFrame, { useFrameFoo } from "@/app/lib/useFrame";
 
 type Frame = {
   title: string,
@@ -63,7 +63,7 @@ export default function Page() {
     },
   ];
 
-  const frame = frames[useFrame()];
+  const frame = useFrame<Frame>(frames);
 
   return (
     <div>

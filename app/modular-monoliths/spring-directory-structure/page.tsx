@@ -109,7 +109,7 @@ export default function Page() {
     },
   ];
 
-  const frame = frames[useFrame()];
+  const frame = useFrame<Frame>(frames);
 
   const border = `border-4 border-yellow-300`;
 
@@ -118,28 +118,28 @@ export default function Page() {
       <div className={"font-mono leading-normal"}>
         <p className={"mb-8"}>online-chess/</p>
         <ul className={"pl-16 list-none"}>
-          <li className={clsx({[border]: frame.settings}, "mb-4 p-2")}>
+          <li className={`border-4 ${frame.settings ? "border-yellow-300" : "border-transparent"} mb-4 p-2`}>
             <p>settings.gradle</p>
           </li>
-          <li className={clsx({[border]: frame.deployable}, `mb-4 ${deployableGreen.className} p-2`)}>
+          <li className={`${deployableGreen.className} border-4 ${frame.deployable ? "border-yellow-300" : "border-transparent"} mb-4 p-2`}>
             <p>chess-app/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../ChessApplication.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: frame.apiAdapter}, `mb-4 ${adapterRed.className} p-2`)}>
+          <li className={`${adapterRed.className} border-4 ${frame.apiAdapter ? "border-yellow-300" : "border-transparent"} mb-4 p-2`}>
             <p>game-api-adapter/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../MovesController.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: frame.sqlAdapter}, `mb-4 ${adapterRed.className} p-2`)}>
+          <li className={`${adapterRed.className} border-4 ${frame.sqlAdapter ? "border-yellow-300" : "border-transparent"} mb-4 p-2`}>
             <p>game-db-adapter/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../SqlMoveRepository.java</li>
             </ul>
           </li>
-          <li className={clsx({[border]: frame.policy}, `${policyBlue.className} p-2`)}>
+          <li className={`${policyBlue.className} border-4 ${frame.policy ? "border-yellow-300" : "border-transparent"} p-2`}>
             <p>game-policy/</p>
             <ul className={"pl-16 list-none"}>
               <li>src/main/.../MakeMove.java</li>

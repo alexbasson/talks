@@ -38,7 +38,7 @@ export default function Page() {
     },
   ];
 
-  const frame = frames[useFrame()];
+  const frame = useFrame<Frame>(frames);
 
   const height = window.innerHeight - 2 * layoutPadding;
   const width = window.innerWidth - 2 * layoutPadding;

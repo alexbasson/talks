@@ -16,7 +16,7 @@ export default function Page() {
     },
   ];
 
-  const frame = frames[useFrame()];
+  const frame = useFrame<Frame>(frames);
 
   return (
     <div>
