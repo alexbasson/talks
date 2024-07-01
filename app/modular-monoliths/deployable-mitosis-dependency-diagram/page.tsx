@@ -17,8 +17,8 @@ type Frame = {
   displaySingleDeployable: boolean
   displayDuplicateDeployable: boolean,
   displaySeparateDeployables: boolean,
-  highlightDeployable1Dependencies: boolean,
-  highlightDeployable2Dependencies: boolean,
+  deployable1DependencyColor: string,
+  deployable2DependencyColor: string,
 }
 
 export default function Page() {
@@ -27,36 +27,36 @@ export default function Page() {
       displaySingleDeployable: true,
       displayDuplicateDeployable: false,
       displaySeparateDeployables: false,
-      highlightDeployable1Dependencies: false,
-      highlightDeployable2Dependencies: false,
+      deployable1DependencyColor: arrowPurple.hexValue,
+      deployable2DependencyColor: arrowPurple.hexValue,
     },
     {
       displaySingleDeployable: true,
       displayDuplicateDeployable: true,
       displaySeparateDeployables: false,
-      highlightDeployable1Dependencies: false,
-      highlightDeployable2Dependencies: false,
+      deployable1DependencyColor: arrowPurple.hexValue,
+      deployable2DependencyColor: arrowPurple.hexValue,
     },
     {
       displaySingleDeployable: true,
       displayDuplicateDeployable: true,
       displaySeparateDeployables: false,
-      highlightDeployable1Dependencies: true,
-      highlightDeployable2Dependencies: false,
+      deployable1DependencyColor: highlightYellow.hexValue,
+      deployable2DependencyColor: arrowPurple.hexValue,
     },
     {
       displaySingleDeployable: true,
       displayDuplicateDeployable: true,
       displaySeparateDeployables: false,
-      highlightDeployable1Dependencies: false,
-      highlightDeployable2Dependencies: true,
+      deployable1DependencyColor: arrowPurple.hexValue,
+      deployable2DependencyColor: highlightYellow.hexValue,
     },
     {
       displaySingleDeployable: false,
       displayDuplicateDeployable: false,
       displaySeparateDeployables: true,
-      highlightDeployable1Dependencies: false,
-      highlightDeployable2Dependencies: false,
+      deployable1DependencyColor: arrowPurple.hexValue,
+      deployable2DependencyColor: arrowPurple.hexValue,
     },
   ];
 
@@ -159,7 +159,7 @@ export default function Page() {
               y1={deployableRect1.leftEdgeTopAnchor.y}
               x2={leftContextAdapter1Rect.topEdgeCenter.x - arrowWidth / 2}
               y2={deployableRect1.leftEdgeTopAnchor.y}
-              stroke={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              stroke={frame.deployable1DependencyColor}
               strokeWidth={arrowWidth}
             />
 
@@ -173,7 +173,7 @@ export default function Page() {
                 y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
               }}
               width={arrowWidth}
-              fill={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              fill={frame.deployable1DependencyColor}
             />
 
             {/* arrow from deployable to policy module rect */}
@@ -183,7 +183,7 @@ export default function Page() {
               y1={deployableRect1.leftEdgeCenter.y}
               x2={leftContextPolicyRect.topEdgeCenter.x - arrowWidth / 2}
               y2={deployableRect1.leftEdgeCenter.y}
-              stroke={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              stroke={frame.deployable1DependencyColor}
               strokeWidth={arrowWidth}
             />
 
@@ -197,7 +197,7 @@ export default function Page() {
                 y: leftContextPolicyRect.topEdgeCenter.y - buffer,
               }}
               width={arrowWidth}
-              fill={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              fill={frame.deployable1DependencyColor}
             />
 
             {/* arrow from deployable to left context adapter 2 module rect */}
@@ -207,7 +207,7 @@ export default function Page() {
               y1={deployableRect1.leftEdgeBottomAnchor.y}
               x2={leftContextAdapter2Rect.topEdgeCenter.x - arrowWidth / 2}
               y2={deployableRect1.leftEdgeBottomAnchor.y}
-              stroke={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              stroke={frame.deployable1DependencyColor}
               strokeWidth={arrowWidth}
             />
 
@@ -221,7 +221,7 @@ export default function Page() {
                 y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
               }}
               width={arrowWidth}
-              fill={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              fill={frame.deployable1DependencyColor}
             />
 
             {/* arrow from deployable to right context adapter 1 */}
@@ -231,7 +231,7 @@ export default function Page() {
               y1={deployableRect1.rightEdgeTopAnchor.y}
               x2={rightContextAdapter1Rect.topEdgeCenter.x + arrowWidth / 2}
               y2={deployableRect1.rightEdgeTopAnchor.y}
-              stroke={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              stroke={frame.deployable2DependencyColor}
               strokeWidth={arrowWidth}
             />
 
@@ -245,7 +245,7 @@ export default function Page() {
                 y: rightContextAdapter1Rect.topEdgeCenter.y - buffer,
               }}
               width={arrowWidth}
-              fill={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              fill={frame.deployable2DependencyColor}
             />
 
             {/* arrow from deployable to right policy module rect */}
@@ -255,7 +255,7 @@ export default function Page() {
               y1={deployableRect1.rightEdgeCenter.y}
               x2={rightContextPolicyRect.topEdgeCenter.x + arrowWidth / 2}
               y2={deployableRect1.rightEdgeCenter.y}
-              stroke={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              stroke={frame.deployable2DependencyColor}
               strokeWidth={arrowWidth}
             />
 
@@ -269,7 +269,7 @@ export default function Page() {
                 y: rightContextPolicyRect.topEdgeCenter.y - buffer,
               }}
               width={arrowWidth}
-              fill={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              fill={frame.deployable2DependencyColor}
             />
 
             {/* arrow from deployable to right context adapter 2 module rect */}
@@ -279,7 +279,7 @@ export default function Page() {
               y1={deployableRect1.rightEdgeBottomAnchor.y}
               x2={rightContextAdapter2Rect.topEdgeCenter.x + arrowWidth / 2}
               y2={deployableRect1.leftEdgeBottomAnchor.y}
-              stroke={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              stroke={frame.deployable2DependencyColor}
               strokeWidth={arrowWidth}
             />
 
@@ -293,7 +293,7 @@ export default function Page() {
                 y: rightContextAdapter2Rect.topEdgeCenter.y - buffer
               }}
               width={arrowWidth}
-              fill={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+              fill={frame.deployable2DependencyColor}
             />
           </g>
             :<></>}
@@ -432,7 +432,7 @@ export default function Page() {
 
           <ModuleRect rect={leftContextAdapter1Rect} text={"adapter"} fill={adapterRed.hexValue}/>
           <ModuleRect rect={leftContextAdapter2Rect} text={"adapter"} fill={adapterRed.hexValue}/>
-          <ModuleRect rect={leftContextPolicyRect} text={"policy"} fill={policyBlue.hexValue}/>
+          <ModuleRect rect={leftContextPolicyRect} text={"policy A"} fill={policyBlue.hexValue}/>
 
           {/* arrow from left context adapter 1 module rect to left context policy rect */}
 
@@ -441,7 +441,7 @@ export default function Page() {
             y1={leftContextAdapter1Rect.bottomEdgeCenter.y + buffer}
             x2={leftContextAdapter1Rect.bottomEdgeCenter.x}
             y2={leftContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-            stroke={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            stroke={frame.deployable1DependencyColor}
             strokeWidth={arrowWidth}
           />
 
@@ -455,7 +455,7 @@ export default function Page() {
               y: leftContextPolicyRect.leftEdgeCenter.y,
             }}
             width={arrowWidth}
-            fill={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            fill={frame.deployable1DependencyColor}
           />
 
           {/* arrow from left context adapter 1 module rect to left context policy rect */}
@@ -465,7 +465,7 @@ export default function Page() {
             y1={leftContextAdapter2Rect.bottomEdgeCenter.y + buffer}
             x2={leftContextAdapter2Rect.bottomEdgeCenter.x}
             y2={leftContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-            stroke={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            stroke={frame.deployable1DependencyColor}
             strokeWidth={arrowWidth}
           />
 
@@ -479,14 +479,14 @@ export default function Page() {
               y: leftContextPolicyRect.rightEdgeCenter.y
             }}
             width={arrowWidth}
-            fill={frame.highlightDeployable1Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            fill={frame.deployable1DependencyColor}
           />
 
           {/* RIGHT CONTEXT */}
 
           <ModuleRect rect={rightContextAdapter1Rect} text={"adapter"} fill={adapterRed.hexValue}/>
           <ModuleRect rect={rightContextAdapter2Rect} text={"adapter"} fill={adapterRed.hexValue}/>
-          <ModuleRect rect={rightContextPolicyRect} text={"policy"} fill={policyBlue.hexValue}/>
+          <ModuleRect rect={rightContextPolicyRect} text={"policy B"} fill={policyBlue.hexValue}/>
 
           {/* arrow from right context adapter 1 module rect to right context policy rect */}
 
@@ -495,7 +495,7 @@ export default function Page() {
             y1={rightContextAdapter1Rect.bottomEdgeCenter.y + buffer}
             x2={rightContextAdapter1Rect.bottomEdgeCenter.x}
             y2={rightContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-            stroke={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            stroke={frame.deployable2DependencyColor}
             strokeWidth={arrowWidth}
           />
 
@@ -509,7 +509,7 @@ export default function Page() {
               y: rightContextPolicyRect.rightEdgeCenter.y,
             }}
             width={arrowWidth}
-            fill={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            fill={frame.deployable2DependencyColor}
           />
 
           {/* arrow from right context adapter 2 module rect to right context policy rect */}
@@ -519,7 +519,7 @@ export default function Page() {
             y1={rightContextAdapter2Rect.bottomEdgeCenter.y + buffer}
             x2={rightContextAdapter2Rect.bottomEdgeCenter.x}
             y2={rightContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-            stroke={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            stroke={frame.deployable2DependencyColor}
             strokeWidth={arrowWidth}
           />
 
@@ -533,7 +533,7 @@ export default function Page() {
               y: rightContextPolicyRect.leftEdgeCenter.y
             }}
             width={arrowWidth}
-            fill={frame.highlightDeployable2Dependencies ? highlightYellow.hexValue : arrowPurple.hexValue}
+            fill={frame.deployable2DependencyColor}
           />
         </svg>
       </div>

@@ -60,13 +60,13 @@ export default function Page() {
               strokeDasharray={15}
             />
 
-          <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
+          <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="policy A"/>
           <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'}/>
           <PrimaryAdapter geometry={policyAGeometry} portName={'swPort'}/>
           <SecondaryAdapter geometry={policyAGeometry} portName={'nePort'} text={"client"}/>
           <SecondaryAdapter geometry={policyAGeometry} portName={'sePort'} text={"publisher"}/>
 
-          <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="gameplay"/>
+          <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="policy B"/>
           <PrimaryAdapter geometry={policyBGeometry} portName={'nwPort'} text={"API"}/>
           <PrimaryAdapter geometry={policyBGeometry} portName={'swPort'} text={"subscriber"}/>
           <SecondaryAdapter geometry={policyBGeometry} portName={'nePort'}/>
