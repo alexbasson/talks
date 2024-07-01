@@ -111,6 +111,7 @@ export type ArrowProps = {
   from: Point,
   to: Point,
   width: number,
+  fill?: string,
 }
 
 export const layoutPadding = 16;

@@ -2,6 +2,7 @@
 
 import useFrame from "@/app/lib/useFrame";
 import clsx from "clsx";
+import {highlightYellow} from "@/app/lib/definitions";
 
 type Frame = {
   highlightDeployableMitosis: boolean,
@@ -39,9 +40,9 @@ export default function Page() {
     <div>
       <h1>how to transition?</h1>
       <ul>
-        <li><span  className={clsx({"text-yellow-600": frame.highlightDeployableMitosis})}>deployable mitosis</span></li>
-        <li><span  className={clsx({"text-yellow-600": frame.highlightAdapterDivision})}>adapter division</span></li>
-        <li><span  className={clsx({"text-yellow-600": frame.highlightAdapterExtraction})}>adapter extraction</span></li>
+        <li><span  className={clsx({[highlightYellow.className]: frame.highlightDeployableMitosis})}>deployable mitosis</span></li>
+        <li><span  className={clsx({[highlightYellow.className]: frame.highlightAdapterDivision})}>adapter division</span></li>
+        <li><span  className={clsx({[highlightYellow.className]: frame.highlightAdapterExtraction})}>adapter extraction</span></li>
       </ul>
     </div>
   )

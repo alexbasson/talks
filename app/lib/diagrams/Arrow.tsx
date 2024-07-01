@@ -1,6 +1,6 @@
 import {ArrowProps, arrowPurple} from "@/app/lib/definitions";
 
-export default function Arrow({from, to, width}: ArrowProps) {
+export default function Arrow({from, to, width, fill = arrowPurple.hexValue}: ArrowProps) {
 
   const square = (n: number) => n * n;
 
@@ -19,7 +19,7 @@ export default function Arrow({from, to, width}: ArrowProps) {
 
   return (
     <g transform={`rotate(${angle}, ${to.x}, ${to.y}), translate(${to.x}, ${to.y})`}>
-      <polygon id="arrow" points={arrowPoints} fill={arrowPurple.hexValue}/>
+      <polygon id="arrow" points={arrowPoints} fill={fill}/>
     </g>
   )
 }
