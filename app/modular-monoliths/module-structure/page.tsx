@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, policyBlue, layoutPadding, Point, Rect} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, policyBlue, layoutPadding, Rect, arrowPurple} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/diagrams/Arrow";
 import ModuleRect from "@/app/lib/diagrams/ModuleRect";
 
@@ -55,8 +55,8 @@ export default function Page() {
         <div>
           <svg viewBox={`0 0 ${leftColumnWidth} 400`}>
             <Arrow from={{x: 0, y: 30}} to={{x: leftColumnWidth * 0.8, y: 30}} width={15} />
-            <text className={"text-base"} y={100} fill='purple'>&ldquo;depends on&rdquo;</text>
-            <text className={"text-base"} y={170} fill='purple'>&ldquo;imports from&rdquo;</text>
+            <text className={"text-base"} y={100} fill={arrowPurple.hexValue}>&ldquo;depends on&rdquo;</text>
+            <text className={"text-base"} y={170} fill={arrowPurple.hexValue}>&ldquo;imports from&rdquo;</text>
           </svg>
         </div>
       </div>
