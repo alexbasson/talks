@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image';
 import useFrame from "@/app/lib/useFrame";
 
 type Frame = {
@@ -61,21 +60,13 @@ export default function Page() {
 
   return (
     <div>
-      <div style={{
-        zIndex: 0,
-        position: "fixed",
-        width: "100vw",
-        height: "100vh"
-      }}>
-        <Image
-          src="/dorothy-witch.jpg"
-          alt="wicked with and dorothy"
-          layout="fill"
-          objectFit="cover"
-        />
+      <div className='bg-image' style={{backgroundImage: "url(/dorothy-witch.jpg)"}}>
       </div>
 
-      <div>
+      <div style={{
+        zIndex: 10,
+        marginTop: -window.innerHeight,
+      }}>
         <div>
           {frame.displayTitle ? <p>5 microservices</p> : <></>}
           {frame.displayRunLocally ? <p>ugh, i&apos;ll have to...<em>run everything locally...</em></p> : <></>}
