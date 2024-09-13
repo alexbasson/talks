@@ -23,6 +23,8 @@ type Frame = {
   displayDiagram: boolean,
   highlightSecondaryAdapter: boolean,
   highlightPrimaryAdapter: boolean,
+  highlightNames: boolean,
+  highlightGameId: boolean,
 }
 
 export default function Page() {
@@ -31,26 +33,48 @@ export default function Page() {
       displayDiagram: false,
       highlightSecondaryAdapter: false,
       highlightPrimaryAdapter: false,
+      highlightNames: false,
+      highlightGameId: false,
     },
     {
       displayDiagram: true,
       highlightSecondaryAdapter: false,
       highlightPrimaryAdapter: false,
+      highlightNames: false,
+      highlightGameId: false,
     },
     {
       displayDiagram: true,
       highlightSecondaryAdapter: true,
       highlightPrimaryAdapter: false,
+      highlightNames: false,
+      highlightGameId: false,
     },
     {
       displayDiagram: true,
       highlightSecondaryAdapter: false,
       highlightPrimaryAdapter: true,
+      highlightNames: false,
+      highlightGameId: false,
+    },
+    {
+      displayDiagram: true,
+      highlightSecondaryAdapter: false,
+      highlightPrimaryAdapter: false,
+      highlightNames: true,
+      highlightGameId: false,
+    },
+    {
+      displayDiagram: true,
+      highlightSecondaryAdapter: false,
+      highlightPrimaryAdapter: false,
+      highlightNames: false,
+      highlightGameId: true,
     },
   ]
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2*layoutPadding;
+  const height = window.innerHeight - 15*layoutPadding;
   const width = 0.6 * (window.innerWidth - 2*layoutPadding);
 
   const scale = height / 4;
@@ -86,10 +110,10 @@ export default function Page() {
             &nbsp;&nbsp;) &#123;<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;BoardId boardId = <br/>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>setupBoard.execute</span>(<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whitePlayer.name,<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blackPlayer.name<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>whitePlayer.name,</span><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>blackPlayer.name</span><br/>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;return GameId(boardId.value);<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId(boardId.value)</span>;<br/>
             &nbsp;&nbsp;&#125;<br/>
             &#125;<br/>
           </p>
