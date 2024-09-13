@@ -591,29 +591,33 @@ create two new modules: an API to plug into the one model, and a client to plug 
 
 -------------------------------> how-to-transition?frame=3
 
-The last one, Adapter Extraction, this is the one that's slightly more interesting. And I've kind of alluded to where this would be valuable already. So suppose you have just one bounded context and you've been working in it for a while, but now it has come to pass that this
+The last one, Adapter Extraction, this is the one that's slightly more interesting. And I've kind of alluded to where this would be valuable already. So suppose you have
 
 -------------------------------> adapter-extraction?frame=0
+
+just one bounded context and you've been working in it for a while, but now it has come to pass that this
+
+-------------------------------> adapter-extraction?frame=1
 
 "Moves Database" where you've been recording the moves of a game, there's another team that wants to read that data. Maybe they're, like, doing something clever with analytics or they want to be able to show historical games, reports of historical games, and they don't want to go through your Game API, which is for actually playing games, they just want to have access to the list of all those moves. And so you want to expose that to them, using a service. You don't want them to directly connect to the database, obviously, you want to put an API in front of it.
 
 So this maneuver is as follows. We're going to
 
--------------------------------> adapter-extraction?frame=1
+-------------------------------> adapter-extraction?frame=2
 
 remove the Moves DB adapter from the deployable. And again, the diagram suggests that there's something moving here, but it's really not. All that this actually means is that we went into the deployable module and removed its dependency and then any configuration it had for the Moves DB adapter module. So now it's no longer in the deployable.
 
--------------------------------> adapter-extraction?frame=2
+-------------------------------> adapter-extraction?frame=3
 
 Then we're going to create two new modules. One will be an API that we throw in front Moves DB, and then we'll create a client object that will fit the same interface that Moves DB did, which now calls that API. And lastly, we will
 
--------------------------------> adapter-extraction?frame=3
+-------------------------------> adapter-extraction?frame=4
 
 create a new deployable module which imports the Moves DB and Moves API modules, and now that's a separately deployable thing. And we're done.
 
 Again, almost nothing changes and nothing actually moves. You just create a couple of new things. And I should mention that this is, like, the cheapest and most non-destructive way of doing this. There is a drawback, which is that the Moves DB adapter, initially it had to implement an interface from GamePlay policy, that's what allowed it to fit into the port. And so actually it still
 
--------------------------------> adapter-extraction?frame=4
+-------------------------------> adapter-extraction?frame=5
 
 has a code dependency on GamePlay policy. The GamePlay policy module has effectively become a shared library between these two services. And if you don't want that to be true, then you are going to have to make some modifications to the Moves DB module. But they're going to be pretty cheap. It's going to be, like, deleting the reference to the interface, maybe creating a copy of whatever data objects it's supposed to construct. So fairly simple things. But it is a little bit more work if you want to remove that shared library dependency. And it's maybe also worth mentioning: if you're going to be doing that anyway, the fact that you needed to do this extraction suggests that Moves DB might be a separate bounded context. The evidence for this is that there's a team that wants to do something, and to do that they need the data that lives inside of Moves DB. But what they're doing has nothing to do with GamePlay, and that's why you didn't want to just service it as part of your GamePlay policy object.
 

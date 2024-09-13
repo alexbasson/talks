@@ -124,6 +124,7 @@ export const routes: string[] = [
   "adapter-extraction?frame=2",
   "adapter-extraction?frame=3",
   "adapter-extraction?frame=4",
+  "adapter-extraction?frame=5",
   "separate-deployables?frame=0",
   "nothing-moves?frame=0",
   "what-does-this-mean?frame=0",
