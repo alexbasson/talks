@@ -71,14 +71,14 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2*layoutPadding;
-  const width = window.innerWidth - 2*layoutPadding;
+  const height = window.innerHeight - 6*layoutPadding;
+  const width = window.innerWidth - 6*layoutPadding;
 
   const scale = height / 4;
   const geometry = systemGeometry(scale, width/2, 0.4 * height);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>hexagonal architecture</h1>
 
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>

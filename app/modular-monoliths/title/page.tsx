@@ -20,8 +20,10 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
-      <p className={'text-xl text-center py-[100px]'}><span className={clsx({"text-yellow-600": frame.displayHighlights})}>modular monoliths</span> for maximum malleability and <span className={clsx({"text-yellow-600": frame.displayHighlights})}>microservice</span> magic</p>
+    <div className='padding-horizontal'>
+      <p className='text-xl text-center py-[100px] px-[50px]'><span className={clsx({"text-yellow-600": frame.displayHighlights})}>modular monoliths</span> for maximum malleability and <span className={clsx({"text-yellow-600": frame.displayHighlights})}>microservice</span> magic</p>
+      <p>Alex Basson</p>
+      <p>alex.basson@broadcom.com</p>
     </div>
   )
 }

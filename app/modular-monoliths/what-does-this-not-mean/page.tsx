@@ -35,9 +35,9 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>what does this <span className={'italic'}>not</span> mean?</h1>
-      <ul className={"list-disc"}>
+      <ul className='pl-16 list-disc'>
         { frame.displayNeverGoodIdea ? <li>&ldquo;starting out with separate deployables is never a good idea!&rdquo;</li> : <></> }
         { frame.displayNeverPlanAhead ? <li>&ldquo;fantastic, I&apos;ll never bother planning ahead ever again!&rdquo;</li> : <></> }
         { frame.displayNotABestPractice ? <li>&ldquo;MODULAR MONOLITHS ARE A BEST PRACTICE&rdquo;</li> : <></> }

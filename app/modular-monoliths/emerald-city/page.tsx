@@ -30,7 +30,7 @@ export default function Page() {
       <div className='bg-image' style={{backgroundImage: "url(/emerald-city.jpg)"}}>
       </div>
 
-      <div className='overlay-text'>
+      <div className='overlay-text padding-horizontal'>
         {frame.displayTitle ? <p>10 bajillion microservices</p> : <></>}
         {frame.displayList ?
           <ul>

@@ -1,6 +1,6 @@
 export default function Page() {
   return (
-    <div>
+    <div className='padding-horizontal'>
       <div className={"font-mono"}>
         <h1>git show --name-status</h1>
         <ul className={"text-sm list-none font-bold"}>

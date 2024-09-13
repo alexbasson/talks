@@ -46,9 +46,9 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>why is this nice?</h1>
-      <ul className={"list-disc"}>
+      <ul className='pl-16 list-disc'>
         { frame.displayLi1 ? <li>each piece <span className={"italic"}>actually</span> stays small</li> : <></> }
         { frame.displayLi2 ? <li>each policy module stays specialized</li> : <></> }
         { frame.displayLi3 ? <li>no extra deployment overhead</li> : <></> }

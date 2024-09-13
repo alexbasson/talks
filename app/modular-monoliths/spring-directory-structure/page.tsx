@@ -116,7 +116,7 @@ export default function Page() {
   }
 
   return (
-    <div className={'grid gap-8'} style={{gridTemplateColumns: "56% 44%"}}>
+    <div className='padding-horizontal grid gap-8' style={{gridTemplateColumns: "56% 44%"}}>
       <div className={"font-mono leading-normal"}>
         <p className={"mb-4"}>online-chess/</p>
         <ul className={"pl-16 list-none"}>

@@ -46,7 +46,7 @@ export default function Page() {
   );
 
   return (
-    <div className={'grid'} style={{gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
+    <div className='padding-horizontal grid' style={{gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
       <div className={'flex flex-col justify-between pl-16'}>
         <div>
           <h1>module structure</h1>

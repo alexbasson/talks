@@ -63,7 +63,7 @@ export default function Page() {
       <div className='bg-image' style={{backgroundImage: "url(/dorothy-witch.jpg)"}}>
       </div>
 
-      <div style={{
+      <div className='padding-horizontal' style={{
         zIndex: 10,
         marginTop: -window.innerHeight,
       }}>

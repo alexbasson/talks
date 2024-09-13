@@ -24,7 +24,7 @@ export default function Page() {
   ];
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>adapter extraction</h1>
     </div>
   )

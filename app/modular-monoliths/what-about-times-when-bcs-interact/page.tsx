@@ -105,7 +105,7 @@ export default function Page() {
   const width = window.innerWidth - 2 * layoutPadding;
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1 className={"mb-16"}>what about times when BCs interact?</h1>
 
       <div className="grid grid-cols-2 gap-16">

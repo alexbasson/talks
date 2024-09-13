@@ -49,7 +49,7 @@ export default function Page() {
   const policyTextStart = 300;
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <div>
         <h1>example: online chess</h1>
       </div>

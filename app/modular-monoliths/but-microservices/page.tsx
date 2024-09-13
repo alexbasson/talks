@@ -35,9 +35,9 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>but...microservices?</h1>
-      <ul className={"list-disc"}>
+      <ul className='pl-16 list-disc'>
         { frame.displayLi1 ? <li>microservices are costly, but also valuable for a lot of reasons</li> : <></> }
         { frame.displayLi2 ? <li>some of those reasons can be achieved in less-costly ways</li> : <></> }
         { frame.displayLi3 ? <li>some of those reasons don&apos;t kick in for a while</li> : <></> }

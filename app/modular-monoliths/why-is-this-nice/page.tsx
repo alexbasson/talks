@@ -1,6 +1,6 @@
 'use client'
 
-import useFrame, { useFrameFoo } from "@/app/lib/useFrame";
+import useFrame from "@/app/lib/useFrame";
 
 type Frame = {
   title: string,
@@ -66,9 +66,9 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>{frame.title}</h1>
-      <ul className={"pl-16 list-disc"}>
+      <ul className='pl-16 list-disc'>
         { frame.displayPiecesStaySmall ? <li>each piece stays small</li> : <></> }
         { frame.displaySeparationOfConcerns ? <li>enforces separation of concerns</li>: <></> }
         { frame.displayCheapAdapters ? <li>adapters are cheap and easy to replace</li> : <></> }

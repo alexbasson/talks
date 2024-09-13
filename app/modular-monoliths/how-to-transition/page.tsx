@@ -37,7 +37,7 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>how to transition?</h1>
       <ul>
         <li><span  className={clsx({[highlightYellow.className]: frame.highlightDeployableMitosis})}>deployable mitosis</span></li>

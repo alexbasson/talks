@@ -19,7 +19,7 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>when to transition?</h1>
       <ul>
         { frame.displayListItem ? <li>when the balance tips!</li> : <></> }

@@ -1,11 +1,11 @@
 'use client'
 
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import {layoutPadding} from '@/app/lib/definitions';
-import { useNextHref } from '@/app/lib/slides/slides';
+import {useNextHref} from '@/app/lib/slides/slides';
 
-export default function Layout({ children }: {children: React.ReactNode}) {
+export default function Layout({children}: { children: React.ReactNode }) {
   const router = useRouter();
   const nextHrefFoo = useNextHref();
 
@@ -20,8 +20,14 @@ export default function Layout({ children }: {children: React.ReactNode}) {
   }
 
   return (
-    <div className={`bg-neutral-800 h-screen text-base p-[${layoutPadding}px]`} tabIndex={0} onKeyDown={handleKeyDown}>
-      <Link className={"h-screen"} href={nextHrefFoo}>{children}</Link>
+    <div
+      className={`bg-neutral-800 h-screen text-base`}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
+      <Link className={"h-screen"} href={nextHrefFoo}>
+        {children}
+      </Link>
     </div>
   )
 }

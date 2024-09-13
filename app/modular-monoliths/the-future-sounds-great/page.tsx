@@ -23,7 +23,9 @@ export default function Page() {
       <div className='bg-image' style={{backgroundImage: "url(/emerald-city.jpg)"}}>
       </div>
 
-      <div style={{
+      <div
+        className='padding-horizontal'
+        style={{
         zIndex: 10,
         marginTop: -window.innerHeight + 400,
       }}>

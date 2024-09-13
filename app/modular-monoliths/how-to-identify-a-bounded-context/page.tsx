@@ -61,7 +61,7 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1 className={"mb-16"}>how to identify a bounded context?</h1>
 
       {frame.displayGameplayStories ?

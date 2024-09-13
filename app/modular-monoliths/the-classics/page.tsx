@@ -19,7 +19,7 @@ export default function Page() {
   const frame = useFrame<Frame>(frames);
 
   return (
-    <div>
+    <div className='padding-horizontal'>
       <h1>just the classics:</h1>
       {frame.displayList ?
         <ul className={"pl-16 list-disc"}>

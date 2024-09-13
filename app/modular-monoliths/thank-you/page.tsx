@@ -1,7 +1,9 @@
+'use client'
+
 export default function Page() {
   return (
     <div className='padding-horizontal'>
-      <h1>separate deployables</h1>
+      <p className={'text-xl text-center py-[100px]'}>Thank you</p>
     </div>
-  );
+  )
 }

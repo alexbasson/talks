@@ -64,15 +64,8 @@ export default function Page() {
   ),
   rotate(${port.rotate}, 0, 0)
   `
-
-  const points = `
-  ${policyAGeometry.center.x + scale}, ${policyAGeometry.center.y},
-  ${policyAGeometry.center.x + scale / 2}, ${policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale / 2}, ${policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale}, ${policyBGeometry.center.y},
-  `
   return (
-    <div>
+    <div className='padding-horizontal'>
       <div>
         <p className={"pb-0 mb-0 font-mono text-sm"}>
           class GameplayGameInitializer implements <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span> &#123;<br/>

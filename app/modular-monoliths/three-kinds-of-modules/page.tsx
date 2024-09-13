@@ -16,7 +16,7 @@ export default function Page() {
   const geometry = systemGeometry(scale, 500, height / 2);
 
   return (
-    <div style={{display: 'grid', gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
+    <div  className='padding-horizontal' style={{display: 'grid', gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
       <div>
         <p>3 kinds of modules</p>
         <ul className={"mt-96 pl-16 list-disc"}>

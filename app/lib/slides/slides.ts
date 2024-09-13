@@ -4,7 +4,9 @@ export const routes: string[] = [
   "title?frame=0",
   "title?frame=1",
   "what-this-talk-is-not?frame=0",
+  "what-this-talk-is-not?frame=1",
   "what-this-talk-is?frame=0",
+  "what-this-talk-is?frame=1",
   "emerald-city?frame=0",
   "emerald-city?frame=1",
   "emerald-city?frame=2",
@@ -131,6 +133,7 @@ export const routes: string[] = [
   "what-does-this-not-mean?frame=1",
   "what-does-this-not-mean?frame=2",
   "what-does-this-not-mean?frame=3",
+  "thank-you",
 ];
 
 export const useNextHref = (): string => {
