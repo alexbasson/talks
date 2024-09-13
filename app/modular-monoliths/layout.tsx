@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import {useRouter} from 'next/navigation';
-import {layoutPadding} from '@/app/lib/definitions';
 import {useNextHref} from '@/app/lib/slides/slides';
 
 export default function Layout({children}: { children: React.ReactNode }) {
