@@ -1,4 +1,8 @@
-I am here to talk about "modular monoliths for maximum malleability and microservice magic". This title is somewhat problematic because people may want to look at it and be like "ah, modular monoliths versus microservices, the showdown of the century!" and that's really not what this talk is supposed to be.
+Hi everyone, thanks for coming. My name is Alex Basson, I'm an engineering leader at Tanzu Labs.
+
+Before I get into the talk, I have a confession to make. This isn't my talk. This talk was originally written by my dear friend Cedar Edwards, who used to work at Tanzu Labs. I think it's one of the greatest talks on software development I've ever seen. And so when Cedar left, I asked them whether I could give their talk to people who hadn't yet seen it, and they very graciously said yes. So I'm giving this talk, but I want to make sure I give all the credit for it to Cedar.
+
+With that said, let's get into it. I am here to talk about "modular monoliths for maximum malleability and microservice magic". This title is somewhat problematic because people may want to look at it and be like "ah, modular monoliths versus microservices, the showdown of the century!" and that's really not what this talk is supposed to be.
 
 -------------------------------
 
