@@ -3,7 +3,9 @@
 
 Hi everyone, thanks for coming. My name is Alex Basson, I'm an engineering leader at Tanzu Labs.
 
-Before I get into the talk, I have a confession to make. This isn't my talk. This talk was originally written by my dear friend Cedar Edwards, who used to work at Tanzu Labs. I think it's one of the greatest talks on software development I've ever seen. And so when Cedar left, I asked them whether I could give their talk to people who hadn't yet seen it, and they very graciously said yes. So I'm giving this talk, but I want to make sure I give all the credit for it to Cedar.
+-------------------------------> acknowledgement?frame=0
+
+Before I get into the talk, I want to acknowledge my dear friend Cedar Edwards, who used to work at Tanzu Labs, and who is the original author of this talk. I think it's one of the greatest talks on software development I've ever seen. And so when Cedar left, I asked them whether I could give their talk to people who hadn't yet seen it, and they very graciously said yes. So I'm giving this talk, but I want to make sure I give all the credit for it to Cedar.
 
 -------------------------------> title?frame=1
 

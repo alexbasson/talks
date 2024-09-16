@@ -2,6 +2,7 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 export const routes: string[] = [
   "title?frame=0",
+  "acknowledgement?frame=0",
   "title?frame=1",
   "what-this-talk-is-not?frame=0",
   "what-this-talk-is-not?frame=1",
