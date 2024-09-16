@@ -13,7 +13,7 @@ export default function Page() {
   const width = window.innerWidth - leftColumnWidth - 2*layoutPadding;
 
   const scale = height / 4;
-  const geometry = systemGeometry(scale, 500, height / 2);
+  const geometry = systemGeometry(scale, 600, height / 2);
 
   return (
     <div  className='padding-horizontal' style={{display: 'grid', gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
@@ -36,7 +36,7 @@ export default function Page() {
           <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={"adapter"}/>
           <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={2 * scale}
                             height={1.5 * scale}/>
-          <text className={"text-base"} x={900} y={200} stroke={deployableGreen.hexValue}
+          <text className={"text-base"} x={1000} y={200} stroke={deployableGreen.hexValue}
                 fill={deployableGreen.hexValue}>application
           </text>
         </svg>

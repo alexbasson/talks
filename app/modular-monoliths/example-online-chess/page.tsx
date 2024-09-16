@@ -62,7 +62,7 @@ export default function Page() {
           <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={'game-db'}/>
           <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={2 * scale}
                             height={1.5 * scale}/>
-          <text className={"text-base"} x={0.8 * width} y={height / 5} fill={deployableGreen.hexValue}>chess-app</text>
+          <text className={"text-base"} x={0.85 * width} y={height / 5} fill={deployableGreen.hexValue}>chess-app</text>
 
           {frame.displayPolicy ?
             <g>

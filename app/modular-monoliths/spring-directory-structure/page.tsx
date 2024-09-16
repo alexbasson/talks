@@ -236,7 +236,8 @@ export default function Page() {
 
             <div>
               <p className={"mb-8"}>&#47;&#47; SqlMoveRepository.java</p>
-              <p>class SqlMoveRepository implements <span className={clsx({[highlightYellow.className]: frame.highlightSqlAdapter})}>MoveRepository</span></p>
+              <p>class <span className={clsx({[highlightYellow.className]: frame.highlightSqlAdapter})}>SqlMoveRepository implements MoveRepository</span>
+              </p>
             </div>
           </div> : <></>
         }

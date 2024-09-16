@@ -17,11 +17,11 @@ this talk is not
 
 -------------------------------> what-this-talk-is-not?frame=1
 
-about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices actually are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. this isn't about best practices for doing anything.
+about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices actually are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. this isn't about best practices for doing anything.
 
 -------------------------------> what-this-talk-is?frame=0
 
-What this thing is, this talk is going to be about
+What this is, this talk is going to be about
 
 -------------------------------> what-this-talk-is?frame=1
 
@@ -148,14 +148,14 @@ A Policy Module is named after "high-level policy", of the "high-level policy/lo
 
 -------------------------------> adapter-modules?frame=0
 
-Adapter modules, then, are the _low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a Widget repository, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
+Adapter modules, then, are the _low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
 
-The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a "Widget Repository" and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a Widget Repository, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this Widget Service that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
+The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `WidgetRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `WidgetRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `WidgetService` that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
 
 In the Hexagonal Architecture terminology of primary and secondary ports, adapters come in two flavors. There are:
 - Primary Adapters, which invoke an operation in the policy, and then
 - Secondary Adapters, implementing interfaces from the policy.
-So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The Widget Repository adapter that I was just describing that accomplishes the Widget Repository role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
+So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `WidgetRepository` adapter that I was just describing that accomplishes the `WidgetRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
 
 And then the third kind of module
 
@@ -189,7 +189,7 @@ And we can have a database module that knows how to write move records into a mo
 
 And then finally we would have our deployable module where our dependency injection container lives, where we read environment variables from the environment and know how to configure things. All of that lives at the deployable level.
 
-If we suppose that this was a Spring application, the actual codebase
+If we suppose that this was, for example, a Spring application, the actual codebase
 
 -------------------------------> spring-directory-structure?frame=0
 
@@ -197,7 +197,7 @@ might look like this. You'll note that all of this is in one git repository. We'
 
 -------------------------------> spring-directory-structure?frame=1
 
-settings.gradle file, you would have a list of all of the subprojects in the system—we have four of them; we have our deployable chess app, our two adapters, and our policy.
+`settings.gradle` file, you would have a list of all of the subprojects in the system—we have four of them; we have our deployable chess app, our two adapters, and our policy.
 
 In our deployable module,
 
@@ -217,7 +217,7 @@ API adapter. This is our primary adapter that is going to invoke operations insi
 
 -------------------------------> spring-directory-structure?frame=5
 
-constructed with a use case object that comes out of the policy module.
+constructed with a operation object that comes out of the policy module.
 
 -------------------------------> spring-directory-structure?frame=6
 
@@ -243,7 +243,7 @@ it helps each piece stay small. Which especially for me, is very nice, because I
 
 -------------------------------> why-is-this-nice?frame=2
 
-There's a kind of enforcement of separation of concerns there. I've had the experience on a project like this where a pair was working on something and they were trying to annotate a data class with something out of Spring JDBC, like a database annotation, and the IDE wasn't letting them do it, like they weren't able to import the annotation that they expected, and so then they came over and asked "hey, does anybody know why we wouldn't be able to import this thing here? I thought that we had the Spring Boot database jar in the application already" and the reason they couldn't import it is that they were in a policy module, where we didn't actually want it to know about database concerns. And so we were able to then have that conversation. There was a fence, and when they walked into the fence, it was able flag that we needed to talk about what was going on. So the system itself was directing people towards doing the right thing and away from doing the wrong thing. This is especially true if you're working in a language with type checking, like Java or TypeScript.
+There's a kind of enforcement of separation of concerns there. I've had the experience on a project like this where a pair was working on something and they were trying to annotate a data class with something out of Spring JDBC, like a database annotation, and the IDE wasn't letting them do it, like they weren't able to import the annotation that they expected, and so then they came over and asked "hey, does anybody know why we wouldn't be able to import this thing here? I thought that we had the Spring Boot database jar in the application already" and the reason they couldn't import it is that they were in a policy module, where we didn't actually want it to know about database concerns. And so we were able to then have that conversation. The module boundaries created a fence, and when they walked into the fence, it was able flag that we needed to talk about what was going on. So the system itself was directing people towards doing the right thing and away from doing the wrong thing. This is especially true if you're working in a language with type checking, like Java or TypeScript.
 
 Another thing that is true, again because each piece stays small,
 
