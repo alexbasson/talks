@@ -17,7 +17,7 @@ this talk is not
 
 -------------------------------> what-this-talk-is-not?frame=1
 
-about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices actually are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. this isn't about best practices for doing anything.
+about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices _actually_ are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. this isn't about best practices for doing anything.
 
 -------------------------------> what-this-talk-is?frame=0
 
@@ -25,7 +25,15 @@ What this is, this talk is going to be about
 
 -------------------------------> what-this-talk-is?frame=1
 
-math. This is going to be about weighing costs versus benefits and ways that you can get more benefits for less cost in certain situations and some ways that folks might not have been familiar with or been aware of. So that's what this is all about.
+math. This is going to be about 
+
+-------------------------------> what-this-talk-is?frame=2
+
+weighing costs versus benefits and ways that 
+
+-------------------------------> what-this-talk-is?frame=3
+
+you can get more benefits for less cost in certain situations and some ways that folks might not have been familiar with or been aware of. So that's what this is all about.
 
 And to get started to talk about sort of the particular problem space in which we're going to be doing this calculus,
 
