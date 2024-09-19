@@ -2,7 +2,7 @@
 
 export default function Page() {
   return (
-    <div className='padding-horizontal'>
+    <div className='padding-horizontal w-full'>
       <div className='text-center py-[100px] px-[50px]'>
         <p>Many thanks to</p>
         <p className='text-xl'>Cedar Edwards</p>
