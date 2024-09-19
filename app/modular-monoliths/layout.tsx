@@ -20,11 +20,11 @@ export default function Layout({children}: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`bg-neutral-800 h-screen text-base`}
+      className='bg-neutral-800 h-screen w-screen text-base'
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      <Link className={"h-screen"} href={nextHrefFoo}>
+      <Link className='flex h-full w-full' href={nextHrefFoo}>
         {children}
       </Link>
     </div>

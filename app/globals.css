@@ -49,4 +49,17 @@ body {
     padding-left: 20px;
     padding-right: 20px;
   }
+
+  .svg-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  .svg {
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+  }
 }

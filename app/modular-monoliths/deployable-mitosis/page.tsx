@@ -1,7 +1,7 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import {arrowPurple, deployableGreen, layoutPadding, policyBlue} from "@/app/lib/definitions";
+import {arrowPurple, deployableGreen, policyBlue} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
@@ -27,18 +27,17 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2*layoutPadding - 100;
-  const width = window.innerWidth - 2*layoutPadding;
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   const scale = height / 4;
-  const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
-  const policyBGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
+  const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(scale, 0.75 * width, 0.5 * height);
   const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
 
   return (
-    <div>
-      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-
+    <div className='svg-container'>
+      <svg className='svg'>
           <g>
             <line
               x1={policyAGeometry.center.x + policyAGeometry.nePort.center.x}
@@ -76,9 +75,8 @@ export default function Page() {
         { frame.displaySingleDeployable ?
           <g>
             <text
-              x={deployableGeometry.center.x - 600}
-              y={deployableGeometry.center.y - 300}
-              textAnchor="middle"
+              x={20}
+              y={50}
               dominantBaseline="middle"
               fill={deployableGreen.hexValue}
             >
@@ -88,7 +86,7 @@ export default function Page() {
               geometry={deployableGeometry}
               stroke={deployableGreen.hexValue}
               width={0.47 * width}
-              height={1.7 * scale}
+              height={1.9 * scale}
             />
           </g>
           : <></> }
@@ -96,18 +94,17 @@ export default function Page() {
         { frame.displayMultipleDeployables ?
           <g>
             <text
-              x={deployableGeometry.center.x - 700}
-              y={deployableGeometry.center.y - 300}
-              textAnchor="middle"
+              x={20}
+              y={50}
               dominantBaseline="middle"
               fill={deployableGreen.hexValue}
             >
               Deployable 1
             </text>
             <text
-              x={deployableGeometry.center.x + 700}
-              y={deployableGeometry.center.y - 300}
-              textAnchor="middle"
+              x={width - 20}
+              y={50}
+              textAnchor="end"
               dominantBaseline="middle"
               fill={deployableGreen.hexValue}
             >
@@ -116,13 +113,13 @@ export default function Page() {
             <DeployableModule
               geometry={policyAGeometry}
               stroke={deployableGreen.hexValue}
-              width={0.19 * width}
+              width={0.23 * width}
               height={1.7 * scale}
             />
             <DeployableModule
               geometry={policyBGeometry}
               stroke={deployableGreen.hexValue}
-              width={0.19 * width}
+              width={0.23 * width}
               height={1.7 * scale}
             />
           </g>

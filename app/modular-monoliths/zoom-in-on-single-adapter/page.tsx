@@ -1,14 +1,6 @@
 'use client'
 
-import {
-  adapterRed,
-  arrowPurple,
-  deployableGreen,
-  Geometry,
-  layoutPadding,
-  policyBlue,
-  Port
-} from "@/app/lib/definitions";
+import {adapterRed, arrowPurple, Geometry, policyBlue, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
@@ -61,8 +53,8 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2*layoutPadding;
-  const width = window.innerWidth - 2*layoutPadding;
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   const scale = height / 3;
   const policyAGeometry = systemGeometry(scale, 0.2 * width, 0.625 * height);
@@ -88,8 +80,8 @@ export default function Page() {
   `;
 
   return (
-    <div>
-      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <div className='svg-container'>
+      <svg className='svg'>
         <g>
           <g transform={`${transform(policyAGeometry, policyAGeometry.nePort)}`}>
             <SecondaryPort

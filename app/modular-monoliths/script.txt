@@ -47,7 +47,9 @@ I want to talk about the Emerald City. The Emerald City is something that we hav
 
 -------------------------------> emerald-city?frame=2
 
-perfectly decoupled, they're all independently deployable, they're being worked on by all these different teams who are all autonomous and empowered and they're choreographed and they're using service discovery and they're highly available, they have histrix and circuit breakers, all of this. We've heard about all of them, there are many many conference talks that have told us this story, and it sounds delightful. We're very excited to get there, we're walking along the yellow brick road to arrive in this place.
+perfectly decoupled, they're all independently deployable, they're being worked on by all these different teams who are all autonomous and empowered and they're choreographed and they're using service discovery and they're highly available, they have histrix and circuit breakers, all of this. We've heard about all of them, there are many many conference talks that have told us this story.
+
+And it sounds delightful! We're very excited to get there, we're walking along the yellow brick road to arrive in this place.
 
 And yet...
 
@@ -67,7 +69,7 @@ which means you're going to have to start up all the services locally on your wo
 
 -------------------------------> where-we-are-now?frame=3
 
-Once you're done with that, you're excited to get to work on some features; it might be a little bit because the next few things on your backlog aren't actually features, they're things like figuring out the security that you need to put in front of the APIs on these various microservices, and you need to, like, fix up a pipeline for the new microservice that has just been pushed, and various kinds of this.
+Once you're done with that, you're excited to get to work on some features! It might be a little bit because the next few things on your backlog aren't actually features, they're things like figuring out the security that you need to put in front of the APIs on these various microservices. And you need to, like, fix up a pipeline for the new microservice that has just been pushed, and various kinds of this.
 
 But there's some features after that, that you're excited to get to,
 
@@ -81,7 +83,7 @@ And of course, if you voice these concerns to certain types of folks, if you go 
 
 -------------------------------> where-we-are-now?frame=5
 
-you should Get Good, you're Doing It Wrong, what, you have to run all of your different microservices locally in order to see... that just means that they're coupled, you were supposed to decouple your microservices, don't have coupled microservices, you shouldn't have to run more than one at a time! Or if you're talking about having to set up all of your service discovery and how that's holding you back from doing other features, the Great and Powerful Oz might say, "Eat your vegetables, mortal! Of course you want to have service discovery, if you don't have service discovery it's very bad!"
+you should Get Good, you're Doing It Wrong. What, you have to run all of your different microservices locally in order to see... that just means that they're coupled, you were supposed to decouple your microservices, don't have coupled microservices, you shouldn't have to run more than one at a time! Or if you're talking about having to set up all of your service discovery and how that's holding you back from doing other features, the Great and Powerful Oz might say, "Eat your vegetables, mortal! Of course you want to have service discovery, if you don't have service discovery it's very bad!"
 
 And like, ok, but I'm not a wizard and I didn't, like, make my services wrong on purpose. I thought that I had drawn the boundaries in the right way or the architects that work with us, they thought that they had put the boundaries in the right spot. We didn't think we were going to have to run all these different services at the same time to debug problems. But here we have arrived and here we are, trying to figure this out, and now it's really expensive and it's not great.
 
@@ -113,7 +115,7 @@ With all that groundwork laid, let's go ahead and dive in.
 
 -------------------------------> hexagonal-architecture?frame=0
 
-Let's talk about Hexagonal Architecture. If you have not heard about Hexagonal Architecture before, the idea was coined by Allistair Colburn. If you squint, if you lean in close, it's really just the Dependency Inversion Principle, but applied to codebase structure. The idea is that your system revolves around
+Let's talk about Hexagonal Architecture. If you have not heard about Hexagonal Architecture before, the idea was coined by Alistair Cockburn. If you squint, if you lean in close, it's really just the Dependency Inversion Principle, but applied to codebase structure. The idea is that your system revolves around
 
 -------------------------------> hexagonal-architecture?frame=1
 

@@ -2,21 +2,8 @@
 
 import useFrame from "@/app/lib/useFrame";
 import clsx from "clsx";
-import {
-  adapterRed,
-  deployableGreen,
-  Geometry,
-  highlightYellow,
-  layoutPadding,
-  policyBlue,
-  Port
-} from "@/app/lib/definitions";
+import {Geometry, highlightYellow, policyBlue, Port} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
-import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
-import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
-import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
-import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
-import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 
 type Frame = {
@@ -74,8 +61,8 @@ export default function Page() {
   ]
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 15*layoutPadding;
-  const width = 0.6 * (window.innerWidth - 2*layoutPadding);
+  const height = window.innerHeight;
+  const width = 0.6 * (window.innerWidth);
 
   const scale = height / 4;
   const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.3 * height);
@@ -89,7 +76,7 @@ export default function Page() {
   rotate(${port.rotate}, 0, 0)
   `
   return (
-    <div className='padding-horizontal'>
+    <div className='padding-horizontal w-full'>
       <div>
         <p className={"pb-0 mb-0 font-mono text-sm"}>
           class GameplayGameInitializer implements <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span> &#123;<br/>
@@ -99,9 +86,10 @@ export default function Page() {
           &nbsp;&nbsp;&#125;<br/>
         </p>
       </div>
-      <div className={"grid"} style={{gridTemplateColumns: `40% 60%`}}>
-        <div>
-          <p className={"py-0 my-0 font-mono text-sm"}>
+
+      <div className='flex flex-start'>
+        <div className='w-2/5'>
+          <p className='py-0 my-0 font-mono text-sm'>
             <br/>
             &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>@Override</span><br/>
             &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>public GameId initializeGame</span>(<br/>
@@ -118,9 +106,9 @@ export default function Page() {
             &#125;<br/>
           </p>
         </div>
-        <div>
+        <div className='svg-container'>
           {frame.displayDiagram ?
-          <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+          <svg className='svg'>
             <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
             <text
               x={0}

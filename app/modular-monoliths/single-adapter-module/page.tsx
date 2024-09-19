@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, Geometry, layoutPadding, policyBlue, Port} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, Geometry, policyBlue, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
@@ -10,8 +10,8 @@ import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 
 export default function Page() {
-  const height = window.innerHeight - 2*layoutPadding;
-  const width = window.innerWidth - 2*layoutPadding;
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   const scale = height / 4;
   const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
@@ -31,8 +31,8 @@ export default function Page() {
   `
 
   return (
-    <div>
-      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <div className='svg-container'>
+      <svg className='svg'>
         <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'}/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'swPort'}/>

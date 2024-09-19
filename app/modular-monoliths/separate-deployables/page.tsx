@@ -1,7 +1,7 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import {arrowPurple, deployableGreen, layoutPadding, policyBlue} from "@/app/lib/definitions";
+import {arrowPurple, deployableGreen, policyBlue} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
@@ -27,20 +27,18 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2*layoutPadding - 100;
-  const width = window.innerWidth - 2*layoutPadding;
+  const height = window.innerHeight - 200;
+  const width = window.innerWidth - 40;
 
-  const scale = height / 3.7;
-  const policyAGeometry = systemGeometry(scale, 0.3 * width - 50, 0.5 * height);
-  const policyBGeometry = systemGeometry(scale, 0.7 * width + 50, 0.5  * height);
-  const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
+  const scale = height / 3.25;
+  const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(scale, 0.75 * width, 0.5  * height);
 
   return (
-    <div className='padding-horizontal'>
+    <div className='padding-horizontal svg-container'>
       <h1>separate deployables</h1>
 
-      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-
+      <svg className='svg'>
         <g>
           <line
             x1={policyAGeometry.center.x + policyAGeometry.nePort.center.x}
@@ -63,19 +61,17 @@ export default function Page() {
 
           <g>
             <text
-              x={deployableGeometry.center.x - 700}
-              y={deployableGeometry.center.y - 350}
-              textAnchor="middle"
-              dominantBaseline="middle"
+              x={0}
+              y={50}
+              textAnchor="start"
               fill={deployableGreen.hexValue}
             >
               Deployable 1
             </text>
             <text
-              x={deployableGeometry.center.x + 700}
-              y={deployableGeometry.center.y - 350}
-              textAnchor="middle"
-              dominantBaseline="middle"
+              x={width}
+              y={50}
+              textAnchor="end"
               fill={deployableGreen.hexValue}
             >
               Deployable 2

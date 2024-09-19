@@ -1,6 +1,6 @@
 'use client'
 
-import {arrowPurple, deployableGreen, layoutPadding, policyBlue} from "@/app/lib/definitions";
+import {arrowPurple, deployableGreen, policyBlue} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
@@ -47,8 +47,8 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2*layoutPadding;
-  const width = window.innerWidth - 2*layoutPadding;
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   const scale = height / 4;
   const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
@@ -56,8 +56,8 @@ export default function Page() {
   const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
 
   return (
-    <div>
-      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <div className='svg-container'>
+      <svg className='svg'>
 
         {frame.displayClientAPIInteraction ?
           <line

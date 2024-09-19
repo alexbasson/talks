@@ -1,13 +1,11 @@
 'use client'
 
-import {adapterRed, deployableGreen, policyBlue, layoutPadding, Rect, arrowPurple} from "@/app/lib/definitions";
+import {adapterRed, arrowPurple, deployableGreen, policyBlue, Rect} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/diagrams/Arrow";
 import ModuleRect from "@/app/lib/diagrams/ModuleRect";
 
 export default function Page() {
   const leftColumnWidth = 400;
-  const height = window.innerHeight - 2 * layoutPadding;
-  const width = window.innerWidth - leftColumnWidth - 2 * layoutPadding;
 
   const buffer = 15;
   const arrowWidth = 15;
@@ -46,14 +44,14 @@ export default function Page() {
   );
 
   return (
-    <div className='padding-horizontal grid' style={{gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
-      <div className={'flex flex-col justify-between pl-16'}>
-        <div>
+    <div className='padding-horizontal w-full grid' style={{gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
+      <div className='flex flex-col justify-between'>
+        <div className='mb-12'>
           <h1>module structure</h1>
         </div>
 
-        <div>
-          <svg viewBox={`0 0 ${leftColumnWidth} 400`}>
+        <div className='svg-container'>
+          <svg className='svg'>
             <Arrow from={{x: 0, y: 30}} to={{x: leftColumnWidth * 0.8, y: 30}} width={15} />
             <text className={"text-base"} y={100} fill={arrowPurple.hexValue}>&ldquo;depends on&rdquo;</text>
             <text className={"text-base"} y={170} fill={arrowPurple.hexValue}>&ldquo;imports from&rdquo;</text>
@@ -61,8 +59,8 @@ export default function Page() {
         </div>
       </div>
 
-      <div className={"pt-6"}>
-        <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+      <div className='mt-12 svg-container'>
+        <svg className='svg'>
           <ModuleRect rect={deployableRect} text={"deployable"} fill={deployableGreen.hexValue} />
           <ModuleRect rect={leftAdapterRect} text={"adapter"} fill={adapterRed.hexValue} />
           <ModuleRect rect={rightAdapterRect} text={"adapter"} fill={adapterRed.hexValue} />

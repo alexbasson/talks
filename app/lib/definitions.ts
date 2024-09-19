@@ -114,8 +114,6 @@ export type ArrowProps = {
   fill?: string,
 }
 
-export const layoutPadding = 16;
-
 export const policyBlue = {
   className: "text-cyan-400",
   hexValue: "#22d3ee",

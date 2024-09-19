@@ -5,29 +5,27 @@ import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
-import {adapterRed, deployableGreen, policyBlue, layoutPadding} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/definitions";
 
 export default function Page() {
-  const leftColumnWidth = 500;
-  const height = window.innerHeight - 2*layoutPadding;
-  const width = window.innerWidth - leftColumnWidth - 2*layoutPadding;
+  const height = window.innerHeight;
 
   const scale = height / 4;
-  const geometry = systemGeometry(scale, 600, height / 2);
+  const geometry = systemGeometry(scale, 600, 0.5 * height);
 
   return (
-    <div  className='padding-horizontal' style={{display: 'grid', gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
+    <div  className='padding-horizontal w-full h-full flex justify-start'>
       <div>
         <p>3 kinds of modules</p>
-        <ul className={"mt-96 pl-16 list-disc"}>
+        <ul className='mt-96 pl-16 list-disc'>
           <li><span className={policyBlue.className}>policy modules</span></li>
           <li><span className={adapterRed.className}>adapter modules</span></li>
           <li><span className={deployableGreen.className}>deployable modules</span></li>
         </ul>
       </div>
 
-      <div>
-        <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+      <div className='svg-container'>
+        <svg className='svg'>
           <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="policy"/>
 
           <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={"adapter"}/>

@@ -116,10 +116,10 @@ export default function Page() {
   }
 
   return (
-    <div className='padding-horizontal grid gap-8' style={{gridTemplateColumns: "56% 44%"}}>
-      <div className={"font-mono leading-normal"}>
-        <p className={"mb-4"}>online-chess/</p>
-        <ul className={"pl-16 list-none"}>
+    <div className='padding-horizontal w-full flex justify-start'>
+      <div className='font-mono leading-normal mr-16'>
+        <p className='mb-4'>online-chess/</p>
+        <ul className='pl-16 list-none'>
           <li className={`${border(frame.settings)} mb-2 p-2`}>
             <p>settings.gradle</p>
           </li>

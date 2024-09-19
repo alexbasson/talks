@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, policyBlue, layoutPadding} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
@@ -40,8 +40,8 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2 * layoutPadding;
-  const width = window.innerWidth - 2 * layoutPadding;
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   const scale = height / 4;
   const geometry = systemGeometry(scale, width / 2 + 200, height / 2);
@@ -49,43 +49,40 @@ export default function Page() {
   const policyTextStart = 300;
 
   return (
-    <div className='padding-horizontal'>
-      <div>
-        <h1>example: online chess</h1>
-      </div>
+    <div className='padding-horizontal svg-container'>
+      <h1>example: online chess</h1>
 
-      <div className={'mt-[-80px]'}>
-        <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-          <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="game policy"/>
+      <svg className='svg'>
+        <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="game policy"/>
 
-          <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={'game-api'}/>
-          <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={'game-db'}/>
-          <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={2 * scale}
-                            height={1.5 * scale}/>
-          <text className={"text-base"} x={0.85 * width} y={height / 5} fill={deployableGreen.hexValue}>chess-app</text>
+        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={'game-api'}/>
+        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={'game-db'}/>
+        <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={2 * scale}
+                          height={1.5 * scale}/>
+        <text className={"text-base"} x={0.85 * width} y={height / 5} fill={deployableGreen.hexValue}>chess-app</text>
 
-          {frame.displayPolicy ?
-            <g>
-              <text y={policyTextStart + 0 * 50} fill={policyBlue.hexValue}>move</text>
-              <text y={policyTextStart + 1 * 50} fill={policyBlue.hexValue}>board state</text>
-              <text y={policyTextStart + 2 * 50} fill={policyBlue.hexValue}>make move</text>
-              <text y={policyTextStart + 3 * 50} fill={policyBlue.hexValue}>move is illegal</text>
-              <text y={policyTextStart + 4 * 50} fill={policyBlue.hexValue}>checkmate</text>
+        {frame.displayPolicy ?
+          <g>
+            <text y={policyTextStart + 0 * 50} fill={policyBlue.hexValue}>move</text>
+            <text y={policyTextStart + 1 * 50} fill={policyBlue.hexValue}>board state</text>
+            <text y={policyTextStart + 2 * 50} fill={policyBlue.hexValue}>make move</text>
+            <text y={policyTextStart + 3 * 50} fill={policyBlue.hexValue}>move is illegal</text>
+            <text y={policyTextStart + 4 * 50} fill={policyBlue.hexValue}>checkmate</text>
 
-              <line x1={300} y1={policyTextStart + 2 * 50} x2={950} y2={460} stroke={policyBlue.hexValue} strokeWidth={5} strokeDasharray={30} />
-            </g> : <></>
-          }
+            <line x1={300} y1={policyTextStart + 2 * 50} x2={950} y2={460} stroke={policyBlue.hexValue} strokeWidth={5} strokeDasharray={30} />
+          </g> : <></>
+        }
 
-          {frame.displayAdapters ?
-            <g>
-              <text y={200} dominantBaseline={'middle'} fill={adapterRed.hexValue} className={'font-mono'}>POST /&#123;gameId&#125;/moves</text>
-              <line x1={500} y1={200} x2={870} y2={320} stroke={adapterRed.hexValue}
-                    strokeWidth={5} strokeDasharray={30}/>
+        {frame.displayAdapters ?
+          <g>
+            <text y={200} dominantBaseline={'middle'} fill={adapterRed.hexValue} className={'font-mono'}>POST /&#123;gameId&#125;/moves</text>
+            <line x1={500} y1={200} x2={870} y2={320} stroke={adapterRed.hexValue}
+                  strokeWidth={5} strokeDasharray={30}/>
 
-              <text y={700} dominantBaseline={'middle'} fill={adapterRed.hexValue} className={'font-mono'}>INSERT INTO moves VALUES</text>
-              <line x1={600} y1={700} x2={1250} y2={650} stroke={adapterRed.hexValue} strokeWidth={5} strokeDasharray={30}/>
-            </g> : <></>
-          }
+            <text y={700} dominantBaseline={'middle'} fill={adapterRed.hexValue} className={'font-mono'}>INSERT INTO moves VALUES</text>
+            <line x1={600} y1={700} x2={1250} y2={650} stroke={adapterRed.hexValue} strokeWidth={5} strokeDasharray={30}/>
+          </g> : <></>
+        }
 
           {frame.displayDeployables ?
             <g>
@@ -94,8 +91,6 @@ export default function Page() {
             </g> : <></>
         }
       </svg>
-    </div>
-
     </div>
   )
 }

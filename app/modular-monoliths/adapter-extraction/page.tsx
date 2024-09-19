@@ -11,7 +11,6 @@ import {
   arrowPurple,
   deployableGreen,
   highlightYellow,
-  layoutPadding,
   policyBlue
 } from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
@@ -74,20 +73,20 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 6*layoutPadding;
-  const width = window.innerWidth - 6*layoutPadding;
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   const scale = height / 4;
   const geometry = systemGeometry(scale, width/3, 0.4 * height);
-  const removedMovesDbGeometry = systemGeometry(scale, width - 400, 0.4 * height);
-  const deployable2Geometry = systemGeometry(scale, width - 250, 0.3 * height);
-  const movesAPIGeometry = systemGeometry(scale, width - 100, 0.2 * height);
+  const removedMovesDbGeometry = systemGeometry(scale, width - 500, 0.4 * height);
+  const deployable2Geometry = systemGeometry(scale, width - 350, 0.3 * height);
+  const movesAPIGeometry = systemGeometry(scale, width - 200, 0.2 * height);
 
   return (
-    <div className='padding-horizontal'>
+    <div className='padding-horizontal svg-container'>
       <h1>adapter extraction</h1>
 
-      <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+      <svg className='svg'>
         {frame.displayCreatedAdapters ?
           <line
             x1={800}
@@ -125,7 +124,7 @@ export default function Page() {
           <>
             <DeployableModule geometry={deployable2Geometry} width={scale} height={scale}
                               stroke={deployableGreen.hexValue}/>
-            <text className={"text-base"} x={1400} y={550} fill={deployableGreen.hexValue}>deployable 2</text>
+            <text className={"text-base"} x={1400} y={600} fill={deployableGreen.hexValue}>deployable 2</text>
           </>
           : <></>
         }

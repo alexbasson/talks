@@ -1,7 +1,7 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import {highlightYellow, layoutPadding} from "@/app/lib/definitions";
+import {highlightYellow} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/diagrams/Arrow";
 
 type Frame = {
@@ -101,15 +101,12 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight - 2 * layoutPadding;
-  const width = window.innerWidth - 2 * layoutPadding;
-
   return (
-    <div className='padding-horizontal'>
+    <div className='padding-horizontal flex flex-col'>
       <h1 className={"mb-16"}>what about times when BCs interact?</h1>
 
-      <div className="grid grid-cols-2 gap-16">
-        <div className={"font-mono text-sm "}>
+      <div className="flex flex-start flex-grow">
+        <div className='w-1/2 font-mono text-sm'>
           <div className={"mb-8"}>
             <p>Feature: Starting a game</p>
           </div>
@@ -128,8 +125,8 @@ export default function Page() {
           </div>
         </div>
 
-        <div>
-          <svg viewBox={`0 0 ${width / 2} ${0.8 * height}`}>
+        <div className='svg-container'>
+          <svg className='svg'>
             { frame.displayThisStoryOverlap ?
             <g>
               <ellipse strokeWidth={10} cx={250} cy={220} rx={200} ry={210} stroke={'white'} fill={'none'}/>
