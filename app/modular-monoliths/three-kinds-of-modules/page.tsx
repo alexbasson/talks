@@ -34,7 +34,7 @@ export default function Page() {
           <PrimaryAdapter geometry={geometry} portName={'swPort'} text={"adapter"}/>
           <SecondaryAdapter geometry={geometry} portName={'nePort'} text={"adapter"}/>
           <SecondaryAdapter geometry={geometry} portName={'sePort'} text={"adapter"}/>
-          <DeployableModule geometry={geometry} width={0.5 * width} height={0.4 * height} />
+          <DeployableModule geometry={geometry} width={0.4 * width} height={0.4 * height} />
           <text className={"text-base"}
                 x={width}
                 y={200}

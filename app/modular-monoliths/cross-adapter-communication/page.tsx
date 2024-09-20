@@ -54,7 +54,7 @@ export default function Page() {
 
   const policyAGeometry = systemGeometry(0.22 * height, 0.25 * width, 0.5 * height);
   const policyBGeometry = systemGeometry(0.22 * height, 0.75 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(0.22 * height, 0.5 * width, 0.5 * height);
 
   return (
     <div className='svg-container' ref={targetRef}>

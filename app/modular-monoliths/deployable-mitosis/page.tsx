@@ -32,9 +32,9 @@ export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);
   const {width, height} = useDimensions(targetRef);
 
-  const policyAGeometry = systemGeometry(0.25 * height, 0.25 * width, 0.5 * height);
-  const policyBGeometry = systemGeometry(0.25 * height, 0.75 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
+  const policyAGeometry = systemGeometry(0.22 * height, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(0.22 * height, 0.75 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(0.22 * height, 0.5 * width, 0.5 * height);
 
   return (
     <div className='svg-container' ref={targetRef}>
@@ -75,15 +75,15 @@ export default function Page() {
 
         { frame.displaySingleDeployable ?
           <g>
-            <text x={20} y={50} dominantBaseline="middle" fill={deployableGreen.hexValue}>Deployable</text>
+            <text x={20} y={100} fill={deployableGreen.hexValue}>Deployable</text>
             <DeployableModule geometry={deployableGeometry} width={0.5 * width} height={0.5 * height} />
           </g>
           : <></> }
 
         { frame.displayMultipleDeployables ?
           <g>
-            <text x={20} y={50} textAnchor='start' fill={deployableGreen.hexValue}>Deployable 1</text>
-            <text x={width - 20} y={50} textAnchor='end' fill={deployableGreen.hexValue}>Deployable 2</text>
+            <text x={20} y={100} textAnchor='start' fill={deployableGreen.hexValue}>Deployable 1</text>
+            <text x={width - 20} y={100} textAnchor='end' fill={deployableGreen.hexValue}>Deployable 2</text>
             <DeployableModule geometry={policyAGeometry} width={0.25 * width} height={0.4 * height} />
             <DeployableModule geometry={policyBGeometry} width={0.25 * width} height={0.4 * height} />
           </g>

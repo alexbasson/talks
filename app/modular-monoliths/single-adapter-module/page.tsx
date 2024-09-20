@@ -15,7 +15,7 @@ export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);
   const {width, height} = useDimensions(targetRef);
 
-  const scale = 0.25 * height;
+  const scale = 0.22 * height;
   const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.5 * height);
   const policyBGeometry = systemGeometry(scale, 0.75 * width, 0.5 * height);
   const deployableGeometry = systemGeometry(scale, 0.5 * width, 0.5 * height);
