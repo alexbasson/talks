@@ -52,9 +52,9 @@ export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);
   const {width, height} = useDimensions(targetRef);
 
-  const policyAGeometry = systemGeometry(0.25 * height, 0.3 * width, 0.5 * height);
-  const policyBGeometry = systemGeometry(0.25 * height, 0.7 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(0.25 * height, width/2, 0.5 * height);
+  const policyAGeometry = systemGeometry(0.22 * height, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(0.22 * height, 0.75 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
 
   return (
     <div className='svg-container' ref={targetRef}>
@@ -86,20 +86,19 @@ export default function Page() {
           : <></>
         }
 
-        <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
+        <DomainModule geometry={policyAGeometry} text="organizing games"/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'}/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'swPort'}/>
         <SecondaryAdapter geometry={policyAGeometry} portName={'nePort'} text={frame.policyANEPortText}/>
         <SecondaryAdapter geometry={policyAGeometry} portName={'sePort'} text={frame.policyASEPortText}/>
 
-        <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="gameplay"/>
+        <DomainModule geometry={policyBGeometry} text="gameplay"/>
         <PrimaryAdapter geometry={policyBGeometry} portName={'nwPort'} text={frame.policyBNWPortText}/>
         <PrimaryAdapter geometry={policyBGeometry} portName={'swPort'} text={frame.policyBSWPortText}/>
         <SecondaryAdapter geometry={policyBGeometry} portName={'nePort'}/>
         <SecondaryAdapter geometry={policyBGeometry} portName={'sePort'}/>
 
-        <DeployableModule geometry={deployableGeometry} stroke={deployableGreen.hexValue} width={0.47 * width}
-                          height={1.7 * 0.25 * height}/>
+        <DeployableModule geometry={deployableGeometry} width={0.5 * width} height={0.5 * height}/>
       </svg>
     </div>
   )

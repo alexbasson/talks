@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
-        <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="ONLINE CHESS"/>
+        <DomainModule geometry={geometry} text="ONLINE CHESS"/>
 
         <PrimaryAdapter geometry={geometry} portName={'nwPort'} />
         <PrimaryAdapter geometry={geometry} portName={'swPort'} />

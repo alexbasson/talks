@@ -33,44 +33,20 @@ export default function Page() {
               strokeDasharray={15}
             />
 
-            <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="gameplay policy"/>
+            <DomainModule geometry={policyAGeometry} text="gameplay policy"/>
             <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'} text={"game API"}/>
             <SecondaryAdapter geometry={policyAGeometry} portName={'nePort'} text={"moves client"}/>
 
-            <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="move history policy"/>
+            <DomainModule geometry={policyBGeometry} text="move history policy"/>
             <PrimaryAdapter geometry={policyBGeometry} portName={'nwPort'} text={"moves API"}/>
             <SecondaryAdapter geometry={policyBGeometry} portName={'nePort'} text={"moves db"}/>
           </g>
 
           <g>
-            <text
-              x={0}
-              y={50}
-              textAnchor="start"
-              fill={deployableGreen.hexValue}
-            >
-              Deployable 1
-            </text>
-            <text
-              x={width}
-              y={50}
-              textAnchor="end"
-              fill={deployableGreen.hexValue}
-            >
-              Deployable 2
-            </text>
-            <DeployableModule
-              geometry={policyAGeometry}
-              stroke={deployableGreen.hexValue}
-              width={0.22 * width}
-              height={0.44 * height}
-            />
-            <DeployableModule
-              geometry={policyBGeometry}
-              stroke={deployableGreen.hexValue}
-              width={0.22 * width}
-              height={0.44 * height}
-            />
+            <text x={0} y={50} textAnchor="start" fill={deployableGreen.hexValue}>Deployable 1</text>
+            <text x={width} y={50} textAnchor="end" fill={deployableGreen.hexValue}>Deployable 2</text>
+            <DeployableModule geometry={policyAGeometry} width={0.25 * width} height={0.4 * height} />
+            <DeployableModule geometry={policyBGeometry} width={0.25 * width} height={0.4 * height} />
           </g>
         </svg>
       </div>

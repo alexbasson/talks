@@ -110,7 +110,7 @@ export default function Page() {
         <div className='svg-container' ref={targetRef}>
           {frame.displayDiagram ?
           <svg className='svg'>
-            <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
+            <DomainModule geometry={policyAGeometry} text="organizing games"/>
             <text
               x={0}
               y={0}
@@ -132,7 +132,7 @@ export default function Page() {
               game initializer
             </text>
 
-            <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="gameplay"/>
+            <DomainModule geometry={policyBGeometry} text="gameplay"/>
             <text
               x={0}
               y={0}

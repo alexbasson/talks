@@ -1,8 +1,8 @@
 import PrimaryPort from "./PrimaryPort";
 import SecondaryPort from "./SecondaryPort";
-import {DomainModuleProps} from "@/app/lib/definitions";
+import {DomainModuleProps, policyBlue} from "@/app/lib/definitions";
 
-export default function DomainModule({geometry, fill, text, rotate = 0, displayPrimaryPorts = false, displaySecondaryPorts = false}: DomainModuleProps) {
+export default function DomainModule({geometry, fill = policyBlue.hexValue, text, rotate = 0, displayPrimaryPorts = false, displaySecondaryPorts = false}: DomainModuleProps) {
   const {scale, center, nwPort, swPort, nePort, sePort} = geometry;
 
   const sideRoot3 = scale * Math.sqrt(3);

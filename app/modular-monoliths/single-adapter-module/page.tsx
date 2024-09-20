@@ -16,9 +16,9 @@ export default function Page() {
   const {width, height} = useDimensions(targetRef);
 
   const scale = 0.25 * height;
-  const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
-  const policyBGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
+  const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(scale, 0.75 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(scale, 0.5 * width, 0.5 * height);
 
   const transform = (geometry: Geometry, port: Port) =>  `
   translate(${port.center.x + port.adapterOffset.x + geometry.center.x}, ${port.center.y + port.adapterOffset.y + geometry.center.y}),
@@ -35,12 +35,12 @@ export default function Page() {
   return (
     <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
-        <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
+        <DomainModule geometry={policyAGeometry} text="organizing games"/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'}/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'swPort'}/>
         <SecondaryAdapter geometry={policyAGeometry} portName={'sePort'}/>
 
-        <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="gameplay"/>
+        <DomainModule geometry={policyBGeometry} text="gameplay"/>
         <PrimaryAdapter geometry={policyBGeometry} portName={'swPort'}/>
         <SecondaryAdapter geometry={policyBGeometry} portName={'nePort'}/>
         <SecondaryAdapter geometry={policyBGeometry} portName={'sePort'}/>
@@ -74,8 +74,7 @@ export default function Page() {
           </text>
         </g>
 
-        <DeployableModule geometry={deployableGeometry} stroke={deployableGreen.hexValue} width={0.47 * width}
-                          height={1.7 * scale}/>
+        <DeployableModule geometry={deployableGeometry} width={0.5 * width} height={0.5 * height} />
       </svg>
     </div>
   )

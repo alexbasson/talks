@@ -28,14 +28,13 @@ export default function Page() {
 
       <div className='svg-container' ref={targetRef}>
         <svg className='svg'>
-          <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="policy"/>
+          <DomainModule geometry={geometry} text="policy"/>
 
-          <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={"adapter"}/>
-          <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterRed.hexValue} text={"adapter"}/>
-          <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterRed.hexValue} text={"adapter"}/>
-          <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={"adapter"}/>
-          <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={0.5 * height}
-                            height={0.4 * height}/>
+          <PrimaryAdapter geometry={geometry} portName={'nwPort'} text={"adapter"}/>
+          <PrimaryAdapter geometry={geometry} portName={'swPort'} text={"adapter"}/>
+          <SecondaryAdapter geometry={geometry} portName={'nePort'} text={"adapter"}/>
+          <SecondaryAdapter geometry={geometry} portName={'sePort'} text={"adapter"}/>
+          <DeployableModule geometry={geometry} width={0.5 * width} height={0.4 * height} />
           <text className={"text-base"}
                 x={width}
                 y={200}

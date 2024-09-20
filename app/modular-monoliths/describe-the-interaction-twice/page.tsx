@@ -56,7 +56,7 @@ export default function Page() {
   return (
     <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
-        <DomainModule geometry={organizingGamesGeometry} fill={policyBlue.hexValue} text="organizing games"/>
+        <DomainModule geometry={organizingGamesGeometry} text="organizing games"/>
 
         {frame.displayOrganizingGamesPorts ?
           <g>
@@ -81,7 +81,7 @@ export default function Page() {
           : <></>
         }
 
-        <DomainModule geometry={gamePlayGeometry} fill={policyBlue.hexValue} text="gameplay"/>
+        <DomainModule geometry={gamePlayGeometry} text="gameplay"/>
 
         {frame.displayGameplayPorts ?
           <g>

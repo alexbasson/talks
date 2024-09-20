@@ -55,13 +55,12 @@ export default function Page() {
 
       <div className='svg-container' ref={targetRef}>
         <svg className='svg'>
-          <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="game policy"/>
+          <DomainModule geometry={geometry} text="game policy"/>
 
           <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={'game-api'}/>
           <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={'game-db'}/>
-          <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={0.5 * height}
-                            height={0.4 * height}/>
-          <text className={"text-base"} x={0.85 * width} y={height / 5} fill={deployableGreen.hexValue}>chess-app</text>
+          <DeployableModule geometry={geometry} width={0.25 * width} height={0.4 * height}/>
+          <text className={"text-base"} x={0.85 * width} y={0.2 * height} fill={deployableGreen.hexValue}>chess-app</text>
 
           {frame.displayPolicy ?
             <g>
@@ -71,7 +70,7 @@ export default function Page() {
               <text y={policyTextStart + 3 * 50} fill={policyBlue.hexValue}>move is illegal</text>
               <text y={policyTextStart + 4 * 50} fill={policyBlue.hexValue}>checkmate</text>
 
-              <line x1={300} y1={policyTextStart + 2 * 50} x2={950} y2={460} stroke={policyBlue.hexValue} strokeWidth={5} strokeDasharray={30} />
+              <line x1={300} y1={policyTextStart + 2 * 50} x2={1000} y2={600} stroke={policyBlue.hexValue} strokeWidth={5} strokeDasharray={30} />
             </g> : <></>
           }
 
@@ -89,7 +88,7 @@ export default function Page() {
             {frame.displayDeployables ?
               <g>
                 <text y={600} dominantBaseline={'middle'} fill={deployableGreen.hexValue}>DI container, env vars</text>
-                <line x1={430} y1={600} x2={700} y2={590} stroke={deployableGreen.hexValue} strokeWidth={5} strokeDasharray={30}/>
+                <line x1={430} y1={600} x2={geometry.center.x - 0.25 * width + 20} y2={600} stroke={deployableGreen.hexValue} strokeWidth={5} strokeDasharray={30}/>
               </g> : <></>
           }
         </svg>

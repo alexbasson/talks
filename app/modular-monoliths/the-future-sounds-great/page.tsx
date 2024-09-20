@@ -27,7 +27,7 @@ export default function Page() {
         className='padding-horizontal'
         style={{
         zIndex: 10,
-        marginTop: -window.innerHeight + 400,
+        marginTop: -0.55 * window.innerHeight,
       }}>
         <p>the future sounds great...</p>
         {frame.displayHurtThisBad ? <p>...but does the present have to hurt this bad?</p> : <></>}

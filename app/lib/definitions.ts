@@ -86,7 +86,7 @@ export type PortProps = {
 
 export type DomainModuleProps = {
   geometry: Geometry;
-  fill: string;
+  fill?: string;
   text: string;
   rotate?: number;
   displayPrimaryPorts?: boolean;
@@ -102,7 +102,7 @@ export type AdapterProps = {
 
 export type DeployableModuleProps = {
   geometry: Geometry;
-  stroke: string;
+  stroke?: string;
   width: number;
   height: number;
 }

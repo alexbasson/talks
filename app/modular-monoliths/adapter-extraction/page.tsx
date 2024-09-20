@@ -5,14 +5,7 @@ import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
-import {
-  AdapterProps,
-  adapterRed,
-  arrowPurple,
-  deployableGreen,
-  highlightYellow,
-  policyBlue
-} from "@/app/lib/definitions";
+import {AdapterProps, adapterRed, arrowPurple, deployableGreen, highlightYellow} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import Arrow from "@/app/lib/diagrams/Arrow";
@@ -78,11 +71,10 @@ export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);
   const {width, height} = useDimensions(targetRef);
 
-  const scale = 0.25 * height;
-  const geometry = systemGeometry(scale, width / 3, 0.4 * height);
-  const removedMovesDbGeometry = systemGeometry(scale, width - 500, 0.4 * height);
-  const deployable2Geometry = systemGeometry(scale, width - 350, 0.3 * height);
-  const movesAPIGeometry = systemGeometry(scale, width - 200, 0.2 * height);
+  const geometry = systemGeometry(0.25 * height, 0.333 * width, 0.4 * height);
+  const removedMovesDbGeometry = systemGeometry(0.25 * height, width - 500, 0.4 * height);
+  const deployable2Geometry = systemGeometry(0.25 * height, width - 350, 0.3 * height);
+  const movesAPIGeometry = systemGeometry(0.25 * height, width - 200, 0.2 * height);
 
   return (
     <div className='padding-horizontal svg-container'>
@@ -102,7 +94,7 @@ export default function Page() {
             /> : <></>
           }
 
-          <DomainModule geometry={geometry} text="gameplay policy" fill={policyBlue.hexValue}/>
+          <DomainModule geometry={geometry} text="gameplay policy" />
 
           <PrimaryAdapter geometry={geometry} portName={'nwPort'} text={'game API'}/>
           {frame.removeMovesDbAdapter ? <></> :
@@ -111,8 +103,7 @@ export default function Page() {
           {frame.displayCreatedAdapters ?
             <SecondaryAdapter geometry={geometry} portName={'nePort'} text={'moves client'}
                               fill={adapterRed.hexValue}/> : <></>}
-          <DeployableModule geometry={geometry} width={2 * scale} height={1.5 * scale}
-                            stroke={deployableGreen.hexValue}/>
+          <DeployableModule geometry={geometry} width={0.25 * width} height={0.375 * height} />
           <text className={"text-base"} x={0} y={100} fill={deployableGreen.hexValue}>deployable 1</text>
 
 
@@ -127,9 +118,8 @@ export default function Page() {
 
           {frame.displayDeployable2 ?
             <>
-              <DeployableModule geometry={deployable2Geometry} width={scale} height={scale}
-                                stroke={deployableGreen.hexValue}/>
-              <text className={"text-base"} x={1400} y={600} fill={deployableGreen.hexValue}>deployable 2</text>
+              <DeployableModule geometry={deployable2Geometry} width={0.17 * width} height={0.25 * height} />
+              <text className={"text-base"} x={width} y={600} textAnchor='end' fill={deployableGreen.hexValue}>deployable 2</text>
             </>
             : <></>
           }

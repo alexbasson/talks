@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
-        <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="domain model FOR DAAAAAAAAAAAAYS" />
+        <DomainModule geometry={geometry} text="domain model FOR DAAAAAAAAAAAAYS" />
 
         <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={adapterRed.hexValue} text={'so much API'}/>
         <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterRed.hexValue} text={'all the subscribers'}/>

@@ -60,13 +60,13 @@ export default function Page() {
               strokeDasharray={15}
             />
 
-          <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="policy A"/>
+          <DomainModule geometry={policyAGeometry} text="policy A"/>
           <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'}/>
           <PrimaryAdapter geometry={policyAGeometry} portName={'swPort'}/>
           <SecondaryAdapter geometry={policyAGeometry} portName={'nePort'} text={"client"}/>
           <SecondaryAdapter geometry={policyAGeometry} portName={'sePort'} text={"publisher"}/>
 
-          <DomainModule geometry={policyBGeometry} fill={policyBlue.hexValue} text="policy B"/>
+          <DomainModule geometry={policyBGeometry} text="policy B"/>
           <PrimaryAdapter geometry={policyBGeometry} portName={'nwPort'} text={"API"}/>
           <PrimaryAdapter geometry={policyBGeometry} portName={'swPort'} text={"subscriber"}/>
           <SecondaryAdapter geometry={policyBGeometry} portName={'nePort'}/>
@@ -75,54 +75,17 @@ export default function Page() {
 
         { frame.displaySingleDeployable ?
           <g>
-            <text
-              x={20}
-              y={50}
-              dominantBaseline="middle"
-              fill={deployableGreen.hexValue}
-            >
-              Deployable
-            </text>
-            <DeployableModule
-              geometry={deployableGeometry}
-              stroke={deployableGreen.hexValue}
-              width={0.47 * width}
-              height={0.47 * height}
-            />
+            <text x={20} y={50} dominantBaseline="middle" fill={deployableGreen.hexValue}>Deployable</text>
+            <DeployableModule geometry={deployableGeometry} width={0.5 * width} height={0.5 * height} />
           </g>
           : <></> }
 
         { frame.displayMultipleDeployables ?
           <g>
-            <text
-              x={20}
-              y={50}
-              dominantBaseline="middle"
-              fill={deployableGreen.hexValue}
-            >
-              Deployable 1
-            </text>
-            <text
-              x={width - 20}
-              y={50}
-              textAnchor="end"
-              dominantBaseline="middle"
-              fill={deployableGreen.hexValue}
-            >
-              Deployable 2
-            </text>
-            <DeployableModule
-              geometry={policyAGeometry}
-              stroke={deployableGreen.hexValue}
-              width={0.23 * width}
-              height={0.47 * height}
-            />
-            <DeployableModule
-              geometry={policyBGeometry}
-              stroke={deployableGreen.hexValue}
-              width={0.23 * width}
-              height={0.47 * height}
-            />
+            <text x={20} y={50} textAnchor='start' fill={deployableGreen.hexValue}>Deployable 1</text>
+            <text x={width - 20} y={50} textAnchor='end' fill={deployableGreen.hexValue}>Deployable 2</text>
+            <DeployableModule geometry={policyAGeometry} width={0.25 * width} height={0.4 * height} />
+            <DeployableModule geometry={policyBGeometry} width={0.25 * width} height={0.4 * height} />
           </g>
           : <></>}
       </svg>
