@@ -527,13 +527,25 @@ And this sounds obvious when you say it out loud, but the time take that transit
 
 when the balance tips! I don't want to sound like I'm minimizing that, I rather want to highlight that there's nothing I can tell you now that will always be true. This is the only generally correct statement.
 
-The thing you have to be doing to decide when the right time is, is you have to be constantly doing the math. You have to be measuring and thinking about the value that the microservice extraction will provide you, versus the cost that it's going to incur. And it's maybe worth pointing out here that if you're an architect and you're trying to architect a system that you can then hand off to other teams to execute on, you should be aware that you are probably underestimating the cost, because the cost is not felt by you. You might underestimate the ergonomic impact, just to day-to-day development, of having things deployed as separate services. Because again, sometimes, if things don't go exactly according to plan, you end up having to debug things across a service boundary, which can be a real hassle. Or if we determine after working with it for a bit that actually things in Service A should be in Service B... well now they're in separate git repositories, and now we're going to have to move a bunch of code or we're going to have to tell everybody to stop working for a minute so there aren't really messy merge conflicts. And that can be very involved.
+The thing you have to be doing to decide when the right time is,
+
+-------------------------------> when-to-transition?frame=2
+
+is you have to be constantly doing the math. You have to be measuring and thinking about the value that the microservice extraction will provide you, versus the cost that it's going to incur. And it's maybe worth pointing out here that if you're an architect and you're trying to architect a system that you can then hand off to other teams to execute on,
+
+-------------------------------> when-to-transition?frame=3
+
+you should be aware that you are probably underestimating the cost, because the cost is not felt by you. You might underestimate the ergonomic impact, just to day-to-day development, of having things deployed as separate services. Because again, sometimes, if things don't go exactly according to plan, you end up having to debug things across a service boundary, which can be a real hassle. Or if we determine after working with it for a bit that actually things in Service A should be in Service B... well now they're in separate git repositories, and now we're going to have to move a bunch of code or we're going to have to tell everybody to stop working for a minute so there aren't really messy merge conflicts. And that can be very involved.
+
+-------------------------------> when-to-transition?frame=4
 
 So you need to have feedback channels open. You need to be talking and paying attention to the cost that your current strategy has and the cost that your proposed strategy might have. And if you're paying attention to that and also, y'know, thinking about the value that you want to get out of your new deployment and whether that's going to kick in, you might discover that, like, oh yeah! no, the time has come! The cost for this is going to be relatively low, and if we pull this out into a separate service, it's going to equip other teams to start consuming it, which they would like to be able to do soon. And you can make that decision.
 
 So
 
-Suppose the time has come. Suppose you doing your math and you've determined yes, now is the time to take our thing that is deployed together and deploy it separately.
+-------------------------------> when-to-transition?frame=5
+
+Suppose the time has come. Suppose you're doing your math and you've determined yes, now is the time to take our thing that is deployed together and deploy it separately.
 
 -------------------------------> how-to-transition?frame=0
 
@@ -547,7 +559,7 @@ Deployable Mitosis. This is maybe the simplest case. It's applicable in
 
 -------------------------------> deployable-mitosis?frame=0
 
-this kind of situation, where you have two different boundaries which either don't interact with each other at all, or interact but already through out-of-band channels like API calls or queue publishing. If this is your situation, then the operation is very very cheap. You just
+this kind of situation, where you have two different boundaries which either don't interact with each other at all, or do interact but already through out-of-band channels like API calls or queue publishing. If this is your situation, then the operation is very very cheap. You just
 
 -------------------------------> deployable-mitosis?frame=1
 
