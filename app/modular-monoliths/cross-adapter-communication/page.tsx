@@ -7,6 +7,8 @@ import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import useFrame from "@/app/lib/useFrame";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 type Frame = {
   policyANEPortText: string,
@@ -47,16 +49,15 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
-  const policyBGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
+  const policyAGeometry = systemGeometry(0.25 * height, 0.3 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(0.25 * height, 0.7 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(0.25 * height, width/2, 0.5 * height);
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
 
         {frame.displayClientAPIInteraction ?
@@ -98,7 +99,7 @@ export default function Page() {
         <SecondaryAdapter geometry={policyBGeometry} portName={'sePort'}/>
 
         <DeployableModule geometry={deployableGeometry} stroke={deployableGreen.hexValue} width={0.47 * width}
-                          height={1.7 * scale}/>
+                          height={1.7 * 0.25 * height}/>
       </svg>
     </div>
   )

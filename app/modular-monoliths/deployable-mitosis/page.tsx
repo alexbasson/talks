@@ -7,6 +7,8 @@ import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 type Frame = {
   displaySingleDeployable: boolean,
@@ -27,16 +29,15 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.5 * height);
-  const policyBGeometry = systemGeometry(scale, 0.75 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
+  const policyAGeometry = systemGeometry(0.25 * height, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(0.25 * height, 0.75 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
           <g>
             <line
@@ -86,7 +87,7 @@ export default function Page() {
               geometry={deployableGeometry}
               stroke={deployableGreen.hexValue}
               width={0.47 * width}
-              height={1.9 * scale}
+              height={0.47 * height}
             />
           </g>
           : <></> }
@@ -114,13 +115,13 @@ export default function Page() {
               geometry={policyAGeometry}
               stroke={deployableGreen.hexValue}
               width={0.23 * width}
-              height={1.7 * scale}
+              height={0.47 * height}
             />
             <DeployableModule
               geometry={policyBGeometry}
               stroke={deployableGreen.hexValue}
               width={0.23 * width}
-              height={1.7 * scale}
+              height={0.47 * height}
             />
           </g>
           : <></>}

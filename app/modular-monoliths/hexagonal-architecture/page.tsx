@@ -5,8 +5,10 @@ import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
-import {adapterRed, deployableGreen, policyBlue, highlightYellow, gray} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, gray, highlightYellow, policyBlue} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 type Frame = {
   domainFill: string,
@@ -71,32 +73,32 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight * .9;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const geometry = systemGeometry(scale, 0.5 * width, 0.5 * height);
+  const geometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
 
   return (
     <div className='padding-horizontal svg-container'>
       <h1>hexagonal architecture</h1>
       <p className='text-sm text-blue-400'>https://alistair.cockburn.us/hexagonal-architecture/</p>
 
-      <svg className='svg'>
-        <DomainModule geometry={geometry} fill={frame.domainFill} text="domain model"
-                      displayPrimaryPorts={frame.highlightPrimaryPorts}
-                      displaySecondaryPorts={frame.highlightSecondaryPorts}/>
+      <div className='svg-container' ref={targetRef}>
+        <svg className='svg'>
+          <DomainModule geometry={geometry} fill={frame.domainFill} text="domain model"
+                        displayPrimaryPorts={frame.highlightPrimaryPorts}
+                        displaySecondaryPorts={frame.highlightSecondaryPorts}/>
 
-        <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={frame.adapterFill} text={'API'}/>
-        <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={frame.adapterFill} text={'subscriber'}/>
-        <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={frame.adapterFill} text={'database'}/>
-        <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={frame.adapterFill} text={'svc client'}/>
-        <DeployableModule geometry={geometry} stroke={frame.deployableFill} width={2 * scale} height={1.5 * scale}/>
-        <text className={"text-base"} x={width / 5} y={100} stroke={frame.deployableFill}
-              fill={frame.deployableFill}>application
-        </text>
-      </svg>
-
+          <PrimaryAdapter geometry={geometry} portName={'nwPort'} fill={frame.adapterFill} text={'API'}/>
+          <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={frame.adapterFill} text={'subscriber'}/>
+          <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={frame.adapterFill} text={'database'}/>
+          <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={frame.adapterFill} text={'svc client'}/>
+          <DeployableModule geometry={geometry} stroke={frame.deployableFill} width={0.5 * height} height={0.4 * height}/>
+          <text className={"text-base"} x={0.2 * width} y={100} stroke={frame.deployableFill}
+                fill={frame.deployableFill}>application
+          </text>
+        </svg>
+      </div>
     </div>
   )
 }

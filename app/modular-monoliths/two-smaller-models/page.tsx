@@ -6,18 +6,19 @@ import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 export default function Page() {
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const organizingGamesGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
-  const gamePlayGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(scale, 0.5 * width, 0.5 * height);
+  const organizingGamesGeometry = systemGeometry(0.25 * height, 0.3 * width, 0.5 * height);
+  const gamePlayGeometry = systemGeometry(0.25 * height, 0.7 * width, 0.5 * height);
+  const deployableGeometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
         <DomainModule geometry={organizingGamesGeometry} fill={policyBlue.hexValue} text="organizing games" />
         <PrimaryAdapter geometry={organizingGamesGeometry} portName={'nwPort'} />
@@ -31,7 +32,7 @@ export default function Page() {
         <SecondaryAdapter geometry={gamePlayGeometry} portName={'nePort'} />
         <SecondaryAdapter geometry={gamePlayGeometry} portName={'sePort'} />
 
-        <DeployableModule geometry={deployableGeometry} stroke={deployableGreen.hexValue} width={0.47 * width} height={1.7 * scale}/>
+        <DeployableModule geometry={deployableGeometry} stroke={deployableGreen.hexValue} width={0.47 * width} height={0.45 * height} />
       </svg>
     </div>
   )

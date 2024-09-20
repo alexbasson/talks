@@ -5,16 +5,17 @@ import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import {adapterRed, policyBlue} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 export default function Page() {
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = 0.6 * height;
-  const geometry = systemGeometry(scale, width/2, 0.5 * height);
+  const geometry = systemGeometry(0.6 * height, 0.5 * width, 0.5 * height);
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
         <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="domain model FOR DAAAAAAAAAAAAYS" />
 

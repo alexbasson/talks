@@ -5,6 +5,8 @@ import clsx from "clsx";
 import {Geometry, highlightYellow, policyBlue, Port} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 type Frame = {
   displayDiagram: boolean,
@@ -61,12 +63,11 @@ export default function Page() {
   ]
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight;
-  const width = 0.6 * (window.innerWidth);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const policyAGeometry = systemGeometry(scale, 0.25 * width, 0.3 * height);
-  const policyBGeometry = systemGeometry(scale, 0.75 * width, 0.3 * height);
+  const policyAGeometry = systemGeometry(0.2 * width, 0.25 * width, 0.5 * height);
+  const policyBGeometry = systemGeometry(0.2 * width, 0.75 * width, 0.5 * height);
 
   const transform = (geometry: Geometry, port: Port) =>  `
   translate(
@@ -76,7 +77,7 @@ export default function Page() {
   rotate(${port.rotate}, 0, 0)
   `
   return (
-    <div className='padding-horizontal w-full'>
+    <div className='padding-horizontal w-full flex flex-col flex-grow flex-shrink-0'>
       <div>
         <p className={"pb-0 mb-0 font-mono text-sm"}>
           class GameplayGameInitializer implements <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span> &#123;<br/>
@@ -87,7 +88,7 @@ export default function Page() {
         </p>
       </div>
 
-      <div className='flex flex-start'>
+      <div className='flex flex-start flex-grow'>
         <div className='w-2/5'>
           <p className='py-0 my-0 font-mono text-sm'>
             <br/>
@@ -106,7 +107,7 @@ export default function Page() {
             &#125;<br/>
           </p>
         </div>
-        <div className='svg-container'>
+        <div className='svg-container' ref={targetRef}>
           {frame.displayDiagram ?
           <svg className='svg'>
             <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>

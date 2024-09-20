@@ -4,6 +4,8 @@ import {Point, policyBlue} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import useFrame from "@/app/lib/useFrame";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 type Frame = {
   displayOrganizingGamesPorts: boolean,
@@ -28,12 +30,11 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const organizingGamesGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
-  const gamePlayGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
+  const organizingGamesGeometry = systemGeometry(0.25 * height, 0.3 * width, 0.5 * height);
+  const gamePlayGeometry = systemGeometry(0.25 * height, 0.7 * width, 0.5 * height);
 
   const portTextBuffer = 20;
 
@@ -53,7 +54,7 @@ export default function Page() {
   }
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
         <DomainModule geometry={organizingGamesGeometry} fill={policyBlue.hexValue} text="organizing games"/>
 

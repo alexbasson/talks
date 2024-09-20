@@ -16,6 +16,8 @@ import {
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import Arrow from "@/app/lib/diagrams/Arrow";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 type Frame = {
   highlightMovesDb: boolean,
@@ -73,11 +75,11 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const geometry = systemGeometry(scale, width/3, 0.4 * height);
+  const scale = 0.25 * height;
+  const geometry = systemGeometry(scale, width / 3, 0.4 * height);
   const removedMovesDbGeometry = systemGeometry(scale, width - 500, 0.4 * height);
   const deployable2Geometry = systemGeometry(scale, width - 350, 0.3 * height);
   const movesAPIGeometry = systemGeometry(scale, width - 200, 0.2 * height);
@@ -86,81 +88,85 @@ export default function Page() {
     <div className='padding-horizontal svg-container'>
       <h1>adapter extraction</h1>
 
-      <svg className='svg'>
-        {frame.displayCreatedAdapters ?
-          <line
-            x1={800}
-            y1={220}
-            x2={1500}
-            y2={300}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={10}
-            strokeDasharray={15}
-          /> : <></>
-        }
-
-        <DomainModule geometry={geometry} text="gameplay policy" fill={policyBlue.hexValue}/>
-
-        <PrimaryAdapter geometry={geometry} portName={'nwPort'} text={'game API'}/>
-        {frame.removeMovesDbAdapter ? <></> :
-          <SecondaryAdapter geometry={geometry} portName={'nePort'} text={'moves db'}
-                            fill={frame.highlightMovesDb ? highlightYellow.hexValue : adapterRed.hexValue}/>}
-        {frame.displayCreatedAdapters ? <SecondaryAdapter geometry={geometry} portName={'nePort'} text={'moves client'}
-                                                          fill={adapterRed.hexValue}/> : <></>}
-        <DeployableModule geometry={geometry} width={2 * scale} height={1.5 * scale} stroke={deployableGreen.hexValue}/>
-        <text className={"text-base"} x={0} y={100} fill={deployableGreen.hexValue}>deployable 1</text>
-
-
-        {frame.displayCreatedAdapters ?
-          <MovesAPIAdapter geometry={movesAPIGeometry}
-                           portName={'swPort'}
-                           text={'moves API'}
-                           fill={adapterRed.hexValue}/> : <></>}
-        {frame.removeMovesDbAdapter ?
-          <SecondaryAdapter geometry={removedMovesDbGeometry} portName={'nePort'} text={'moves db'}
-                            fill={frame.highlightMovesDb ? highlightYellow.hexValue : adapterRed.hexValue}/> : <></>}
-
-        {frame.displayDeployable2 ?
-          <>
-            <DeployableModule geometry={deployable2Geometry} width={scale} height={scale}
-                              stroke={deployableGreen.hexValue}/>
-            <text className={"text-base"} x={1400} y={600} fill={deployableGreen.hexValue}>deployable 2</text>
-          </>
-          : <></>
-        }
-
-        {frame.displayDependency ?
-          <g>
+      <div className='svg-container' ref={targetRef}>
+        <svg className='svg'>
+          {frame.displayCreatedAdapters ?
             <line
-              x1={1450}
-              y1={125}
-              x2={1375}
-              y2={8}
+              x1={800}
+              y1={220}
+              x2={1500}
+              y2={300}
               stroke={arrowPurple.hexValue}
-              strokeWidth={15}
-            />
-            <line
-              x1={1380}
-              y1={10}
-              x2={593}
-              y2={80}
-              stroke={arrowPurple.hexValue}
-              strokeWidth={15}
-            />
-            <Arrow
-              from={{
-                x: 600,
-                y: 78,
-              }}
-              to={{
-                x: 600,
-                y: 150,
-              }}
-              width={15}
-            />
-          </g> : <></>
-        }
-      </svg>
+              strokeWidth={10}
+              strokeDasharray={15}
+            /> : <></>
+          }
+
+          <DomainModule geometry={geometry} text="gameplay policy" fill={policyBlue.hexValue}/>
+
+          <PrimaryAdapter geometry={geometry} portName={'nwPort'} text={'game API'}/>
+          {frame.removeMovesDbAdapter ? <></> :
+            <SecondaryAdapter geometry={geometry} portName={'nePort'} text={'moves db'}
+                              fill={frame.highlightMovesDb ? highlightYellow.hexValue : adapterRed.hexValue}/>}
+          {frame.displayCreatedAdapters ?
+            <SecondaryAdapter geometry={geometry} portName={'nePort'} text={'moves client'}
+                              fill={adapterRed.hexValue}/> : <></>}
+          <DeployableModule geometry={geometry} width={2 * scale} height={1.5 * scale}
+                            stroke={deployableGreen.hexValue}/>
+          <text className={"text-base"} x={0} y={100} fill={deployableGreen.hexValue}>deployable 1</text>
+
+
+          {frame.displayCreatedAdapters ?
+            <MovesAPIAdapter geometry={movesAPIGeometry}
+                             portName={'swPort'}
+                             text={'moves API'}
+                             fill={adapterRed.hexValue}/> : <></>}
+          {frame.removeMovesDbAdapter ?
+            <SecondaryAdapter geometry={removedMovesDbGeometry} portName={'nePort'} text={'moves db'}
+                              fill={frame.highlightMovesDb ? highlightYellow.hexValue : adapterRed.hexValue}/> : <></>}
+
+          {frame.displayDeployable2 ?
+            <>
+              <DeployableModule geometry={deployable2Geometry} width={scale} height={scale}
+                                stroke={deployableGreen.hexValue}/>
+              <text className={"text-base"} x={1400} y={600} fill={deployableGreen.hexValue}>deployable 2</text>
+            </>
+            : <></>
+          }
+
+          {frame.displayDependency ?
+            <g>
+              <line
+                x1={1450}
+                y1={125}
+                x2={1375}
+                y2={8}
+                stroke={arrowPurple.hexValue}
+                strokeWidth={15}
+              />
+              <line
+                x1={1380}
+                y1={10}
+                x2={593}
+                y2={80}
+                stroke={arrowPurple.hexValue}
+                strokeWidth={15}
+              />
+              <Arrow
+                from={{
+                  x: 600,
+                  y: 78,
+                }}
+                to={{
+                  x: 600,
+                  y: 150,
+                }}
+                width={15}
+              />
+            </g> : <></>
+          }
+        </svg>
+      </div>
     </div>
   )
 }
@@ -178,7 +184,7 @@ function MovesAPIAdapter({geometry, portName, fill = adapterRed.hexValue, text =
     <>
       <defs>
         <mask id="foo">
-          <SecondaryPort sideLength={scale} fill="black" />
+          <SecondaryPort sideLength={scale} fill="black"/>
         </mask>
       </defs>
       <g transform={transform}>

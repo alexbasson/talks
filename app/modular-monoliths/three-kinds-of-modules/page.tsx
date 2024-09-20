@@ -6,12 +6,14 @@ import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/definitions";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 export default function Page() {
-  const height = window.innerHeight;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
-  const geometry = systemGeometry(scale, 600, 0.5 * height);
+  const geometry = systemGeometry(0.25 * height, 0.5 * width, 0.5 * height);
 
   return (
     <div  className='padding-horizontal w-full h-full flex justify-start'>
@@ -24,7 +26,7 @@ export default function Page() {
         </ul>
       </div>
 
-      <div className='svg-container'>
+      <div className='svg-container' ref={targetRef}>
         <svg className='svg'>
           <DomainModule geometry={geometry} fill={policyBlue.hexValue} text="policy"/>
 
@@ -32,10 +34,15 @@ export default function Page() {
           <PrimaryAdapter geometry={geometry} portName={'swPort'} fill={adapterRed.hexValue} text={"adapter"}/>
           <SecondaryAdapter geometry={geometry} portName={'nePort'} fill={adapterRed.hexValue} text={"adapter"}/>
           <SecondaryAdapter geometry={geometry} portName={'sePort'} fill={adapterRed.hexValue} text={"adapter"}/>
-          <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={2 * scale}
-                            height={1.5 * scale}/>
-          <text className={"text-base"} x={1000} y={200} stroke={deployableGreen.hexValue}
-                fill={deployableGreen.hexValue}>application
+          <DeployableModule geometry={geometry} stroke={deployableGreen.hexValue} width={0.5 * height}
+                            height={0.4 * height}/>
+          <text className={"text-base"}
+                x={width}
+                y={200}
+                textAnchor='end'
+                stroke={deployableGreen.hexValue}
+                fill={deployableGreen.hexValue}>
+            application
           </text>
         </svg>
       </div>

@@ -5,6 +5,8 @@ import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import useFrame from "@/app/lib/useFrame";
+import useDimensions from "@/app/lib/useDimensions";
+import {useRef} from "react";
 
 type Frame = {
   displayText: boolean,
@@ -53,8 +55,8 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
   const scale = height / 3;
   const policyAGeometry = systemGeometry(scale, 0.2 * width, 0.625 * height);
@@ -80,7 +82,7 @@ export default function Page() {
   `;
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
         <g>
           <g transform={`${transform(policyAGeometry, policyAGeometry.nePort)}`}>

@@ -8,12 +8,14 @@ import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 export default function Page() {
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const scale = height / 4;
+  const scale = 0.25 * height;
   const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
   const policyBGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
   const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
@@ -31,7 +33,7 @@ export default function Page() {
   `
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
         <DomainModule geometry={policyAGeometry} fill={policyBlue.hexValue} text="organizing games"/>
         <PrimaryAdapter geometry={policyAGeometry} portName={'nwPort'}/>

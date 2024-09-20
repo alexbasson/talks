@@ -3,9 +3,13 @@
 import {adapterRed, arrowPurple, deployableGreen, policyBlue, Rect} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/diagrams/Arrow";
 import ModuleRect from "@/app/lib/diagrams/ModuleRect";
+import useDimensions from "@/app/lib/useDimensions";
+import {useRef} from "react";
 
 export default function Page() {
-  const width = window.innerWidth - 40;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const dimensions = useDimensions(targetRef);
+  const width = dimensions.width - 40;
 
   const buffer = 15;
   const arrowWidth = 14;
@@ -65,7 +69,7 @@ export default function Page() {
   );
 
   return (
-    <div className='padding-horizontal svg-container pt-16'>
+    <div className='padding-horizontal svg-container pt-16' ref={targetRef}>
       <svg className='svg'>
         <ModuleRect rect={deployableRect} text={"deployable"} fill={deployableGreen.hexValue}/>
 

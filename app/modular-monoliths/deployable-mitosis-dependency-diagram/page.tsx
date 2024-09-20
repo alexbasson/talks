@@ -4,6 +4,8 @@ import {adapterRed, arrowPurple, deployableGreen, highlightYellow, policyBlue, R
 import ModuleRect from "@/app/lib/diagrams/ModuleRect";
 import Arrow from "@/app/lib/diagrams/Arrow";
 import useFrame from "@/app/lib/useFrame";
+import useDimensions from "@/app/lib/useDimensions";
+import {useRef} from "react";
 
 type Frame = {
   displaySingleDeployable: boolean
@@ -54,7 +56,9 @@ export default function Page() {
 
   const frame = useFrame<Frame>(frames);
 
-  const width = window.innerWidth - 40;
+  const targetRef = useRef<HTMLDivElement>(null);
+  const dimensions = useDimensions(targetRef);
+  const width = dimensions.width - 40;
 
   const buffer = 15;
   const arrowWidth = 14;
@@ -135,7 +139,7 @@ export default function Page() {
   );
 
   return (
-    <div className='padding-horizontal svg-container pt-16'>
+    <div className='padding-horizontal svg-container pt-16' ref={targetRef}>
       <svg className='svg'>
         { frame.displaySingleDeployable ?
         <g>

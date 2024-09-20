@@ -17,6 +17,8 @@ import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import useFrame from "@/app/lib/useFrame";
+import useDimensions from "@/app/lib/useDimensions";
+import {useRef} from "react";
 
 type Frame = {
   singleAdapterFill: string,
@@ -54,14 +56,13 @@ export default function Page() {
   ];
 
   const frame = useFrame<Frame>(frames);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const {width, height} = useDimensions(targetRef);
 
-  const height = window.innerHeight;
-  const width = window.innerWidth;
-
-  const scale = height / 4;
+  const scale = 0.25 * height;
   const policyAGeometry = systemGeometry(scale, 0.3 * width, 0.5 * height);
   const policyBGeometry = systemGeometry(scale, 0.7 * width, 0.5 * height);
-  const deployableGeometry = systemGeometry(scale, width/2, 0.5 * height);
+  const deployableGeometry = systemGeometry(scale, 0.5 * width, 0.5 * height);
 
   const transform = (geometry: Geometry, port: Port) =>  `
   translate(${port.center.x + port.adapterOffset.x + geometry.center.x}, ${port.center.y + port.adapterOffset.y + geometry.center.y}),
@@ -70,13 +71,13 @@ export default function Page() {
 
   const points = `
   ${policyAGeometry.center.x + scale}, ${policyAGeometry.center.y},
-  ${policyAGeometry.center.x + scale / 2}, ${policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale / 2}, ${policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale},
+  ${policyAGeometry.center.x + 0.5 * scale}, ${policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale},
+  ${policyBGeometry.center.x - 0.5 * scale}, ${policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale},
   ${policyBGeometry.center.x - scale}, ${policyBGeometry.center.y},
   `
 
   return (
-    <div className='svg-container'>
+    <div className='svg-container' ref={targetRef}>
       <svg className='svg'>
         {frame.displayClientAPIInteraction ?
           <line

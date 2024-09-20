@@ -3,9 +3,12 @@
 import {adapterRed, arrowPurple, deployableGreen, policyBlue, Rect} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/diagrams/Arrow";
 import ModuleRect from "@/app/lib/diagrams/ModuleRect";
+import {useRef} from "react";
+import useDimensions from "@/app/lib/useDimensions";
 
 export default function Page() {
-  const leftColumnWidth = 400;
+  const legendRef = useRef<HTMLDivElement>(null);
+  const {width} = useDimensions(legendRef);
 
   const buffer = 15;
   const arrowWidth = 15;
@@ -44,15 +47,15 @@ export default function Page() {
   );
 
   return (
-    <div className='padding-horizontal w-full grid' style={{gridTemplateColumns: `${leftColumnWidth}px 1fr`}}>
-      <div className='flex flex-col justify-between'>
+    <div className='padding-horizontal w-full flex justify-start'>
+      <div className='flex flex-col justify-end w-1/4'>
         <div className='mb-12'>
           <h1>module structure</h1>
         </div>
 
-        <div className='svg-container'>
+        <div className='svg-container' ref={legendRef}>
           <svg className='svg'>
-            <Arrow from={{x: 0, y: 30}} to={{x: leftColumnWidth * 0.8, y: 30}} width={15} />
+            <Arrow from={{x: 0, y: 30}} to={{x: width, y: 30}} width={15} />
             <text className={"text-base"} y={100} fill={arrowPurple.hexValue}>&ldquo;depends on&rdquo;</text>
             <text className={"text-base"} y={170} fill={arrowPurple.hexValue}>&ldquo;imports from&rdquo;</text>
           </svg>
