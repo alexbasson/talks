@@ -43,8 +43,8 @@ export default function Page() {
           </g>
 
           <g>
-            <text x={0} y={50} textAnchor="start" fill={deployableGreen.hexValue}>Deployable 1</text>
-            <text x={width} y={50} textAnchor="end" fill={deployableGreen.hexValue}>Deployable 2</text>
+            <text x={0} y={100} textAnchor="start" fill={deployableGreen.hexValue}>Deployable 1</text>
+            <text x={width} y={100} textAnchor="end" fill={deployableGreen.hexValue}>Deployable 2</text>
             <DeployableModule geometry={policyAGeometry} width={0.25 * width} height={0.4 * height} />
             <DeployableModule geometry={policyBGeometry} width={0.25 * width} height={0.4 * height} />
           </g>
