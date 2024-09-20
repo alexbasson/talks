@@ -112,6 +112,7 @@ export type ArrowProps = {
   to: Point,
   width: number,
   fill?: string,
+  opacity?: number,
 }
 
 export const policyBlue = {

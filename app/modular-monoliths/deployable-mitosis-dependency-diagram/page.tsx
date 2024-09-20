@@ -13,6 +13,8 @@ type Frame = {
   displaySeparateDeployables: boolean,
   deployable1DependencyColor: string,
   deployable2DependencyColor: string,
+  deployable1Opacity: number,
+  deployable2Opacity: number,
 }
 
 export default function Page() {
@@ -23,6 +25,8 @@ export default function Page() {
       displaySeparateDeployables: false,
       deployable1DependencyColor: arrowPurple.hexValue,
       deployable2DependencyColor: arrowPurple.hexValue,
+      deployable1Opacity: 1,
+      deployable2Opacity: 1,
     },
     {
       displaySingleDeployable: true,
@@ -30,6 +34,8 @@ export default function Page() {
       displaySeparateDeployables: false,
       deployable1DependencyColor: arrowPurple.hexValue,
       deployable2DependencyColor: arrowPurple.hexValue,
+      deployable1Opacity: 1,
+      deployable2Opacity: 1,
     },
     {
       displaySingleDeployable: true,
@@ -37,6 +43,8 @@ export default function Page() {
       displaySeparateDeployables: false,
       deployable1DependencyColor: highlightYellow.hexValue,
       deployable2DependencyColor: arrowPurple.hexValue,
+      deployable1Opacity: 0.5,
+      deployable2Opacity: 1,
     },
     {
       displaySingleDeployable: true,
@@ -44,6 +52,8 @@ export default function Page() {
       displaySeparateDeployables: false,
       deployable1DependencyColor: arrowPurple.hexValue,
       deployable2DependencyColor: highlightYellow.hexValue,
+      deployable1Opacity: 1,
+      deployable2Opacity: 0.5,
     },
     {
       displaySingleDeployable: false,
@@ -51,6 +61,8 @@ export default function Page() {
       displaySeparateDeployables: true,
       deployable1DependencyColor: arrowPurple.hexValue,
       deployable2DependencyColor: arrowPurple.hexValue,
+      deployable1Opacity: 1,
+      deployable2Opacity: 1,
     },
   ];
 
@@ -151,16 +163,17 @@ export default function Page() {
           <line
             x1={deployableRect1.leftEdgeCenter.x - buffer}
             y1={deployableRect1.leftEdgeTopAnchor.y}
-            x2={leftContextAdapter1Rect.topEdgeCenter.x - arrowWidth / 2}
+            x2={leftContextAdapter1Rect.topEdgeCenter.x - 0.5 * arrowWidth}
             y2={deployableRect1.leftEdgeTopAnchor.y}
             stroke={frame.deployable1DependencyColor}
             strokeWidth={arrowWidth}
+            strokeOpacity={frame.deployable1Opacity}
           />
 
           <Arrow
             from={{
               x: leftContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeTopAnchor.y,
+              y: deployableRect1.leftEdgeTopAnchor.y + 0.5 * arrowWidth,
             }}
             to={{
               x: leftContextAdapter1Rect.topEdgeCenter.x,
@@ -168,6 +181,7 @@ export default function Page() {
             }}
             width={arrowWidth}
             fill={frame.deployable1DependencyColor}
+            opacity={frame.deployable1Opacity}
           />
 
           {/* arrow from deployable to policy module rect */}
@@ -175,16 +189,17 @@ export default function Page() {
           <line
             x1={deployableRect1.leftEdgeCenter.x - buffer}
             y1={deployableRect1.leftEdgeCenter.y}
-            x2={leftContextPolicyRect.topEdgeCenter.x - arrowWidth / 2}
+            x2={leftContextPolicyRect.topEdgeCenter.x - 0.5 * arrowWidth}
             y2={deployableRect1.leftEdgeCenter.y}
             stroke={frame.deployable1DependencyColor}
             strokeWidth={arrowWidth}
+            strokeOpacity={frame.deployable1Opacity}
           />
 
           <Arrow
             from={{
               x: leftContextPolicyRect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeCenter.y,
+              y: deployableRect1.leftEdgeCenter.y + 0.5 * arrowWidth,
             }}
             to={{
               x: leftContextPolicyRect.topEdgeCenter.x,
@@ -192,6 +207,7 @@ export default function Page() {
             }}
             width={arrowWidth}
             fill={frame.deployable1DependencyColor}
+            opacity={frame.deployable1Opacity}
           />
 
           {/* arrow from deployable to left context adapter 2 module rect */}
@@ -199,16 +215,17 @@ export default function Page() {
           <line
             x1={deployableRect1.leftEdgeBottomAnchor.x - buffer}
             y1={deployableRect1.leftEdgeBottomAnchor.y}
-            x2={leftContextAdapter2Rect.topEdgeCenter.x - arrowWidth / 2}
+            x2={leftContextAdapter2Rect.topEdgeCenter.x - 0.5 * arrowWidth}
             y2={deployableRect1.leftEdgeBottomAnchor.y}
             stroke={frame.deployable1DependencyColor}
             strokeWidth={arrowWidth}
+            strokeOpacity={frame.deployable1Opacity}
           />
 
           <Arrow
             from={{
               x: leftContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeBottomAnchor.y,
+              y: deployableRect1.leftEdgeBottomAnchor.y + 0.5 * arrowWidth,
             }}
             to={{
               x: leftContextAdapter2Rect.topEdgeCenter.x,
@@ -216,6 +233,7 @@ export default function Page() {
             }}
             width={arrowWidth}
             fill={frame.deployable1DependencyColor}
+            opacity={frame.deployable1Opacity}
           />
 
           {/* arrow from deployable to right context adapter 1 */}
@@ -227,12 +245,13 @@ export default function Page() {
             y2={deployableRect1.rightEdgeTopAnchor.y}
             stroke={frame.deployable2DependencyColor}
             strokeWidth={arrowWidth}
+            opacity={frame.deployable2Opacity}
           />
 
           <Arrow
             from={{
               x: rightContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect1.rightEdgeTopAnchor.y,
+              y: deployableRect1.rightEdgeTopAnchor.y + 0.5 * arrowWidth,
             }}
             to={{
               x: rightContextAdapter1Rect.topEdgeCenter.x,
@@ -240,6 +259,7 @@ export default function Page() {
             }}
             width={arrowWidth}
             fill={frame.deployable2DependencyColor}
+            opacity={frame.deployable2Opacity}
           />
 
           {/* arrow from deployable to right policy module rect */}
@@ -251,12 +271,13 @@ export default function Page() {
             y2={deployableRect1.rightEdgeCenter.y}
             stroke={frame.deployable2DependencyColor}
             strokeWidth={arrowWidth}
+            strokeOpacity={frame.deployable2Opacity}
           />
 
           <Arrow
             from={{
               x: rightContextPolicyRect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeCenter.y,
+              y: deployableRect1.leftEdgeCenter.y + 0.5 * arrowWidth,
             }}
             to={{
               x: rightContextPolicyRect.topEdgeCenter.x,
@@ -264,6 +285,7 @@ export default function Page() {
             }}
             width={arrowWidth}
             fill={frame.deployable2DependencyColor}
+            opacity={frame.deployable2Opacity}
           />
 
           {/* arrow from deployable to right context adapter 2 module rect */}
@@ -275,12 +297,13 @@ export default function Page() {
             y2={deployableRect1.leftEdgeBottomAnchor.y}
             stroke={frame.deployable2DependencyColor}
             strokeWidth={arrowWidth}
+            strokeOpacity={frame.deployable2Opacity}
           />
 
           <Arrow
             from={{
               x: rightContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeBottomAnchor.y,
+              y: deployableRect1.leftEdgeBottomAnchor.y + 0.5 * arrowWidth,
             }}
             to={{
               x: rightContextAdapter2Rect.topEdgeCenter.x,
@@ -288,6 +311,7 @@ export default function Page() {
             }}
             width={arrowWidth}
             fill={frame.deployable2DependencyColor}
+            opacity={frame.deployable2Opacity}
           />
         </g>
           :<></>}
@@ -435,7 +459,7 @@ export default function Page() {
           y1={leftContextAdapter1Rect.bottomEdgeCenter.y + buffer}
           x2={leftContextAdapter1Rect.bottomEdgeCenter.x}
           y2={leftContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={frame.deployable1DependencyColor}
+          stroke={arrowPurple.hexValue}
           strokeWidth={arrowWidth}
         />
 
@@ -449,7 +473,7 @@ export default function Page() {
             y: leftContextPolicyRect.leftEdgeCenter.y,
           }}
           width={arrowWidth}
-          fill={frame.deployable1DependencyColor}
+          fill={arrowPurple.hexValue}
         />
 
         {/* arrow from left context adapter 1 module rect to left context policy rect */}
@@ -459,7 +483,7 @@ export default function Page() {
           y1={leftContextAdapter2Rect.bottomEdgeCenter.y + buffer}
           x2={leftContextAdapter2Rect.bottomEdgeCenter.x}
           y2={leftContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={frame.deployable1DependencyColor}
+          stroke={arrowPurple.hexValue}
           strokeWidth={arrowWidth}
         />
 
@@ -473,7 +497,7 @@ export default function Page() {
             y: leftContextPolicyRect.rightEdgeCenter.y
           }}
           width={arrowWidth}
-          fill={frame.deployable1DependencyColor}
+          fill={arrowPurple.hexValue}
         />
 
         {/* RIGHT CONTEXT */}
@@ -489,7 +513,7 @@ export default function Page() {
           y1={rightContextAdapter1Rect.bottomEdgeCenter.y + buffer}
           x2={rightContextAdapter1Rect.bottomEdgeCenter.x}
           y2={rightContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={frame.deployable2DependencyColor}
+          stroke={arrowPurple.hexValue}
           strokeWidth={arrowWidth}
         />
 
@@ -503,7 +527,7 @@ export default function Page() {
             y: rightContextPolicyRect.rightEdgeCenter.y,
           }}
           width={arrowWidth}
-          fill={frame.deployable2DependencyColor}
+          fill={arrowPurple.hexValue}
         />
 
         {/* arrow from right context adapter 2 module rect to right context policy rect */}
@@ -513,7 +537,7 @@ export default function Page() {
           y1={rightContextAdapter2Rect.bottomEdgeCenter.y + buffer}
           x2={rightContextAdapter2Rect.bottomEdgeCenter.x}
           y2={rightContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={frame.deployable2DependencyColor}
+          stroke={arrowPurple.hexValue}
           strokeWidth={arrowWidth}
         />
 
@@ -527,7 +551,7 @@ export default function Page() {
             y: rightContextPolicyRect.leftEdgeCenter.y
           }}
           width={arrowWidth}
-          fill={frame.deployable2DependencyColor}
+          fill={arrowPurple.hexValue}
         />
       </svg>
     </div>
