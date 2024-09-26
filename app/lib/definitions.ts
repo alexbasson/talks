@@ -56,6 +56,30 @@ export class Rect {
   };
 }
 
+export class Vector {
+  constructor(private from: Point, private to: Point) {
+  }
+
+  public get x(): number {
+    return this.to.x - this.from.x;
+  }
+
+  public get y(): number {
+    return this.to.y - this.from.y;
+  }
+
+  public get isVertical(): boolean {
+    return this.x === 0
+  }
+
+  public get direction(): number {
+    const vectorOrientation = this.isVertical ? 0 : (this.x)/Math.abs(this.x)
+    return this.isVertical
+      ? (Math.PI / 2)
+      : (Math.atan((this.y)/(this.x)) + ((1 - vectorOrientation)/2) * Math.PI)
+  }
+}
+
 export type Translation = {
   x: number;
   y: number;
@@ -113,6 +137,7 @@ export type ArrowProps = {
   width: number,
   fill?: string,
   opacity?: number,
+  dashArray?: number,
 }
 
 export const policyBlue = {

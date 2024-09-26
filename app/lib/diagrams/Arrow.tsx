@@ -1,25 +1,27 @@
 import {ArrowProps, arrowPurple} from "@/app/lib/definitions";
+import {arrowPoints} from "@/app/lib/diagrams/arrowPoints";
 
-export default function Arrow({from, to, width, fill = arrowPurple.hexValue, opacity = 1}: ArrowProps) {
+export default function Arrow({from, to, width, fill = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
 
-  const square = (n: number) => n * n;
+  const {line, arrowhead} = arrowPoints({from: from, to: to, width: width})
 
-  const length = Math.sqrt(square(to.x - from.x) + square(to.y - from.y));
-  const angle = Math.atan(-(to.x - from.x)/(to.y - from.y)) * (180 / Math.PI) + 180;
-
-  const arrowPoints = `
-    0, 0
-    ${width}, 40
-    ${width / 2}, 40
-    ${width / 2}, ${length}
-    -${width / 2}, ${length}
-    -${width / 2}, 40
-    -${width}, 40
-    `;
+  const arrowheadPoints = `
+  ${arrowhead[0].x} ${arrowhead[0].y}
+  ${arrowhead[1].x} ${arrowhead[1].y}
+  ${arrowhead[2].x} ${arrowhead[2].y}
+  `;
 
   return (
-    <g transform={`rotate(${angle}, ${to.x}, ${to.y}), translate(${to.x}, ${to.y})`}>
-      <polygon id="arrow" points={arrowPoints} fill={fill} fillOpacity={opacity} />
+    <g>
+      <line
+        x1={line.from.x} y1={line.from.y}
+        x2={line.to.x} y2={line.to.y}
+        strokeWidth={width}
+        stroke={fill}
+        strokeOpacity={opacity}
+        strokeDasharray={dashArray}
+      />
+      <polygon points={arrowheadPoints} fill={fill} fillOpacity={opacity} />
     </g>
   )
 }
