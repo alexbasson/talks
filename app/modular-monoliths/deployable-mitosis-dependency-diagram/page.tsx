@@ -11,10 +11,10 @@ type Frame = {
   displaySingleDeployable: boolean
   displayDuplicateDeployable: boolean,
   displaySeparateDeployables: boolean,
-  deployable1DependencyColor: string,
-  deployable2DependencyColor: string,
   deployable1Opacity: number,
+  deployable1DashArray: number,
   deployable2Opacity: number,
+  deployable2DashArray: number,
 }
 
 export default function Page() {
@@ -23,46 +23,46 @@ export default function Page() {
       displaySingleDeployable: true,
       displayDuplicateDeployable: false,
       displaySeparateDeployables: false,
-      deployable1DependencyColor: arrowPurple.hexValue,
-      deployable2DependencyColor: arrowPurple.hexValue,
       deployable1Opacity: 1,
+      deployable1DashArray: 0,
       deployable2Opacity: 1,
+      deployable2DashArray: 0,
     },
     {
       displaySingleDeployable: true,
       displayDuplicateDeployable: true,
       displaySeparateDeployables: false,
-      deployable1DependencyColor: arrowPurple.hexValue,
-      deployable2DependencyColor: arrowPurple.hexValue,
       deployable1Opacity: 1,
+      deployable1DashArray: 0,
       deployable2Opacity: 1,
+      deployable2DashArray: 0,
     },
     {
       displaySingleDeployable: true,
       displayDuplicateDeployable: true,
       displaySeparateDeployables: false,
-      deployable1DependencyColor: highlightYellow.hexValue,
-      deployable2DependencyColor: arrowPurple.hexValue,
       deployable1Opacity: 0.5,
+      deployable1DashArray: 20,
       deployable2Opacity: 1,
+      deployable2DashArray: 0,
     },
     {
       displaySingleDeployable: true,
       displayDuplicateDeployable: true,
       displaySeparateDeployables: false,
-      deployable1DependencyColor: arrowPurple.hexValue,
-      deployable2DependencyColor: highlightYellow.hexValue,
       deployable1Opacity: 1,
+      deployable1DashArray: 0,
       deployable2Opacity: 0.5,
+      deployable2DashArray: 20,
     },
     {
       displaySingleDeployable: false,
       displayDuplicateDeployable: false,
       displaySeparateDeployables: true,
-      deployable1DependencyColor: arrowPurple.hexValue,
-      deployable2DependencyColor: arrowPurple.hexValue,
       deployable1Opacity: 1,
+      deployable1DashArray: 0,
       deployable2Opacity: 1,
+      deployable2DashArray: 0,
     },
   ];
 
@@ -80,75 +80,17 @@ export default function Page() {
     height: 150,
   }
 
-  const deployableRect1 = new Rect(
-    (width - rect.width) / 2,
-    20,
-    rect.width,
-    rect.height
-  );
+  const deployableRect1 = new Rect((width - rect.width) / 2, 20, rect.width, rect.height);
+  const deployableRect1After = new Rect(0.25 * width - rect.width/2, 20, rect.width, rect.height);
+  const leftContextAdapter1Rect = new Rect(0, rect.height * 2, rect.width, rect.height);
+  const leftContextAdapter2Rect = new Rect((width/2 - 40) - rect.width, rect.height * 2, rect.width, rect.height);
+  const leftContextPolicyRect = new Rect(deployableRect1After.x, rect.height * 4, rect.width, rect.height);
 
-  const deployableRect2 = new Rect(
-    (width - rect.width) / 2 - 20,
-    0,
-    rect.width,
-    rect.height
-  );
-
-  const deployableRect1After = new Rect(
-    0.15 * width,
-    20,
-    rect.width,
-    rect.height
-  );
-
-  const deployableRect2After = new Rect(
-    0.72 * width,
-    20,
-    rect.width,
-    rect.height
-  );
-
-  const leftContextAdapter1Rect = new Rect(
-    0,
-    rect.height * 2,
-    rect.width,
-    rect.height
-  );
-
-  const leftContextAdapter2Rect = new Rect(
-    rect.width * 2,
-    rect.height * 2,
-    rect.width,
-    rect.height
-  );
-
-  const leftContextPolicyRect = new Rect(
-    0.15 * width,
-    rect.height * 4,
-    rect.width,
-    rect.height
-  );
-
-  const rightContextAdapter1Rect = new Rect(
-    width - rect.width,
-    rect.height * 2,
-    rect.width,
-    rect.height
-  );
-
-  const rightContextAdapter2Rect = new Rect(
-    width - rect.width * 3,
-    rect.height * 2,
-    rect.width,
-    rect.height
-  );
-
-  const rightContextPolicyRect = new Rect(
-    0.72 * width,
-    rect.height * 4,
-    rect.width,
-    rect.height
-  );
+  const deployableRect2 = new Rect(deployableRect1.x - 20, 0, rect.width, rect.height);
+  const deployableRect2After = new Rect(0.75 * width - rect.width/2, 20, rect.width, rect.height);
+  const rightContextAdapter1Rect = new Rect((width/2 + 40), rect.height * 2, rect.width, rect.height);
+  const rightContextAdapter2Rect = new Rect(width - rect.width, rect.height * 2, rect.width, rect.height);
+  const rightContextPolicyRect = new Rect(deployableRect2After.x, rect.height * 4, rect.width, rect.height);
 
   return (
     <div className='padding-horizontal svg-container pt-16' ref={targetRef}>
@@ -165,9 +107,10 @@ export default function Page() {
             y1={deployableRect1.leftEdgeTopAnchor.y}
             x2={leftContextAdapter1Rect.topEdgeCenter.x - 0.5 * arrowWidth}
             y2={deployableRect1.leftEdgeTopAnchor.y}
-            stroke={frame.deployable1DependencyColor}
+            stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
             strokeOpacity={frame.deployable1Opacity}
+            strokeDasharray={frame.deployable1DashArray}
           />
 
           <Arrow
@@ -180,8 +123,8 @@ export default function Page() {
               y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
             }}
             width={arrowWidth}
-            fill={frame.deployable1DependencyColor}
             opacity={frame.deployable1Opacity}
+            dashArray={frame.deployable1DashArray}
           />
 
           {/* arrow from deployable to policy module rect */}
@@ -191,9 +134,10 @@ export default function Page() {
             y1={deployableRect1.leftEdgeCenter.y}
             x2={leftContextPolicyRect.topEdgeCenter.x - 0.5 * arrowWidth}
             y2={deployableRect1.leftEdgeCenter.y}
-            stroke={frame.deployable1DependencyColor}
+            stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
             strokeOpacity={frame.deployable1Opacity}
+            strokeDasharray={frame.deployable1DashArray}
           />
 
           <Arrow
@@ -206,8 +150,8 @@ export default function Page() {
               y: leftContextPolicyRect.topEdgeCenter.y - buffer,
             }}
             width={arrowWidth}
-            fill={frame.deployable1DependencyColor}
             opacity={frame.deployable1Opacity}
+            dashArray={frame.deployable1DashArray}
           />
 
           {/* arrow from deployable to left context adapter 2 module rect */}
@@ -217,9 +161,10 @@ export default function Page() {
             y1={deployableRect1.leftEdgeBottomAnchor.y}
             x2={leftContextAdapter2Rect.topEdgeCenter.x - 0.5 * arrowWidth}
             y2={deployableRect1.leftEdgeBottomAnchor.y}
-            stroke={frame.deployable1DependencyColor}
+            stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
             strokeOpacity={frame.deployable1Opacity}
+            strokeDasharray={frame.deployable1DashArray}
           />
 
           <Arrow
@@ -232,34 +177,35 @@ export default function Page() {
               y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
             }}
             width={arrowWidth}
-            fill={frame.deployable1DependencyColor}
             opacity={frame.deployable1Opacity}
+            dashArray={frame.deployable1DashArray}
           />
 
           {/* arrow from deployable to right context adapter 1 */}
 
           <line
             x1={deployableRect1.rightEdgeCenter.x + buffer}
-            y1={deployableRect1.rightEdgeTopAnchor.y}
+            y1={deployableRect1.rightEdgeBottomAnchor.y}
             x2={rightContextAdapter1Rect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect1.rightEdgeTopAnchor.y}
-            stroke={frame.deployable2DependencyColor}
+            y2={deployableRect1.rightEdgeBottomAnchor.y}
+            stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
-            opacity={frame.deployable2Opacity}
+            strokeOpacity={frame.deployable2Opacity}
+            strokeDasharray={frame.deployable2DashArray}
           />
 
           <Arrow
             from={{
               x: rightContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect1.rightEdgeTopAnchor.y + 0.5 * arrowWidth,
+              y: deployableRect1.rightEdgeBottomAnchor.y + 0.5 * arrowWidth,
             }}
             to={{
               x: rightContextAdapter1Rect.topEdgeCenter.x,
               y: rightContextAdapter1Rect.topEdgeCenter.y - buffer,
             }}
             width={arrowWidth}
-            fill={frame.deployable2DependencyColor}
             opacity={frame.deployable2Opacity}
+            dashArray={frame.deployable2DashArray}
           />
 
           {/* arrow from deployable to right policy module rect */}
@@ -269,9 +215,10 @@ export default function Page() {
             y1={deployableRect1.rightEdgeCenter.y}
             x2={rightContextPolicyRect.topEdgeCenter.x + arrowWidth / 2}
             y2={deployableRect1.rightEdgeCenter.y}
-            stroke={frame.deployable2DependencyColor}
+            stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
             strokeOpacity={frame.deployable2Opacity}
+            strokeDasharray={frame.deployable2DashArray}
           />
 
           <Arrow
@@ -284,34 +231,35 @@ export default function Page() {
               y: rightContextPolicyRect.topEdgeCenter.y - buffer,
             }}
             width={arrowWidth}
-            fill={frame.deployable2DependencyColor}
             opacity={frame.deployable2Opacity}
+            dashArray={frame.deployable2DashArray}
           />
 
           {/* arrow from deployable to right context adapter 2 module rect */}
 
           <line
-            x1={deployableRect1.rightEdgeBottomAnchor.x + buffer}
-            y1={deployableRect1.rightEdgeBottomAnchor.y}
+            x1={deployableRect1.rightEdgeTopAnchor.x + buffer}
+            y1={deployableRect1.rightEdgeTopAnchor.y}
             x2={rightContextAdapter2Rect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect1.leftEdgeBottomAnchor.y}
-            stroke={frame.deployable2DependencyColor}
+            y2={deployableRect1.rightEdgeTopAnchor.y}
+            stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
             strokeOpacity={frame.deployable2Opacity}
+            strokeDasharray={frame.deployable2DashArray}
           />
 
           <Arrow
             from={{
               x: rightContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeBottomAnchor.y + 0.5 * arrowWidth,
+              y: deployableRect1.rightEdgeTopAnchor.y + 0.5 * arrowWidth,
             }}
             to={{
               x: rightContextAdapter2Rect.topEdgeCenter.x,
               y: rightContextAdapter2Rect.topEdgeCenter.y - buffer
             }}
             width={arrowWidth}
-            fill={frame.deployable2DependencyColor}
             opacity={frame.deployable2Opacity}
+            dashArray={frame.deployable2DashArray}
           />
         </g>
           :<></>}
@@ -387,9 +335,9 @@ export default function Page() {
           {/* arrow from deployable 2 to right context adapter 1 */}
 
           <line
-            x1={deployableRect2After.rightEdgeCenter.x + buffer}
-            y1={deployableRect2After.rightEdgeCenter.y}
-            x2={rightContextAdapter1Rect.topEdgeCenter.x + arrowWidth / 2}
+            x1={deployableRect2After.leftEdgeCenter.x - buffer}
+            y1={deployableRect2After.leftEdgeCenter.y}
+            x2={rightContextAdapter1Rect.topEdgeCenter.x - arrowWidth / 2}
             y2={deployableRect2After.rightEdgeCenter.y}
             stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
@@ -424,9 +372,9 @@ export default function Page() {
           {/* arrow from deployable 2 to right context adapter 2 module rect */}
 
           <line
-            x1={deployableRect2After.leftEdgeCenter.x - buffer}
-            y1={deployableRect2After.leftEdgeCenter.y}
-            x2={rightContextAdapter2Rect.topEdgeCenter.x - arrowWidth / 2}
+            x1={deployableRect2After.rightEdgeCenter.x + buffer}
+            y1={deployableRect2After.rightEdgeCenter.y}
+            x2={rightContextAdapter2Rect.topEdgeCenter.x + arrowWidth / 2}
             y2={deployableRect2After.leftEdgeCenter.y}
             stroke={arrowPurple.hexValue}
             strokeWidth={arrowWidth}
@@ -523,8 +471,8 @@ export default function Page() {
             y: rightContextPolicyRect.leftEdgeCenter.y,
           }}
           to={{
-            x: rightContextPolicyRect.rightEdgeCenter.x + buffer,
-            y: rightContextPolicyRect.rightEdgeCenter.y,
+            x: rightContextPolicyRect.leftEdgeCenter.x - buffer,
+            y: rightContextPolicyRect.leftEdgeCenter.y,
           }}
           width={arrowWidth}
           fill={arrowPurple.hexValue}
@@ -547,8 +495,8 @@ export default function Page() {
             y: rightContextPolicyRect.rightEdgeCenter.y,
           }}
           to={{
-            x: rightContextPolicyRect.leftEdgeCenter.x - buffer,
-            y: rightContextPolicyRect.leftEdgeCenter.y
+            x: rightContextPolicyRect.rightEdgeCenter.x + buffer,
+            y: rightContextPolicyRect.rightEdgeCenter.y
           }}
           width={arrowWidth}
           fill={arrowPurple.hexValue}
