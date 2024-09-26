@@ -290,7 +290,6 @@ export default function Page() {
               y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
             }}
             width={arrowWidth}
-            fill={arrowPurple.hexValue}
           />
 
           {/* arrow from deployable 1 to policy module rect */}
@@ -305,7 +304,6 @@ export default function Page() {
               y: leftContextPolicyRect.topEdgeCenter.y - buffer,
             }}
             width={arrowWidth}
-            fill={arrowPurple.hexValue}
           />
 
           {/* arrow from deployable 1 to left context adapter 2 module rect */}
@@ -329,7 +327,6 @@ export default function Page() {
               y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
             }}
             width={arrowWidth}
-            fill={arrowPurple.hexValue}
           />
 
           {/* arrow from deployable 2 to right context adapter 1 */}
@@ -421,7 +418,6 @@ export default function Page() {
             y: leftContextPolicyRect.leftEdgeCenter.y,
           }}
           width={arrowWidth}
-          fill={arrowPurple.hexValue}
         />
 
         {/* arrow from left context adapter 1 module rect to left context policy rect */}
@@ -445,7 +441,6 @@ export default function Page() {
             y: leftContextPolicyRect.rightEdgeCenter.y
           }}
           width={arrowWidth}
-          fill={arrowPurple.hexValue}
         />
 
         {/* RIGHT CONTEXT */}
@@ -475,7 +470,6 @@ export default function Page() {
             y: rightContextPolicyRect.leftEdgeCenter.y,
           }}
           width={arrowWidth}
-          fill={arrowPurple.hexValue}
         />
 
         {/* arrow from right context adapter 2 module rect to right context policy rect */}
@@ -499,7 +493,6 @@ export default function Page() {
             y: rightContextPolicyRect.rightEdgeCenter.y
           }}
           width={arrowWidth}
-          fill={arrowPurple.hexValue}
         />
       </svg>
     </div>

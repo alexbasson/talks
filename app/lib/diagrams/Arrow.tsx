@@ -1,7 +1,7 @@
 import {ArrowProps, arrowPurple} from "@/app/lib/definitions";
 import {arrowPoints} from "@/app/lib/diagrams/arrowPoints";
 
-export default function Arrow({from, to, width, fill = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
+export default function Arrow({from, to, width, color = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
 
   const {line, arrowhead} = arrowPoints({from: from, to: to, width: width})
 
@@ -17,11 +17,11 @@ export default function Arrow({from, to, width, fill = arrowPurple.hexValue, opa
         x1={line.from.x} y1={line.from.y}
         x2={line.to.x} y2={line.to.y}
         strokeWidth={width}
-        stroke={fill}
+        stroke={color}
         strokeOpacity={opacity}
         strokeDasharray={dashArray}
       />
-      <polygon points={arrowheadPoints} fill={fill} fillOpacity={opacity} />
+      <polygon points={arrowheadPoints} fill={color} fillOpacity={opacity} />
     </g>
   )
 }

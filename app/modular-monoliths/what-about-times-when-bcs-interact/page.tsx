@@ -149,7 +149,7 @@ export default function Page() {
                 from={{x: 540, y: 80}}
                 to={{x: 400, y: 300}}
                 width={8}
-                fill={highlightYellow.hexValue}
+                color={highlightYellow.hexValue}
               />
             </g>
               : <></> }
