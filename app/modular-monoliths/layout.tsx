@@ -3,8 +3,7 @@
 import Link from "next/link";
 import {useRouter} from 'next/navigation';
 import {useNextHref} from '@/app/lib/slides/slides';
-import {enterFullscreen, exitFullscreen} from "@/app/lib/fullscreen";
-import {useEffect, useState, KeyboardEvent, ReactNode} from "react";
+import {KeyboardEvent, ReactNode, useEffect, useState} from "react";
 
 export default function Layout({children}: { children: ReactNode }) {
   const router = useRouter();
@@ -21,6 +20,17 @@ export default function Layout({children}: { children: ReactNode }) {
     document.addEventListener('fullscreenchange', exitHandler, false);
   }, [])
 
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+        .then(() => setDisplayPresentButton(true))
+    } else {
+      setDisplayPresentButton(false)
+      document.documentElement.requestFullscreen({navigationUI: 'hide'})
+        .catch((err: TypeError) => console.error(err))
+    }
+  }
+
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "ArrowRight" || event.key === " ") {
       router.push(nextHref);
@@ -29,16 +39,9 @@ export default function Layout({children}: { children: ReactNode }) {
     if (event.key === "ArrowLeft") {
       router.back();
     }
-  }
 
-  const handleFullscreen = () => {
-    if (document.fullscreenElement) {
-      exitFullscreen()
-        .then(() => setDisplayPresentButton(true))
-    } else {
-      setDisplayPresentButton(false)
-      enterFullscreen(document.documentElement)
-        .catch((err: TypeError) => console.error(err))
+    if (event.key === "Enter") {
+      toggleFullscreen()
     }
   }
 
@@ -50,7 +53,7 @@ export default function Layout({children}: { children: ReactNode }) {
     >
       {displayPresentButton ?
         <button
-          onClick={handleFullscreen}
+          onClick={toggleFullscreen}
           className='absolute top-0 right-0 bg-blue-500 text-white text-sm px-4 py-2 rounded'>
           Present
         </button>
