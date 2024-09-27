@@ -128,8 +128,9 @@ export type DeployableModuleProps = {
 }
 
 export type ArrowProps = {
-  from: Point,
-  to: Point,
+  points?: Point[],
+  from?: Point,
+  to?: Point,
   width: number,
   color?: string,
   opacity?: number,

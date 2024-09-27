@@ -102,26 +102,21 @@ export default function Page() {
 
           {/* arrow from deployable to left context adapter 1 */}
 
-          <line
-            x1={deployableRect1.leftEdgeCenter.x - buffer}
-            y1={deployableRect1.leftEdgeTopAnchor.y}
-            x2={leftContextAdapter1Rect.topEdgeCenter.x - 0.5 * arrowWidth}
-            y2={deployableRect1.leftEdgeTopAnchor.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-            strokeOpacity={frame.deployable1Opacity}
-            strokeDasharray={frame.deployable1DashArray}
-          />
-
           <Arrow
-            from={{
-              x: leftContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeTopAnchor.y + 0.5 * arrowWidth,
-            }}
-            to={{
-              x: leftContextAdapter1Rect.topEdgeCenter.x,
-              y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: deployableRect1.leftEdgeCenter.x - buffer,
+                y: deployableRect1.leftEdgeTopAnchor.y
+              },
+              {
+                x: leftContextAdapter1Rect.topEdgeCenter.x,
+                y: deployableRect1.leftEdgeTopAnchor.y,
+              },
+              {
+                x: leftContextAdapter1Rect.topEdgeCenter.x,
+                y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
             opacity={frame.deployable1Opacity}
             dashArray={frame.deployable1DashArray}
@@ -129,26 +124,21 @@ export default function Page() {
 
           {/* arrow from deployable to policy module rect */}
 
-          <line
-            x1={deployableRect1.leftEdgeCenter.x - buffer}
-            y1={deployableRect1.leftEdgeCenter.y}
-            x2={leftContextPolicyRect.topEdgeCenter.x - 0.5 * arrowWidth}
-            y2={deployableRect1.leftEdgeCenter.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-            strokeOpacity={frame.deployable1Opacity}
-            strokeDasharray={frame.deployable1DashArray}
-          />
-
           <Arrow
-            from={{
-              x: leftContextPolicyRect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeCenter.y + 0.5 * arrowWidth,
-            }}
-            to={{
-              x: leftContextPolicyRect.topEdgeCenter.x,
-              y: leftContextPolicyRect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: deployableRect1.leftEdgeCenter.x - buffer,
+                y: deployableRect1.leftEdgeCenter.y
+              },
+              {
+                x: leftContextPolicyRect.topEdgeCenter.x,
+                y: deployableRect1.leftEdgeCenter.y,
+              },
+              {
+                x: leftContextPolicyRect.topEdgeCenter.x,
+                y: leftContextPolicyRect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
             opacity={frame.deployable1Opacity}
             dashArray={frame.deployable1DashArray}
@@ -156,26 +146,21 @@ export default function Page() {
 
           {/* arrow from deployable to left context adapter 2 module rect */}
 
-          <line
-            x1={deployableRect1.leftEdgeBottomAnchor.x - buffer}
-            y1={deployableRect1.leftEdgeBottomAnchor.y}
-            x2={leftContextAdapter2Rect.topEdgeCenter.x - 0.5 * arrowWidth}
-            y2={deployableRect1.leftEdgeBottomAnchor.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-            strokeOpacity={frame.deployable1Opacity}
-            strokeDasharray={frame.deployable1DashArray}
-          />
-
           <Arrow
-            from={{
-              x: leftContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeBottomAnchor.y + 0.5 * arrowWidth,
-            }}
-            to={{
-              x: leftContextAdapter2Rect.topEdgeCenter.x,
-              y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
-            }}
+            points={[
+              {
+                x: deployableRect1.leftEdgeBottomAnchor.x - buffer,
+                y: deployableRect1.leftEdgeBottomAnchor.y
+              },
+              {
+                x: leftContextAdapter2Rect.topEdgeCenter.x,
+                y: deployableRect1.leftEdgeBottomAnchor.y,
+              },
+              {
+                x: leftContextAdapter2Rect.topEdgeCenter.x,
+                y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
             opacity={frame.deployable1Opacity}
             dashArray={frame.deployable1DashArray}
@@ -183,26 +168,21 @@ export default function Page() {
 
           {/* arrow from deployable to right context adapter 1 */}
 
-          <line
-            x1={deployableRect1.rightEdgeCenter.x + buffer}
-            y1={deployableRect1.rightEdgeBottomAnchor.y}
-            x2={rightContextAdapter1Rect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect1.rightEdgeBottomAnchor.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-            strokeOpacity={frame.deployable2Opacity}
-            strokeDasharray={frame.deployable2DashArray}
-          />
-
           <Arrow
-            from={{
-              x: rightContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect1.rightEdgeBottomAnchor.y + 0.5 * arrowWidth,
-            }}
-            to={{
-              x: rightContextAdapter1Rect.topEdgeCenter.x,
-              y: rightContextAdapter1Rect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: deployableRect1.rightEdgeCenter.x + buffer,
+                y: deployableRect1.rightEdgeBottomAnchor.y
+              },
+              {
+                x: rightContextAdapter1Rect.topEdgeCenter.x,
+                y: deployableRect1.rightEdgeBottomAnchor.y,
+              },
+              {
+                x: rightContextAdapter1Rect.topEdgeCenter.x,
+                y: rightContextAdapter1Rect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
             opacity={frame.deployable2Opacity}
             dashArray={frame.deployable2DashArray}
@@ -210,26 +190,21 @@ export default function Page() {
 
           {/* arrow from deployable to right policy module rect */}
 
-          <line
-            x1={deployableRect1.rightEdgeCenter.x + buffer}
-            y1={deployableRect1.rightEdgeCenter.y}
-            x2={rightContextPolicyRect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect1.rightEdgeCenter.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-            strokeOpacity={frame.deployable2Opacity}
-            strokeDasharray={frame.deployable2DashArray}
-          />
-
           <Arrow
-            from={{
-              x: rightContextPolicyRect.topEdgeCenter.x,
-              y: deployableRect1.leftEdgeCenter.y + 0.5 * arrowWidth,
-            }}
-            to={{
-              x: rightContextPolicyRect.topEdgeCenter.x,
-              y: rightContextPolicyRect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: deployableRect1.rightEdgeCenter.x + buffer,
+                y: deployableRect1.rightEdgeCenter.y
+              },
+              {
+                x: rightContextPolicyRect.topEdgeCenter.x,
+                y: deployableRect1.leftEdgeCenter.y,
+              },
+              {
+                x: rightContextPolicyRect.topEdgeCenter.x,
+                y: rightContextPolicyRect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
             opacity={frame.deployable2Opacity}
             dashArray={frame.deployable2DashArray}
@@ -237,26 +212,21 @@ export default function Page() {
 
           {/* arrow from deployable to right context adapter 2 module rect */}
 
-          <line
-            x1={deployableRect1.rightEdgeTopAnchor.x + buffer}
-            y1={deployableRect1.rightEdgeTopAnchor.y}
-            x2={rightContextAdapter2Rect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect1.rightEdgeTopAnchor.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-            strokeOpacity={frame.deployable2Opacity}
-            strokeDasharray={frame.deployable2DashArray}
-          />
-
           <Arrow
-            from={{
-              x: rightContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect1.rightEdgeTopAnchor.y + 0.5 * arrowWidth,
-            }}
-            to={{
-              x: rightContextAdapter2Rect.topEdgeCenter.x,
-              y: rightContextAdapter2Rect.topEdgeCenter.y - buffer
-            }}
+            points={[
+              {
+                x: deployableRect1.rightEdgeTopAnchor.x + buffer,
+                y: deployableRect1.rightEdgeTopAnchor.y
+              },
+              {
+                x: rightContextAdapter2Rect.topEdgeCenter.x,
+                y: deployableRect1.rightEdgeTopAnchor.y,
+              },
+              {
+                x: rightContextAdapter2Rect.topEdgeCenter.x,
+                y: rightContextAdapter2Rect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
             opacity={frame.deployable2Opacity}
             dashArray={frame.deployable2DashArray}
@@ -271,121 +241,113 @@ export default function Page() {
 
           {/* arrow from deployable 1 to left context adapter 1 */}
 
-          <line
-            x1={deployableRect1After.leftEdgeCenter.x - buffer}
-            y1={deployableRect1After.leftEdgeCenter.y}
-            x2={leftContextAdapter1Rect.topEdgeCenter.x - arrowWidth / 2}
-            y2={deployableRect1After.leftEdgeCenter.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-          />
-
           <Arrow
-            from={{
-              x: leftContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect1After.leftEdgeCenter.y,
-            }}
-            to={{
-              x: leftContextAdapter1Rect.topEdgeCenter.x,
-              y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: deployableRect1After.leftEdgeCenter.x - buffer,
+                y: deployableRect1After.leftEdgeCenter.y
+              },
+              {
+                x: leftContextAdapter1Rect.topEdgeCenter.x,
+                y: deployableRect1After.leftEdgeCenter.y,
+              },
+              {
+                x: leftContextAdapter1Rect.topEdgeCenter.x,
+                y: leftContextAdapter1Rect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
           />
 
           {/* arrow from deployable 1 to policy module rect */}
 
           <Arrow
-            from={{
-              x: leftContextPolicyRect.bottomEdgeCenter.x,
-              y: deployableRect1After.bottomEdgeCenter.y + buffer,
-            }}
-            to={{
-              x: leftContextPolicyRect.topEdgeCenter.x,
-              y: leftContextPolicyRect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: leftContextPolicyRect.bottomEdgeCenter.x,
+                y: deployableRect1After.bottomEdgeCenter.y + buffer,
+              },
+              {
+                x: leftContextPolicyRect.topEdgeCenter.x,
+                y: leftContextPolicyRect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
           />
 
           {/* arrow from deployable 1 to left context adapter 2 module rect */}
 
-          <line
-            x1={deployableRect1After.rightEdgeCenter.x + buffer}
-            y1={deployableRect1After.rightEdgeCenter.y}
-            x2={leftContextAdapter2Rect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect1After.rightEdgeCenter.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-          />
-
           <Arrow
-            from={{
-              x: leftContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect1After.rightEdgeCenter.y,
-            }}
-            to={{
-              x: leftContextAdapter2Rect.topEdgeCenter.x,
-              y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
-            }}
+            points={[
+              {
+                x: deployableRect1After.rightEdgeCenter.x + buffer,
+                y: deployableRect1After.rightEdgeCenter.y
+              },
+              {
+                x: leftContextAdapter2Rect.topEdgeCenter.x,
+                y: deployableRect1After.rightEdgeCenter.y,
+              },
+              {
+                x: leftContextAdapter2Rect.topEdgeCenter.x,
+                y: leftContextAdapter2Rect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
           />
 
           {/* arrow from deployable 2 to right context adapter 1 */}
 
-          <line
-            x1={deployableRect2After.leftEdgeCenter.x - buffer}
-            y1={deployableRect2After.leftEdgeCenter.y}
-            x2={rightContextAdapter1Rect.topEdgeCenter.x - arrowWidth / 2}
-            y2={deployableRect2After.rightEdgeCenter.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-          />
-
           <Arrow
-            from={{
-              x: rightContextAdapter1Rect.topEdgeCenter.x,
-              y: deployableRect2After.rightEdgeCenter.y,
-            }}
-            to={{
-              x: rightContextAdapter1Rect.topEdgeCenter.x,
-              y: rightContextAdapter1Rect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: deployableRect2After.leftEdgeCenter.x - buffer,
+                y: deployableRect2After.leftEdgeCenter.y
+              },
+              {
+                x: rightContextAdapter1Rect.topEdgeCenter.x,
+                y: deployableRect2After.rightEdgeCenter.y,
+              },
+              {
+                x: rightContextAdapter1Rect.topEdgeCenter.x,
+                y: rightContextAdapter1Rect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
           />
 
           {/* arrow from deployable 2 to right policy module rect */}
 
           <Arrow
-            from={{
-              x: rightContextPolicyRect.topEdgeCenter.x,
-              y: deployableRect2After.bottomEdgeCenter.y + buffer,
-            }}
-            to={{
-              x: rightContextPolicyRect.topEdgeCenter.x,
-              y: rightContextPolicyRect.topEdgeCenter.y - buffer,
-            }}
+            points={[
+              {
+                x: rightContextPolicyRect.topEdgeCenter.x,
+                y: deployableRect2After.bottomEdgeCenter.y + buffer,
+              },
+              {
+                x: rightContextPolicyRect.topEdgeCenter.x,
+                y: rightContextPolicyRect.topEdgeCenter.y - buffer,
+              }
+            ]}
             width={arrowWidth}
           />
 
           {/* arrow from deployable 2 to right context adapter 2 module rect */}
 
-          <line
-            x1={deployableRect2After.rightEdgeCenter.x + buffer}
-            y1={deployableRect2After.rightEdgeCenter.y}
-            x2={rightContextAdapter2Rect.topEdgeCenter.x + arrowWidth / 2}
-            y2={deployableRect2After.leftEdgeCenter.y}
-            stroke={arrowPurple.hexValue}
-            strokeWidth={arrowWidth}
-          />
-
           <Arrow
-            from={{
-              x: rightContextAdapter2Rect.topEdgeCenter.x,
-              y: deployableRect2After.leftEdgeCenter.y,
-            }}
-            to={{
-              x: rightContextAdapter2Rect.topEdgeCenter.x,
-              y: rightContextAdapter2Rect.topEdgeCenter.y - buffer
-            }}
+            points={[
+              {
+                x: deployableRect2After.rightEdgeCenter.x + buffer,
+                y: deployableRect2After.rightEdgeCenter.y
+              },
+              {
+                x: rightContextAdapter2Rect.topEdgeCenter.x,
+                y: deployableRect2After.leftEdgeCenter.y,
+              },
+              {
+                x: rightContextAdapter2Rect.topEdgeCenter.x,
+                y: rightContextAdapter2Rect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
           />
         </g>
@@ -399,47 +361,41 @@ export default function Page() {
 
         {/* arrow from left context adapter 1 module rect to left context policy rect */}
 
-        <line
-          x1={leftContextAdapter1Rect.bottomEdgeCenter.x}
-          y1={leftContextAdapter1Rect.bottomEdgeCenter.y + buffer}
-          x2={leftContextAdapter1Rect.bottomEdgeCenter.x}
-          y2={leftContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={arrowPurple.hexValue}
-          strokeWidth={arrowWidth}
-        />
-
         <Arrow
-          from={{
-            x: leftContextAdapter1Rect.bottomEdgeCenter.x,
-            y: leftContextPolicyRect.leftEdgeCenter.y,
-          }}
-          to={{
-            x: leftContextPolicyRect.leftEdgeCenter.x - buffer,
-            y: leftContextPolicyRect.leftEdgeCenter.y,
-          }}
+          points={[
+            {
+              x: leftContextAdapter1Rect.bottomEdgeCenter.x,
+              y: leftContextAdapter1Rect.bottomEdgeCenter.y + buffer
+            },
+            {
+              x: leftContextAdapter1Rect.bottomEdgeCenter.x,
+              y: leftContextPolicyRect.leftEdgeCenter.y,
+            },
+            {
+              x: leftContextPolicyRect.leftEdgeCenter.x - buffer,
+              y: leftContextPolicyRect.leftEdgeCenter.y,
+            }
+          ]}
           width={arrowWidth}
         />
 
         {/* arrow from left context adapter 1 module rect to left context policy rect */}
 
-        <line
-          x1={leftContextAdapter2Rect.bottomEdgeCenter.x}
-          y1={leftContextAdapter2Rect.bottomEdgeCenter.y + buffer}
-          x2={leftContextAdapter2Rect.bottomEdgeCenter.x}
-          y2={leftContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={arrowPurple.hexValue}
-          strokeWidth={arrowWidth}
-        />
-
         <Arrow
-          from={{
-            x: leftContextAdapter2Rect.bottomEdgeCenter.x,
-            y: leftContextPolicyRect.rightEdgeCenter.y,
-          }}
-          to={{
-            x: leftContextPolicyRect.rightEdgeCenter.x + buffer,
-            y: leftContextPolicyRect.rightEdgeCenter.y
-          }}
+          points={[
+            {
+              x: leftContextAdapter2Rect.bottomEdgeCenter.x,
+              y: leftContextAdapter2Rect.bottomEdgeCenter.y + buffer
+            },
+            {
+              x: leftContextAdapter2Rect.bottomEdgeCenter.x,
+              y: leftContextPolicyRect.rightEdgeCenter.y,
+            },
+            {
+              x: leftContextPolicyRect.rightEdgeCenter.x + buffer,
+              y: leftContextPolicyRect.rightEdgeCenter.y
+            }
+          ]}
           width={arrowWidth}
         />
 
@@ -451,47 +407,41 @@ export default function Page() {
 
         {/* arrow from right context adapter 1 module rect to right context policy rect */}
 
-        <line
-          x1={rightContextAdapter1Rect.bottomEdgeCenter.x}
-          y1={rightContextAdapter1Rect.bottomEdgeCenter.y + buffer}
-          x2={rightContextAdapter1Rect.bottomEdgeCenter.x}
-          y2={rightContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={arrowPurple.hexValue}
-          strokeWidth={arrowWidth}
-        />
-
         <Arrow
-          from={{
-            x: rightContextAdapter1Rect.bottomEdgeCenter.x,
-            y: rightContextPolicyRect.leftEdgeCenter.y,
-          }}
-          to={{
-            x: rightContextPolicyRect.leftEdgeCenter.x - buffer,
-            y: rightContextPolicyRect.leftEdgeCenter.y,
-          }}
+          points={[
+            {
+              x: rightContextAdapter1Rect.bottomEdgeCenter.x,
+              y: rightContextAdapter1Rect.bottomEdgeCenter.y + buffer
+            },
+            {
+              x: rightContextAdapter1Rect.bottomEdgeCenter.x,
+              y: rightContextPolicyRect.leftEdgeCenter.y,
+            },
+            {
+              x: rightContextPolicyRect.leftEdgeCenter.x - buffer,
+              y: rightContextPolicyRect.leftEdgeCenter.y,
+            }
+          ]}
           width={arrowWidth}
         />
 
         {/* arrow from right context adapter 2 module rect to right context policy rect */}
 
-        <line
-          x1={rightContextAdapter2Rect.bottomEdgeCenter.x}
-          y1={rightContextAdapter2Rect.bottomEdgeCenter.y + buffer}
-          x2={rightContextAdapter2Rect.bottomEdgeCenter.x}
-          y2={rightContextPolicyRect.leftEdgeCenter.y + arrowWidth / 2}
-          stroke={arrowPurple.hexValue}
-          strokeWidth={arrowWidth}
-        />
-
         <Arrow
-          from={{
-            x: rightContextAdapter2Rect.bottomEdgeCenter.x,
-            y: rightContextPolicyRect.rightEdgeCenter.y,
-          }}
-          to={{
-            x: rightContextPolicyRect.rightEdgeCenter.x + buffer,
-            y: rightContextPolicyRect.rightEdgeCenter.y
-          }}
+          points={[
+            {
+              x: rightContextAdapter2Rect.bottomEdgeCenter.x,
+              y: rightContextAdapter2Rect.bottomEdgeCenter.y + buffer
+            },
+            {
+              x: rightContextAdapter2Rect.bottomEdgeCenter.x,
+              y: rightContextPolicyRect.rightEdgeCenter.y,
+            },
+            {
+              x: rightContextPolicyRect.rightEdgeCenter.x + buffer,
+              y: rightContextPolicyRect.rightEdgeCenter.y
+            }
+          ]}
           width={arrowWidth}
         />
       </svg>

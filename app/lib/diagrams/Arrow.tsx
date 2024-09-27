@@ -1,10 +1,24 @@
-import {ArrowProps, arrowPurple} from "@/app/lib/definitions";
+import {ArrowProps, arrowPurple, Point} from "@/app/lib/definitions";
 import {arrowPoints} from "@/app/lib/diagrams/arrowPoints";
 
-export default function Arrow({from, to, width, color = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
-  const {line, arrowhead} = arrowPoints({from: from, to: to, width: width})
+export default function Arrow({points = [], from = {x: 0, y: 0}, to = {x: 0, y: 0}, width, color = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
+  let line: { from: Point, to: Point }
+  let arrowhead: Point[]
 
-  const linePoints = [line.from, line.to]
+  if (points.length >= 2) {
+    const aPoints = arrowPoints({from: points[points.length - 2], to: points[points.length - 1], width: width})
+    line = aPoints.line
+    arrowhead = aPoints.arrowhead
+    points[points.length - 1] = line.to
+  } else {
+    const aPoints = arrowPoints({from: from, to: to, width: width})
+    line = aPoints.line
+    arrowhead = aPoints.arrowhead
+    points[0] = line.from
+    points[1] = line.to
+  }
+
+  const linePoints = points
     .map(point => `${point.x},${point.y}`)
     .join(' ')
 
@@ -18,6 +32,7 @@ export default function Arrow({from, to, width, color = arrowPurple.hexValue, op
     <g>
       <polyline
         points={linePoints}
+        fill='none'
         strokeWidth={width}
         stroke={color}
         strokeOpacity={opacity}
