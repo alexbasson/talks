@@ -55,7 +55,7 @@ export default function Page() {
 
         <div className='svg-container' ref={legendRef}>
           <svg className='svg'>
-            <Arrow from={{x: 0, y: 30}} to={{x: width, y: 30}} width={15} />
+            <Arrow points={[{x: 0, y: 30}, {x: width, y: 30}]} width={15} />
             <text className={"text-base"} y={100} fill={arrowPurple.hexValue}>&ldquo;depends on&rdquo;</text>
             <text className={"text-base"} y={170} fill={arrowPurple.hexValue}>&ldquo;imports from&rdquo;</text>
           </svg>
@@ -70,37 +70,76 @@ export default function Page() {
           <ModuleRect rect={policyRect} text={"policy"} fill={policyBlue.hexValue} />
 
           <Arrow
-            from={{x: deployableRect.leftEdgeCenter.x - buffer, y: deployableRect.leftEdgeCenter.y}}
-            to={{x: leftAdapterRect.topEdgeCenter.x, y: leftAdapterRect.topEdgeCenter.y - buffer}}
+            points={[
+              {
+                x: deployableRect.leftEdgeCenter.x - buffer,
+                y: deployableRect.leftEdgeCenter.y
+              },
+              {
+                x: leftAdapterRect.topEdgeCenter.x,
+                y: leftAdapterRect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
           />
 
           <Arrow
-            from={{x: leftAdapterRect.bottomEdgeCenter.x - buffer, y: leftAdapterRect.bottomEdgeCenter.y + buffer}}
-            to={{x: policyRect.leftEdgeCenter.x - 10, y: policyRect.leftEdgeCenter.y}}
+            points={[
+              {
+                x: leftAdapterRect.bottomEdgeCenter.x - buffer,
+                y: leftAdapterRect.bottomEdgeCenter.y + buffer
+              },
+              {
+                x: policyRect.leftEdgeCenter.x - 10,
+                y: policyRect.leftEdgeCenter.y
+              },
+            ]}
             width={arrowWidth}
           />
 
           <Arrow
-            from={{x: deployableRect.rightEdgeCenter.x + buffer, y: deployableRect.rightEdgeCenter.y}}
-            to={{x: rightAdapterRect.topEdgeCenter.x, y: rightAdapterRect.topEdgeCenter.y - buffer}}
+            points={[
+              {
+                x: deployableRect.rightEdgeCenter.x + buffer,
+                y: deployableRect.rightEdgeCenter.y
+              },
+              {
+                x: rightAdapterRect.topEdgeCenter.x,
+                y: rightAdapterRect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
           />
 
           <Arrow
-            from={{x: rightAdapterRect.bottomEdgeCenter.x, y: rightAdapterRect.bottomEdgeCenter.y + buffer}}
-            to={{x: policyRect.rightEdgeCenter.x + buffer, y: policyRect.rightEdgeCenter.y}}
+            points={[
+              {
+                x: rightAdapterRect.bottomEdgeCenter.x,
+                y: rightAdapterRect.bottomEdgeCenter.y + buffer
+              },
+              {
+                x: policyRect.rightEdgeCenter.x + buffer,
+                y: policyRect.rightEdgeCenter.y
+              }
+            ]}
             width={arrowWidth}
           />
 
           <Arrow
-            from={{x: deployableRect.bottomEdgeCenter.x, y: deployableRect.bottomEdgeCenter.y + buffer}}
-            to={{x: policyRect.topEdgeCenter.x, y: policyRect.topEdgeCenter.y - buffer}}
+            points={[
+              {
+                x: deployableRect.bottomEdgeCenter.x,
+                y: deployableRect.bottomEdgeCenter.y + buffer
+              },
+              {
+                x: policyRect.topEdgeCenter.x,
+                y: policyRect.topEdgeCenter.y - buffer
+              }
+            ]}
             width={arrowWidth}
           />
         </svg>
       </div>
-
     </div>
   )
 }

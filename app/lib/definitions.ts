@@ -63,7 +63,7 @@ export class Vector {
   public get direction(): number {
     const isVertical = this.x === 0
     return isVertical
-      ? (Math.PI / 2) + (this.y >= 0 ? 0 : Math.PI)
+      ? (Math.PI / 2)
       : (Math.atan((this.y)/(this.x)) + (this.x >= 0 ? 0 : Math.PI))
   }
 
@@ -128,9 +128,7 @@ export type DeployableModuleProps = {
 }
 
 export type ArrowProps = {
-  points?: Point[],
-  from?: Point,
-  to?: Point,
+  points: Point[],
   width: number,
   color?: string,
   opacity?: number,

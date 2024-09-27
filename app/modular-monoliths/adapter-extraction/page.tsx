@@ -147,14 +147,16 @@ export default function Page() {
                   strokeWidth={strokeWidth}
                 />
                 <Arrow
-                  from={{
-                    x: policyGeometry.center.x,
-                    y: 0,
-                  }}
-                  to={{
-                    x: policyGeometry.center.x,
-                    y: policyGeometry.center.y - (Math.sqrt(3) / 2) * scale,
-                  }}
+                  points={[
+                    {
+                      x: policyGeometry.center.x,
+                      y: 0,
+                    },
+                    {
+                      x: policyGeometry.center.x,
+                      y: policyGeometry.center.y - (Math.sqrt(3) / 2) * scale,
+                    }
+                  ]}
                   width={strokeWidth}
                 />
               </g> :

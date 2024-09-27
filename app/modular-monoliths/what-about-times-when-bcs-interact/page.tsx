@@ -146,8 +146,10 @@ export default function Page() {
               </text>
 
               <Arrow
-                from={{x: 540, y: 80}}
-                to={{x: 400, y: 300}}
+                points={[
+                  {x: 540, y: 80},
+                  {x: 400, y: 300}
+                ]}
                 width={8}
                 color={highlightYellow.hexValue}
               />
