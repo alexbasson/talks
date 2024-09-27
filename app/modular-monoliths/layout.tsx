@@ -3,18 +3,42 @@
 import Link from "next/link";
 import {useRouter} from 'next/navigation';
 import {useNextHref} from '@/app/lib/slides/slides';
+import {enterFullscreen, exitFullscreen} from "@/app/lib/fullscreen";
+import {useEffect, useState, KeyboardEvent, ReactNode} from "react";
 
-export default function Layout({children}: { children: React.ReactNode }) {
+export default function Layout({children}: { children: ReactNode }) {
   const router = useRouter();
-  const nextHrefFoo = useNextHref();
+  const nextHref = useNextHref();
+  const [displayPresentButton, setDisplayPresentButton] = useState<boolean>(true);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowRight" || e.key === " ") {
-      router.push(nextHrefFoo);
+  useEffect(() => {
+    const exitHandler= () => {
+      if (!document.fullscreenElement) {
+        setDisplayPresentButton(true)
+      }
     }
 
-    if (e.key === "ArrowLeft") {
+    document.addEventListener('fullscreenchange', exitHandler, false);
+  }, [])
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "ArrowRight" || event.key === " ") {
+      router.push(nextHref);
+    }
+
+    if (event.key === "ArrowLeft") {
       router.back();
+    }
+  }
+
+  const handleFullscreen = () => {
+    if (document.fullscreenElement) {
+      exitFullscreen()
+        .then(() => setDisplayPresentButton(true))
+    } else {
+      setDisplayPresentButton(false)
+      enterFullscreen(document.documentElement)
+        .catch((err: TypeError) => console.error(err))
     }
   }
 
@@ -24,7 +48,14 @@ export default function Layout({children}: { children: React.ReactNode }) {
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      <Link className='flex h-full w-full' href={nextHrefFoo}>
+      {displayPresentButton ?
+        <button
+          onClick={handleFullscreen}
+          className='absolute top-0 right-0 bg-blue-500 text-white text-sm px-4 py-2 rounded'>
+          Present
+        </button>
+        : <></>}
+      <Link className='flex h-full w-full' href={nextHref}>
         {children}
       </Link>
     </div>
