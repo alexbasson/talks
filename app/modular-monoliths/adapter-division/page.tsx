@@ -5,7 +5,7 @@ import {
   arrowPurple,
   deployableGreen,
   Geometry,
-  highlightYellow,
+  highlightYellow, Point,
   policyBlue,
   Port
 } from "@/app/lib/definitions";
@@ -19,6 +19,7 @@ import DeployableModule from "@/app/lib/diagrams/DeployableModule";
 import useFrame from "@/app/lib/useFrame";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";
+import {stringifyForSvg} from "@/app/lib/diagrams/stringifyForSvg";
 
 type Frame = {
   singleAdapterFill: string,
@@ -69,12 +70,24 @@ export default function Page() {
   rotate(${port.rotate}, 0, 0)
   `
 
-  const points = `
-  ${policyAGeometry.center.x + scale}, ${policyAGeometry.center.y},
-  ${policyAGeometry.center.x + 0.5 * scale}, ${policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - 0.5 * scale}, ${policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale}, ${policyBGeometry.center.y},
-  `
+  const foo: Point[] = [
+    {
+      x: policyAGeometry.center.x + scale,
+      y: policyAGeometry.center.y
+    },
+    {
+      x: policyAGeometry.center.x + 0.5 * scale,
+      y: policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale
+    },
+    {
+      x: policyBGeometry.center.x - 0.5 * scale,
+      y: policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale
+    },
+    {
+      x: policyBGeometry.center.x - scale,
+      y: policyBGeometry.center.y
+    }
+  ]
 
   return (
     <div className='svg-container' ref={targetRef}>
@@ -122,7 +135,7 @@ export default function Page() {
             />
           </g>
 
-          <polygon points={points} fill={frame.singleAdapterFill} />
+          <polygon points={stringifyForSvg(foo)} fill={frame.singleAdapterFill} />
 
           <text
             x={(policyAGeometry.center.x + policyBGeometry.center.x) / 2}

@@ -1,6 +1,7 @@
 export const enterFullscreen = (elem) => {
   if (elem.requestFullscreen) {
-    elem.requestFullscreen();
+    elem.requestFullscreen({navigationUI: 'hide'})
+      .catch(err => console.error(err));
   } else if (elem.mozRequestFullScreen) {
     elem.mozRequestFullScreen();
   } else if (elem.webkitRequestFullscreen) {

@@ -1,7 +1,6 @@
 import {ArrowProps, arrowPurple, Point} from "@/app/lib/definitions";
 import {arrowPoints} from "@/app/lib/diagrams/arrowPoints";
-
-const stringifyForSvg = (points: Point[]) => points.map(point => `${point.x} ${point.y}`).join(' ')
+import {stringifyForSvg} from "@/app/lib/diagrams/stringifyForSvg";
 
 export default function Arrow({points, width, color = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
   const {line, arrowhead} = arrowPoints({

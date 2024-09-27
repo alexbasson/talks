@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, Geometry, policyBlue, Port} from "@/app/lib/definitions";
+import {adapterRed, deployableGreen, Geometry, Point, policyBlue, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
@@ -10,6 +10,7 @@ import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
+import {stringifyForSvg} from "@/app/lib/diagrams/stringifyForSvg";
 
 export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -25,12 +26,24 @@ export default function Page() {
   rotate(${port.rotate}, 0, 0)
   `
 
-  const points = `
-  ${policyAGeometry.center.x + scale}, ${policyAGeometry.center.y},
-  ${policyAGeometry.center.x + scale / 2}, ${policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale / 2}, ${policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale}, ${policyBGeometry.center.y},
-  `
+  const crossPolicyAdapterPoints: Point[] = [
+    {
+      x: policyAGeometry.center.x + scale,
+      y: policyAGeometry.center.y
+    },
+    {
+      x: policyAGeometry.center.x + scale / 2,
+      y: policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale
+    },
+    {
+      x: policyBGeometry.center.x - scale / 2,
+      y: policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale
+    },
+    {
+      x: policyBGeometry.center.x - scale,
+      y: policyBGeometry.center.y
+    }
+  ]
 
   return (
     <div className='svg-container' ref={targetRef}>
@@ -62,7 +75,7 @@ export default function Page() {
             />
           </g>
 
-          <polygon points={points} fill={adapterRed.hexValue} />
+          <polygon points={stringifyForSvg(crossPolicyAdapterPoints)} fill={adapterRed.hexValue} />
 
           <text
             x={(policyAGeometry.center.x + policyBGeometry.center.x) / 2}

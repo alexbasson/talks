@@ -1,12 +1,13 @@
 'use client'
 
-import {adapterRed, arrowPurple, Geometry, policyBlue, Port} from "@/app/lib/definitions";
+import {adapterRed, arrowPurple, Geometry, Point, policyBlue, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
 import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
 import useFrame from "@/app/lib/useFrame";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";
+import {stringifyForSvg} from "@/app/lib/diagrams/stringifyForSvg";
 
 type Frame = {
   displayText: boolean,
@@ -66,20 +67,27 @@ export default function Page() {
   translate(${port.center.x + port.adapterOffset.x + geometry.center.x}, ${port.center.y + port.adapterOffset.y + geometry.center.y}),
   rotate(${port.rotate}, 0, 0)
   `
-
-  const points = `
-  ${policyAGeometry.center.x + scale}, ${policyAGeometry.center.y},
-  ${policyAGeometry.center.x + scale / 2}, ${policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale / 2}, ${policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale},
-  ${policyBGeometry.center.x - scale}, ${policyBGeometry.center.y},
-  `
+  const crossPolicyAdapterPoints: Point[] = [
+    {
+      x: policyAGeometry.center.x + scale,
+      y: policyAGeometry.center.y
+    },
+    {
+      x: policyAGeometry.center.x + scale / 2,
+      y: policyAGeometry.center.y - (Math.sqrt(3) / 2) * scale
+    },
+    {
+      x: policyBGeometry.center.x - scale / 2,
+      y: policyBGeometry.center.y - (Math.sqrt(3) / 2) * scale
+    },
+    {
+      x: policyBGeometry.center.x - scale,
+      y: policyBGeometry.center.y
+    }
+  ]
 
   const lineHeight = 50;
-  const arrowHeadPoints = `
-  0, 0
-  -20, 40
-  20, 40
-  `;
+  const arrowHeadPoints = '0, 0 -20, 40 20, 40';
 
   return (
     <div className='svg-container' ref={targetRef}>
@@ -99,7 +107,7 @@ export default function Page() {
             />
           </g>
 
-          <polygon points={points} fill={adapterRed.hexValue} />
+          <polygon points={stringifyForSvg(crossPolicyAdapterPoints)} fill={adapterRed.hexValue} />
 
           <text
             x={(policyAGeometry.center.x + policyBGeometry.center.x) / 2}
