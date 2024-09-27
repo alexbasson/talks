@@ -2,8 +2,11 @@ import {ArrowProps, arrowPurple} from "@/app/lib/definitions";
 import {arrowPoints} from "@/app/lib/diagrams/arrowPoints";
 
 export default function Arrow({from, to, width, color = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
-
   const {line, arrowhead} = arrowPoints({from: from, to: to, width: width})
+
+  const linePoints = [line.from, line.to]
+    .map(point => `${point.x},${point.y}`)
+    .join(' ')
 
   const arrowheadPoints = `
   ${arrowhead[0].x} ${arrowhead[0].y}
@@ -13,9 +16,8 @@ export default function Arrow({from, to, width, color = arrowPurple.hexValue, op
 
   return (
     <g>
-      <line
-        x1={line.from.x} y1={line.from.y}
-        x2={line.to.x} y2={line.to.y}
+      <polyline
+        points={linePoints}
         strokeWidth={width}
         stroke={color}
         strokeOpacity={opacity}
