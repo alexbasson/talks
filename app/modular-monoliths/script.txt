@@ -21,7 +21,7 @@ about best practices. I don't love the phrase "Best Practices". I feel like a lo
 
 -------------------------------> what-this-talk-is?frame=0
 
-What this is, this talk is going to be about
+What this is, is this talk is going to be about
 
 -------------------------------> what-this-talk-is?frame=1
 
@@ -33,7 +33,7 @@ weighing costs versus benefits and ways that
 
 -------------------------------> what-this-talk-is?frame=3
 
-you can get more benefits for less cost in certain situations and some ways that folks might not have been familiar with or been aware of. So that's what this is all about.
+you can get more benefits for less cost in certain situations, and some ways that folks might not have been familiar with or been aware of. So that's what this is all about.
 
 And to get started to talk about sort of the particular problem space in which we're going to be doing this calculus,
 
@@ -47,7 +47,7 @@ I want to talk about the Emerald City. The Emerald City is something that we hav
 
 -------------------------------> emerald-city?frame=2
 
-perfectly decoupled, they're all independently deployable, they're being worked on by all these different teams who are all autonomous and empowered and they're choreographed and they're using service discovery and they're highly available, they have histrix and circuit breakers, all of this. We've heard about all of them, there are many many conference talks that have told us this story.
+perfectly decoupled, they're all independently deployable, they're being worked on by all these different teams who are all autonomous and empowered and they're choreographed and they're using service discovery and they're highly available, they have fault tolerance and circuit breakers, all of this. We've heard about all of them, there are many, many conference talks that have told us this story.
 
 And it sounds delightful! We're very excited to get there, we're walking along the yellow brick road to arrive in this place.
 
@@ -65,11 +65,11 @@ doesn't feel as nice? The place where we are is kind of rough. We have maybe rig
 
 -------------------------------> where-we-are-now?frame=2
 
-which means you're going to have to start up all the services locally on your workstation, so you can try to see what weird interaction is causing this problem, and that's going to be a bit of a hassle, especially if you're running on an underpowered virtual desktop that struggles to run all five of those Spring Boot apps at the same time.
+which means you're going to have to start up all of the services locally on your workstation, so you can try to see what weird interaction is causing this problem. And that's going to be a bit of a hassle, especially if you're running on an underpowered virtual desktop that struggles to run all five of those Spring Boot apps at the same time.
 
 -------------------------------> where-we-are-now?frame=3
 
-Once you're done with that, you're excited to get to work on some features! It might be a little bit because the next few things on your backlog aren't actually features, they're things like figuring out the security that you need to put in front of the APIs on these various microservices. And you need to, like, fix up a pipeline for the new microservice that has just been pushed, and various kinds of this.
+Once you're done with that, you're excited to get to work on some features! It might be a little bit, though, because the next few things on your backlog aren't actually features, they're things like figuring out the security that you need to put in front of the APIs on these various microservices. And you need to, like, fix up a pipeline for the new microservice that has just been pushed, and various kinds of this.
 
 But there's some features after that, that you're excited to get to,
 
@@ -85,7 +85,9 @@ And of course, if you voice these concerns to certain types of folks, if you go 
 
 you should Get Good, you're Doing It Wrong. What, you have to run all of your different microservices locally in order to see... that just means that they're coupled, you were supposed to decouple your microservices, don't have coupled microservices, you shouldn't have to run more than one at a time! Or if you're talking about having to set up all of your service discovery and how that's holding you back from doing other features, the Great and Powerful Oz might say, "Eat your vegetables, mortal! Of course you want to have service discovery, if you don't have service discovery it's very bad!"
 
-And like, ok, but I'm not a wizard and I didn't, like, make my services wrong on purpose. I thought that I had drawn the boundaries in the right way or the architects that work with us, they thought that they had put the boundaries in the right spot. We didn't think we were going to have to run all these different services at the same time to debug problems. But here we have arrived and here we are, trying to figure this out, and now it's really expensive and it's not great.
+And like, ok, but I'm not a wizard and I didn't, like, make my services wrong on purpose. I thought that I had drawn the boundaries in the right way or the architects that work with us, they thought that they had put the boundaries in the right spot. We didn't _think_ we were going to have to run all these different services at the same time to debug problems.
+
+But here we have arrived and here we are, trying to figure this out, and now it's really expensive and it's not great.
 
 -------------------------------> the-future-sounds-great?frame=0
 
@@ -95,7 +97,7 @@ So the question is: As great as the future sounds,
 
 does the road we take to get there have to hurt this bad?
 
-And the answer is "No", and that's what this talk is about. This talk is about not _abandoning_ the journey to the Emerald City, because the Emerald City is great, but just ways to make the yellow brick road that gets there not cost as much, because it turns out that bricks made of gold are really expensive.
+And the answer is "No", and that's what this talk is about. This talk is about not _abandoning_ the journey to the Emerald City, because the Emerald City is great, but just ways to make the yellow brick road that gets there not cost as much. Because it turns out that bricks made of gold are really expensive.
 
 -------------------------------> thesis-statement?frame=0
 
@@ -141,7 +143,7 @@ And then in addition to that, you have adapters, which are components that plug 
 
 And all of these things together become your system.
 
-So you can find diagrams about that, you can read blog posts about that, I want to come down a little bit from the abstract architectural discussion and talk a little bit about logistics, the particular ways that you might actually do this in a codebase. What I will submit is that one way that helps is to classify all of the modules in your system as being one of three different kinds.
+So, you can find diagrams about that, you can read blog posts about that, I want to come down a little bit from the abstract architectural discussion and talk a little bit about logistics, the particular ways that you might actually do this in a codebase. What I will submit is that one way that helps is to classify all of the modules in your system as being one of three different kinds.
 
 -------------------------------> three-kinds-of-modules?frame=0
 
@@ -154,24 +156,63 @@ I'll go through each of those and talk about what they are.
 
 -------------------------------> policy-modules?frame=0
 
-A Policy Module is named after "high-level policy", of the "high-level policy/low-level detail" divide. This gets thrown around a lot, there's sometimes confusion as to what counts as high-level policy. I'm going to do my best to define it here. High-level policy in the policy module is the definition of the domain model for a specific bounded context. We're going to talk about bounded contexts here in a minute. What the domain model is, is the definition of interfaces, data structures, operations, but exclusively in domain terms. This doesn't talk about any kind of technological solution to these things, things like the fact that this is being done in a SQL database, or the fact that this is being done over a Kafka queue. None of that has to do with the actual business problem being solved. The policy module is all about, if we forgot that computers were involved at all, what are the facts of the problem that we're dealing with. That's what lives here.
+A Policy Module is named after
+
+-------------------------------> policy-modules?frame=1
+
+"high-level policy", of the "high-level policy/low-level detail" divide. This gets thrown around a lot, there's sometimes confusion as to what counts as high-level policy. I'm going to do my best to define it here.
+
+-------------------------------> policy-modules?frame=2
+
+High-level policy in the policy module is the definition of the domain model for a specific bounded context. We're going to talk about bounded contexts here in a minute.
+
+What the domain model is,
+
+-------------------------------> policy-modules?frame=3
+
+is the definition of interfaces, data structures, operations, but exclusively in domain terms. This doesn't talk about any kind of technological solution to these things, things like the fact that this is being done in a SQL database, or the fact that this is being done over a Kafka queue. None of that has to do with the actual business problem being solved. The policy module is all about, if we forgot that computers were involved at all, what are the facts of the problem that we're dealing with. That's what lives here.
 
 -------------------------------> adapter-modules?frame=0
 
-Adapter modules, then, are the _low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
+Adapter modules, then, are the 
+
+-------------------------------> adapter-modules?frame=1
+
+_low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a 
+
+-------------------------------> adapter-modules?frame=2
+
+specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
 
 The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `WidgetRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `WidgetRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `WidgetService` that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
 
-In the Hexagonal Architecture terminology of primary and secondary ports, adapters come in two flavors. There are:
+In the Hexagonal Architecture terminology of primary and secondary ports, adapters come in two flavors.
+
+-------------------------------> adapter-modules?frame=3
+
+There are:
 - Primary Adapters, which invoke an operation in the policy, and then
 - Secondary Adapters, implementing interfaces from the policy.
+
 So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `WidgetRepository` adapter that I was just describing that accomplishes the `WidgetRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
 
 And then the third kind of module
 
 -------------------------------> deployable-modules?frame=0
 
-is a Deployable Module. The deployable module is the thing that actually gets shipped. So there's a one-to-one correspondence between the deployable module and the deployed service. The deployable module's job is to import everything that you want to deploy as part of that particular service, as well as defining configuration and any kind of knowledge about the environment in which the service is going to live. So things like environment variables, or application properties, all of those are things that would live in the deployable module, as well as database migrations because they depend on that particular service's database.
+is a Deployable Module. The deployable module is the thing that actually gets shipped. So there's
+
+-------------------------------> deployable-modules?frame=1
+
+a one-to-one correspondence between the deployable module and the deployed service. The deployable module's job is
+
+-------------------------------> deployable-modules?frame=2
+
+to import everything that you want to deploy as part of that particular service, as well as
+
+-------------------------------> deployable-modules?frame=3
+
+defining configuration and any kind of knowledge about the environment in which the service is going to live. So things like environment variables, or application properties, all of those are things that would live in the deployable module, as well as database migrations because they depend on that particular service's database.
 
 So.
 
@@ -181,7 +222,7 @@ The structure of those things looks like this: The deployable, because it has to
 
 -------------------------------> example-online-chess?frame=0
 
-So all of that is somewhat abstract. But let us suppose that we are building an online chess game where people can play chess over the internet.
+All of that is somewhat abstract. But let us suppose that we are building an online chess game where people can play chess over the internet.
 
 -------------------------------> example-online-chess?frame=1
 
@@ -203,7 +244,7 @@ If we suppose that this was, for example, a Spring application, the actual codeb
 
 -------------------------------> spring-directory-structure?frame=0
 
-might look like this. You'll note that all of this is in one git repository. We're using gradle because gradle makes this a little bit nicer than maven does. In your
+might look like this. You'll note that all of this is in one git repository. We're using gradle because gradle makes this a little bit nicer than maven does; it doesn't really matter. In your
 
 -------------------------------> spring-directory-structure?frame=1
 
@@ -227,7 +268,7 @@ API adapter. This is our primary adapter that is going to invoke operations insi
 
 -------------------------------> spring-directory-structure?frame=5
 
-constructed with a operation object that comes out of the policy module.
+constructed with an operation object that comes out of the policy module.
 
 -------------------------------> spring-directory-structure?frame=6
 
@@ -249,7 +290,7 @@ But why? Why is that nice? What comes from that? Well, one thing that is true is
 
 -------------------------------> why-is-this-nice?frame=1
 
-it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module and just the classpath itself doesn't have anything else on it, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
+it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module, and just the classpath itself doesn't have anything else on it, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
 
 -------------------------------> why-is-this-nice?frame=2
 
@@ -259,11 +300,11 @@ Another thing that is true, again because each piece stays small,
 
 -------------------------------> why-is-this-nice?frame=3
 
-is that adapters are very cheap. They start to feel disposable. If you decide at some point that instead of sourcing information out of a database you instead to get it from some service that somebody else has stood up, you're not going to go in and modify any code, really, you're just going to throw away the adapter you have which reads that data out of a database, because you don't want to do that anymore, and you're going to write a new adapter that calls that service instead. There's not any large chunk that you need to go into and modify. You just have this small thing that does a thing that's no longer necessary, so you throw it away, and you replace it. And replacing something wholesale like that is often a lot faster and easier to do than having to go through and modify a larger, more involved thing.
+is that adapters are very cheap. They start to feel disposable. If you decide at some point that instead of sourcing information out of a database, you instead want to get it from some service that somebody else has stood up, you're not going to go in and modify any code, really, you're just going to throw away the adapter you have which reads that data out of a database, because you don't want to do that anymore, and you're going to write a new adapter that calls that service instead. There's not any large chunk that you need to go into and modify. You just have this small thing that does a thing that's no longer necessary, so you throw it away, and you replace it. And replacing something wholesale like that is often a lot faster and easier to do than having to go through and modify a larger, more involved thing.
 
 -------------------------------> why-is-this-nice?frame=4
 
-It also facilitates testing modules in isolation. This is especially true with Spring, which likes to get very clever about doing things based on dependencies it finds on the classpath. If you're trying to run an API test, for example, it can be kind of frustrating if your test is refusing to start because it can't configure the database. If you don't need a database for this API test because you've provided a mock for the database, it doesn't matter, Spring is still going to try to wire it up and you're going to have a hard time. But with this kind of module breakout, when you're running an API test, there is no database dependency on the classpath anywhere, and so Spring isn't going to try to wire it up, and inside of that test, you have an opportunity to just make sure that this thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
+It also facilitates testing modules in isolation. This is especially true with Spring, which likes to get very clever about doing things based on dependencies it finds on the classpath. If you're trying to run an API test, for example, it can be kind of frustrating if your test is refusing to start because it can't configure the database. If you don't need a database for this API test because you've provided a mock for the database, it doesn't matter, Spring is still going to try to wire it up and you're going to have a hard time. But with this kind of module breakout, when you're running an API test, there is no database dependency on the classpath anywhere, and so Spring isn't going to try to wire it up, and inside of that test, you have an opportunity to just make sure that _this_ thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
 
 -------------------------------> why-is-this-nice?frame=5
 
@@ -277,7 +318,13 @@ Once you get here, then
 
 -------------------------------> why-is-this-nice?frame=6
 
-none of these things are true anymore. Each piece is no longer small. You have a _kind_ of separation of concerns in that your API is prevented from coupling directly to your database, but the API isn't prevented from coupling to itself. Inside the API there's probably lots of things going on for different reasons, and they're all tangled together. The bit about adapters being cheap and disposable is definitely not true; if you discover that there's one piece of data that you now don't want to get from a database but instead get from a remote service, you can't just throw away your database adapter because it's the thing that knows how to read from the eleven other tables which you still need to read from. So now you're going to be in the position you were trying to avoid where you have to go into that adapter and tease apart just the parts that you want to now do differently. It's going to be much harder. It is true that you can test the API in isolation from everything else (like in isolation from the database), but you can't test the API in isolation from itself, and if it gets big enough, you might end up wanting to do that. So if your models become this big, then a lot of these benefits go away.
+none of these things are true anymore. Each piece is no longer small. You have a _kind_ of separation of concerns in that your API is prevented from coupling directly to your database, but the API isn't prevented from coupling to itself. Inside the API there's probably lots of things going on for different reasons, and they're all tangled together.
+
+The bit about adapters being cheap and disposable is definitely not true; if you discover that there's one piece of data that you now don't want to get from a database but instead get from a remote service, you can't just throw away your database adapter because it's the thing that knows how to read from the eleven other tables which you still need to read from. So now you're going to be in the position you were trying to avoid where you have to go into that adapter and tease apart just the parts that you want to now do differently. It's going to be much harder.
+
+It is true that you can test the API in isolation from everything else (like in isolation from the database), but you can't test the API in isolation from itself, and if it gets big enough, you might end up wanting to do that.
+
+So if your models become this big, then a lot of these benefits go away.
 
 So. What do you do?
 
@@ -291,7 +338,9 @@ Bounded contexts are an idea out of Domain Driven Design, written about by Eric 
 
 -------------------------------> bounded-contexts?frame=1
 
-"the scope of a particular model within which a single model will apply and will be kept as unified as possible" So this big insight is the kinds of problem spaces that we grapple with as we're building software tend to be quite large, and there's an instinct among engineers to create the One Model to Rule The Whole Thing, a single consistent model that just applies everywhere. The trouble is that if you attempt to do this, if you try to make such a model, you will have to make a lot of compromises because there's many things to consider. You'll have to meet halfway on a great many things, and when you do that enough times, what you end up with is a model that's... fine? It's kind of okay. It's not really good at any one job, because being good at that job would have meant tradeoffs elsewhere. And so it's... fine.
+"the scope of a particular model within which a single model will apply and will be kept as unified as possible"
+
+So this big insight is the kinds of problem spaces that we grapple with as we're building software tend to be quite large, and there's an instinct among engineers to create the One Model to Rule The Whole Thing, a single consistent model that just applies everywhere. The trouble is that if you attempt to do this, if you try to make such a model, you will have to make a lot of compromises because there's many things to consider. You'll have to meet halfway on a great many things, and when you do that enough times, what you end up with is a model that's... fine? It's kind of okay. It's not really good at any one job, because being good at that job would have meant tradeoffs elsewhere. And so it's... fine.
 
 But you don't actually have to do it this way. You can draw smaller contexts inside of the larger problem space and have multiple models, one for each of those contexts. Then as long as you can identify which context you're in, you know which model to be using. And now the model can be specialized, now it can be really good at its job, because you know where the boundaries are, you know when you're going to have to translate from one model to another, and you don't have to worry about having one model that handles the whole thing.
 
@@ -299,7 +348,7 @@ And it's maybe worth clarifying here
 
 -------------------------------> bounded-contexts?frame=2
 
-what I mean by "model", because I think that's sometimes confusing, too. Eric defines the "model" as "team's agreed-upon way of structuring domain knowledge and distinguishing the elements of most interest". I think this is a really cool way of calling out that the domain model is very much about the knowledge of the team, it's about how the team thinks about the problem, how the team talks about the problem. And you'll note also that this is very close to what we were talking about in our policy module definition. The thing that a policy module is doing is defining interfaces and data types and operations, which is a structuring of domain knowledge, it's a highlighting of "what are the elements of most interest that I want to give names to in this space?"
+what I mean by "model", because I think that's sometimes confusing, too. Eric defines the "model" as "team's agreed-upon way of structuring domain knowledge and distinguishing the elements of most interest". I think this is a really cool way of calling out that the domain model is very much about the knowledge of the _team_, it's about how the _team_ thinks about the problem, how the team talks about the problem. And you'll note also that this is very close to what we were talking about in our policy module definition. The thing that a policy module is doing is defining interfaces and data types and operations, which is a structuring of domain knowledge, it's a highlighting of "what are the elements of most interest that I want to give names to in this space?"
 
 So. Concretely what does this mean?
 
@@ -329,7 +378,7 @@ share some language. They both talk about "friends", the friends list. They both
 
 -------------------------------> how-to-identify-a-bounded-context?frame=5
 
-side-by-side, there's not a lot of shared language here. When you're talking about inviting your friend to play or that space where you're looking at a friends list, there's not really an opportunity in that conversation to talk about knights or bishops or particular kinds of pieces. It would be weird if somehow those were showing up. When you are promoting a pawn and talking about the rules of the game, there's no invitation to the game involved in that moment; it would be weird if the friends list was somehow going to be involved when you're promoting a pawn. So you can imagine that these different languages that are being spoken are not likely to cross and show up in the other space. And this is an indication that what you might have, is two different bounded contexts.
+side-by-side, there's not a lot of shared language here. When you're talking about inviting your friend to play or that space where you're looking at a friends list, there's not really an opportunity in _that_ conversation to talk about knights or bishops or particular kinds of pieces. It would be weird if somehow those were showing up. When you are promoting a pawn and talking about the rules of the game, there's no invitation to the game involved in that moment; it would be weird if the friends list was somehow going to be involved when you're promoting a pawn. So you can imagine that these different languages that are being spoken are not likely to cross and show up in the other space. And this is an indication that what you might have, is two different bounded contexts.
 
 Once you identify that, it can be rather exciting,
 
@@ -341,21 +390,21 @@ because it means that instead of having one giant module for the entire online c
 
 multiple smaller, more manageable models, than you can then give names to. So you might have a model for Organizing Games, which is the context in which we talk about your friends and inviting a friend to be an opponent, and how many games you've won and lost with a particular person. And then a Gameplay model, where in this context, we're talking about the rules of chess, and inside the scope of a specific game, how that game works.
 
-You'll note that these aren't two different services. I've drawn both of them inside of one deployable green circle. So the way that looks in the code structure
+You'll note that these _aren't_ two different services. I've drawn both of them inside of one deployable green circle. So the way that looks in the code structure
 
 -------------------------------> single-service-multiple-modules?frame=0
 
-is that you still have just the one deployable service, and it depends on everything that is going to be deployed here: a couple of adapters, which each depend on a corresponding policy, and you'll note that the two different families, the two different bounded contexts of policies and adapters, they don't have any dependencies on each other. And so they are decoupled from each other, they know nothing about each other. The only merging that happens is in the deployable, which scoops them all together so that they can be shipped.
+is that you still have just the one deployable service, and it depends on everything that is going to be deployed here: a couple of adapters, which each depend on a corresponding policy. And you'll note that the two different families, the two different bounded contexts of policies and adapters, they don't have any dependencies on each other. And so they are decoupled from each other, they know nothing about each other. The only merging that happens is in the deployable, which scoops them all together so that they can be shipped.
 
 -------------------------------> what-about-times-when-bcs-interact?frame=0
 
-That is the simplest case, but there are places where two different bounded contexts might interact. So suppose you pulled this story off of the backlog, which talked about the process the starting a game. So suppose you've invited somebody to play a game with you and they've said yes, then you click the "Start" button and you arrive at a board ready to make your first move.
+That is the simplest case, but there are places where two different bounded contexts might interact. So suppose you pulled this story off of the backlog, which talked about the process the starting a game. So suppose you've invited somebody to play a game with you and they've said yes, then you click the "Start" button, and you arrive at a board ready to make your first move.
 
 At the beginning of the story,
 
 -------------------------------> what-about-times-when-bcs-interact?frame=1
 
-you see a lot of language that suggests that we're in the Organizing Games context. We're talking about an invitation to a game, which can be accepted by an opponent. But when you get to the
+you see a lot of language that suggests that we're in the Organizing Games context. We're talking about an "invitation" to a game, which can be "accepted" by an "opponent". But when you get to the
 
 -------------------------------> what-about-times-when-bcs-interact?frame=2
 
@@ -363,7 +412,7 @@ latter half of the story, suddenly there's all this language that comes from the
 
 -------------------------------> what-about-times-when-bcs-interact?frame=3
 
-in our two bounded contexts, this story lives somewhere in the middle, it tries to live inside of both. And this can be a problem. If this happens a lot, if you're seeing lots and lots of stories that come through that are riding the fence between what you thought were two bounded contexts, what you might have is not two bounded contexts. You might have drawn your context boundaries incorrectly.
+in our two bounded contexts, this story lives somewhere in the middle, it tries to live inside of both. And this _can_ be a problem. If this happens a lot, if you're seeing lots and lots of stories that come through that are riding the fence between what you thought were two bounded contexts, what you might have is _not_ two bounded contexts. You might have drawn your context boundaries incorrectly.
 
 The way that you can respond to that can go in a couple of different ways. If you observe that the overlap between what you thought were two different contexts
 
@@ -383,7 +432,7 @@ that overlap, a lot of places where you need to talk about both contexts, but th
 
 -------------------------------> what-about-times-when-bcs-interact?frame=7
 
-three. You might need to create a third context that represents the overlap between these things, and that way you now have contexts that have unique purposes.
+three. You might need to create a third context that represents the overlap between these two things, and that way you now have contexts that have unique purposes.
 
 But let's suppose that neither of those is the case,
 
@@ -397,13 +446,13 @@ What you do is you describe the interaction twice, once from the perspective of 
 
 -------------------------------> describe-the-interaction-twice?frame=1
 
-ok, there's this operation called "starting a game", and there's probably logic in here like making sure that the opponent has accepted the invitation and things like that. But assuming they have, then we need to actually get a game going. So we can invent a concept of a Game Initializer, we'll call it a secondary port that we're going to call out to and say "alright, the game should in fact begin, let's begin it now". And having done that, having described the process of starting a game from the perspective of our Organizing Games context, we can now move to the Gameplay context and describe the same interaction again.
+ok, there's this operation called "starting a game", and there's probably logic in here like making sure that the opponent has accepted the invitation and things like that. But assuming they have, then we need to actually get a game going. So we can invent a concept of a `GameInitializer`, we'll call it a secondary port that we're going to call out to and say "alright, the game should in fact begin, let's begin it now". And having done that, having described the process of starting a game from the perspective of our Organizing Games context, we can now move to the Gameplay context and describe the same interaction again.
 
 The Gameplay context doesn't care about invitations or opponents. The only thing that needs to happen here is that the board needs to get set up. So we can define an operation
 
 -------------------------------> describe-the-interaction-twice?frame=2
 
-called Setup Board which knows about things like boards and pieces and the position they need to have. And in this way, we've now described our feature in two different languages. In the language of Organizing Games, where we don't know about things like boards or pieces, we just know about things like games that need to get started, that need to get initialized. Whereas in Gameplay, where we don't know things about players and invitations being accepted, all we know about are boards and here that is described as well. So once we have these two definitions, all we need is some way to bridge the gap between our game initializer port and our setup board port.
+called Setup Board which knows about things like boards and pieces and the positions they need to have. And in this way, we've now described our feature in two different languages. In the language of Organizing Games where we don't know about things like boards or pieces, we just know about things like games that need to get started, that need to get initialized. Whereas in Gameplay, where we don't know things about players and invitations being accepted, all we know about are boards and here we've described as well. So once we have these two definitions, all we need is some way to bridge the gap between our game initializer port and our setup board port.
 
 The most obvious way to do this, if you want to be thinking about services, is to just forget about the fact
 
@@ -413,9 +462,9 @@ that you're deployed on one service and just make
 
 -------------------------------> cross-adapter-communication?frame=1
 
-an API that you plug into Setup Board port, and then make a client that you plug into your Game Initializer port. The client is going to call the API, and the fact that the caller and the API are both living on the same service doesn't actually matter. That's only slightly true; there are stacks where you have to be careful about whether your application is going to be able to process another API call before it responds to the first API call, because if it can't, it might block itself. But in many stacks, this is a totally fine thing to do.
+an API that you plug into `SetupBoard` port, and then make a client that you plug into your `GameInitializer` port. The client is going to call the API, and the fact that the caller and the API are both living on the same service doesn't actually matter. That's only slightly true; there are stacks where you have to be careful about whether your application is going to be able to process another API call before it responds to the first API call, because if it can't, it might block itself. But in many stacks, this is a totally fine thing to do.
 
-That's not the _only_ interaction model; you could also do something asynchronous with a queue. So you could
+That's not the _only_ interaction model, of course; you could also do something asynchronous with a queue. So you could
 
 -------------------------------> cross-adapter-communication?frame=2
 
@@ -451,7 +500,7 @@ This is all kind of abstract.
 
 -------------------------------> single-adapter-code-example?frame=0
 
-To get a little bit concrete, looking at our online chess example, this is a cross-context adapter that could bridge the gap between the game initializer port and the setup board port. So what this looks like,
+To get a little bit concrete, looking at our online chess example, this is a cross-context adapter that could bridge the gap between the `GameInitializer` port and the `SetupBoard` port. So what this looks like,
 
 -------------------------------> single-adapter-code-example?frame=1
 
@@ -465,9 +514,9 @@ Secondary adapter means that it implements an interface. So the GameInitializer 
 
 a primary adapter for the Gameplay policy. And as a primary adapter, it has to invoke an operation in Gameplay. So we're going to get constructed with a `SetupBoard` operation object that comes from the Gameplay policy module, and then inside of our `initializeGame()` function, we're going to invoke the `setupBoard` operation.
 
-In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have a concept of Player; I've imagined here that Player is a data class that comes from Organizing Games, and so that's the argument that gets passed into `initializeGame()`. We can't take those Player objects and pass them directly into `setupBoard` because `setupBoard` doesn't have that concept; it wouldn't compile because it wouldn't know what a Player is.
+In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have the concept of Player; I've imagined here that Player is a data class that comes from Organizing Games, and so that's the argument that gets passed into `initializeGame()`. We can't take those Player objects and pass them directly into `setupBoard` because `setupBoard` doesn't have that concept of Player; it wouldn't compile because it wouldn't know what a Player is.
 
-What it does expect is two names, which presumably it can use to label the two different sides of the board. And so the job of our cross-context adapter here is
+What it _does_ expect is two names, which presumably it can use to label the two different sides of the board. And so the job of our cross-context adapter here is
 
 -------------------------------> single-adapter-code-example?frame=4
 
@@ -487,7 +536,7 @@ actually keeps each piece small. It avoids that moment where your model has beco
 
 -------------------------------> why-is-single-adapter-nice?frame=2
 
-Each policy module stays specialized. One of the things that happens here, you could conceivably have a Player class, a Player data type in both models. But in the Organizing Games model, Player is likely going to have a bunch of things on it that are specific to that context, so it might have something like an email or a username that the person uses to sign in. Whereas for purposes of Gameplay, you don't care about the player's email, but you do care about which color they are. And so rather than having one Player model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
+Each policy module stays specialized. One of the things that happens here, you could conceivably have a Player class, a Player data type in _both_ models. But in the Organizing Games model, Player is likely going to have a bunch of things on it that are specific to that context, so it might have something like an email or a username that the person uses to sign in. Whereas for purposes of Gameplay, you don't care about the player's email, but you do care about which color they are. And so rather than having one Player model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
 
 -------------------------------> why-is-single-adapter-nice?frame=3
 
@@ -513,7 +562,7 @@ The second observation is that a lot of the things
 
 -------------------------------> but-microservices?frame=3
 
-that microservices give you which can't be achieved any other way don't kick in for a bit. Things like, oh it would be really nice if another team could work on this independently. I mean, _is_ there another team to work in it independently? If it's just your team right now, and we're imagining that in the future, another team might take this and run with it, well they're not here yet, so if we deploy a special service just for them, then we're having the pay the tax of maintaining that service and all of the ergonomic drawbacks that has for our development right now, in service of a thing that has not yet occurred.
+that microservices give you which can't be achieved any other way, don't kick in for a bit. Things like, oh it would be really nice if another team could work on this independently. I mean, _is_ there another team to work in it independently? If it's just your team right now, and we're imagining that in the future, another team might take this and run with it, well they're not here yet, so if we deploy a special service just for them, then we're having the pay the tax of maintaining that service and all of the ergonomic drawbacks that has for our development right now, in service of a thing that has not yet occurred.
 
 Or similarly, if you want to be able to scale different parts of the system independently—I mean, do you need to scale them now? You're probably not going to, at the beginning of the effort, immediately deploy out to millions of users worth of traffic. If you are setting yourself up to be able to do this very advanced scaling maneuver from the outset, then you're probably paying tax on a thing that isn't going to return dividends to you for some time.
 
@@ -623,7 +672,7 @@ just one bounded context and you've been working in it for a while, but now it h
 
 -------------------------------> adapter-extraction?frame=1
 
-"Moves Database" where you've been recording the moves of a game, there's another team that wants to read that data. Maybe they're, like, doing something clever with analytics or they want to be able to show historical games, reports of historical games, and they don't want to go through your Game API, which is for actually playing games, they just want to have access to the list of all those moves. And so you want to expose that to them, using a service. You don't want them to directly connect to the database, obviously, you want to put an API in front of it.
+"Moves Database" where you've been recording the moves of a game, well there's another team that wants to read that data. Maybe they're, like, doing something clever with analytics or they want to be able to show historical games, reports of historical games, and they don't want to go through your Game API, which is for actually playing games, they just want to have access to the list of all those moves. And so you want to expose that to them, using a service. You don't want them to directly connect to the database, obviously, you want to put an API in front of it.
 
 So this maneuver is as follows. We're going to
 
