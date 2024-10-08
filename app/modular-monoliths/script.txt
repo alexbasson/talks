@@ -536,13 +536,21 @@ actually keeps each piece small. It avoids that moment where your model has beco
 
 -------------------------------> why-is-single-adapter-nice?frame=2
 
-Each policy module stays specialized. One of the things that happens here, you could conceivably have a Player class, a Player data type in _both_ models. But in the Organizing Games model, Player is likely going to have a bunch of things on it that are specific to that context, so it might have something like an email or a username that the person uses to sign in. Whereas for purposes of Gameplay, you don't care about the player's email, but you do care about which color they are. And so rather than having one Player model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
+Each policy module stays specialized. For example, you could conceivably have a Player class, a Player data type in _both_ models. But in the Organizing Games model, Player is likely going to have a bunch of things on it that are specific to that context, so it might
 
 -------------------------------> why-is-single-adapter-nice?frame=3
 
-There's also no extra deployment overhead, because you're not actually deploying these as separate services (yet), you're deploying them as one service. Which means you don't have to set up multiple pipelines, you don't have jump through any hoops if you need to start the whole thing up on your local machine for whatever reason. You just have an application which you can start.
+have something like a username or an email that the person uses to sign in. Whereas for purposes of Gameplay,
 
 -------------------------------> why-is-single-adapter-nice?frame=4
+
+you don't care about the player's email, but you do care about which color they are. And so rather than having one Player model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
+
+-------------------------------> why-is-single-adapter-nice?frame=5
+
+And yet there's still no extra deployment overhead, because you're not actually deploying these as separate services (yet), you're deploying them as one service. Which means you don't have to set up multiple pipelines, you don't have jump through any hoops if you need to start the whole thing up on your local machine for whatever reason. You just have an application which you can start.
+
+-------------------------------> why-is-single-adapter-nice?frame=6
 
 And this lets you try out the context boundary without paying for it too much. The module boundaries do prevent you from accessing things in the other bounded context that you're not supposed to have access to, and that kind of friction might be painful. You might discover that there's actually a lot of stories coming through the backlog that are requiring you to jump over the fence over and over again. Having to build out a whole swath of those cross-context adapters doesn't feel very nice. And if that's happening, that's an indication that maybe what you thought were two separate independent things are actually not two separate independent things. And you're able to learn that without building out a pipeline, without having to secure a whole new API, without having to ask for a bunch of infrastructure. You're able to learn it in a cheaper way, inside of your one codebase.
 
