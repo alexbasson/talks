@@ -1,8 +1,8 @@
 'use client'
 
 import {adapterRed, arrowPurple, deployableGreen, highlightYellow, policyBlue, Rect} from "@/app/lib/definitions";
-import ModuleRect from "@/app/lib/diagrams/ModuleRect";
-import Arrow from "@/app/lib/diagrams/Arrow";
+import ModuleRect from "@/app/lib/modular-monoliths/diagrams/ModuleRect";
+import Arrow from "@/app/lib/modular-monoliths/diagrams/Arrow";
 import useFrame from "@/app/lib/useFrame";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";

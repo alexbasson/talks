@@ -1,16 +1,16 @@
 'use client'
 
 import {adapterRed, deployableGreen, Geometry, Point, policyBlue, Port} from "@/app/lib/definitions";
-import systemGeometry from "@/app/lib/diagrams/systemGeometry";
-import DomainModule from "@/app/lib/diagrams/DomainModule";
-import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
-import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
-import DeployableModule from "@/app/lib/diagrams/DeployableModule";
-import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
-import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
+import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
+import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
+import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
+import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
+import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableModule";
+import PrimaryPort from "@/app/lib/modular-monoliths/diagrams/PrimaryPort";
+import SecondaryPort from "@/app/lib/modular-monoliths/diagrams/SecondaryPort";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
-import {stringifyForSvg} from "@/app/lib/diagrams/stringifyForSvg";
+import {stringifyForSvg} from "@/app/lib/modular-monoliths/diagrams/stringifyForSvg";
 
 export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);

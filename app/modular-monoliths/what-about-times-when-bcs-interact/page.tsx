@@ -2,7 +2,7 @@
 
 import useFrame from "@/app/lib/useFrame";
 import {highlightYellow} from "@/app/lib/definitions";
-import Arrow from "@/app/lib/diagrams/Arrow";
+import Arrow from "@/app/lib/modular-monoliths/diagrams/Arrow";
 
 type Frame = {
   friendsLanguageColor: string,

@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import {useRouter} from 'next/navigation';
-import {useNextHref} from '@/app/lib/slides/slides';
 import {KeyboardEvent, ReactNode, useEffect, useState} from "react";
+import {useNextHref} from "@/app/lib/useNextHref";
+import {slides} from "@/app/lib/modular-monoliths/slides/slides";
 
 export default function Layout({children}: { children: ReactNode }) {
   const router = useRouter();
-  const nextHref = useNextHref();
+  const nextHref = useNextHref('modular-monoliths', slides);
   const [displayPresentButton, setDisplayPresentButton] = useState<boolean>(true);
 
   useEffect(() => {

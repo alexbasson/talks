@@ -1,10 +1,10 @@
 'use client'
 
-import systemGeometry from "@/app/lib/diagrams/systemGeometry";
-import DeployableModule from "@/app/lib/diagrams/DeployableModule";
-import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
-import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
-import DomainModule from "@/app/lib/diagrams/DomainModule";
+import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
+import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableModule";
+import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
+import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
+import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import {adapterRed, deployableGreen, gray, highlightYellow, policyBlue} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
 import {useRef} from "react";

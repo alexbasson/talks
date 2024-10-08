@@ -1,6 +1,4 @@
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
-
-export const routes: string[] = [
+export const slides: string[] = [
   "title?frame=0",
   "acknowledgement?frame=0",
   "title?frame=1",
@@ -156,20 +154,3 @@ export const routes: string[] = [
   "what-does-this-not-mean?frame=3",
   "thank-you",
 ];
-
-export const useNextHref = (): string => {
-  const pathname = usePathname();
-  const pathComponents = pathname.split("/");
-  const lastComponent = pathComponents[pathComponents.length - 1];
-
-  const params: String[] = [];
-  const searchParams = useSearchParams();
-  const frame = searchParams.get("frame");
-  if (frame) { params.push(`frame=${frame}`) }
-
-  const route = lastComponent + (params.length > 0 ? `?${params.join('&')}` : '');
-
-  const currentRouteIndex = routes.indexOf(route) ?? 0;
-  const nextRouteIndex = (currentRouteIndex < routes.length - 1) ? (currentRouteIndex + 1) : 0;
-  return `/modular-monoliths/${routes[nextRouteIndex]}`
-}

@@ -1,14 +1,14 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import DomainModule from "@/app/lib/diagrams/DomainModule";
-import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
-import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
-import DeployableModule from "@/app/lib/diagrams/DeployableModule";
+import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
+import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
+import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
+import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableModule";
 import {AdapterProps, adapterRed, arrowPurple, deployableGreen, Geometry, highlightYellow} from "@/app/lib/definitions";
-import systemGeometry from "@/app/lib/diagrams/systemGeometry";
-import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
-import Arrow from "@/app/lib/diagrams/Arrow";
+import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
+import SecondaryPort from "@/app/lib/modular-monoliths/diagrams/SecondaryPort";
+import Arrow from "@/app/lib/modular-monoliths/diagrams/Arrow";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
 

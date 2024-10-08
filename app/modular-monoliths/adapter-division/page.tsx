@@ -9,17 +9,17 @@ import {
   policyBlue,
   Port
 } from "@/app/lib/definitions";
-import systemGeometry from "@/app/lib/diagrams/systemGeometry";
-import DomainModule from "@/app/lib/diagrams/DomainModule";
-import PrimaryAdapter from "@/app/lib/diagrams/PrimaryAdapter";
-import SecondaryAdapter from "@/app/lib/diagrams/SecondaryAdapter";
-import SecondaryPort from "@/app/lib/diagrams/SecondaryPort";
-import PrimaryPort from "@/app/lib/diagrams/PrimaryPort";
-import DeployableModule from "@/app/lib/diagrams/DeployableModule";
+import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
+import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
+import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
+import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
+import SecondaryPort from "@/app/lib/modular-monoliths/diagrams/SecondaryPort";
+import PrimaryPort from "@/app/lib/modular-monoliths/diagrams/PrimaryPort";
+import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableModule";
 import useFrame from "@/app/lib/useFrame";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";
-import {stringifyForSvg} from "@/app/lib/diagrams/stringifyForSvg";
+import {stringifyForSvg} from "@/app/lib/modular-monoliths/diagrams/stringifyForSvg";
 
 type Frame = {
   singleAdapterFill: string,

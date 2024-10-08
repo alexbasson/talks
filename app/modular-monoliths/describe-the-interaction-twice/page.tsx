@@ -1,8 +1,8 @@
 'use client'
 
 import {Point, policyBlue} from "@/app/lib/definitions";
-import systemGeometry from "@/app/lib/diagrams/systemGeometry";
-import DomainModule from "@/app/lib/diagrams/DomainModule";
+import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
+import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import useFrame from "@/app/lib/useFrame";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";

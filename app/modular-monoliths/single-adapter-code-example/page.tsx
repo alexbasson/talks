@@ -3,8 +3,8 @@
 import useFrame from "@/app/lib/useFrame";
 import clsx from "clsx";
 import {Geometry, highlightYellow, policyBlue, Port} from "@/app/lib/definitions";
-import DomainModule from "@/app/lib/diagrams/DomainModule";
-import systemGeometry from "@/app/lib/diagrams/systemGeometry";
+import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
+import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
 
