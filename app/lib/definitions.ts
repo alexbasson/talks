@@ -96,9 +96,3 @@ export type Geometry = {
   sePort: Port;
 }
 
-export type AdapterProps = {
-  geometry: Geometry;
-  portName: "nwPort" | "swPort" | "nePort" | "sePort";
-  fill?: string;
-  text?: string;
-}

@@ -5,13 +5,14 @@ import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
 import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableModule";
-import {AdapterProps, Geometry} from "@/app/lib/definitions";
+import {Geometry} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/modular-monoliths/diagrams/SecondaryPort";
 import Arrow from "@/app/lib/modular-monoliths/diagrams/Arrow";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
 import {adapterRed, arrowPurple, deployableGreen, highlightYellow} from "@/app/lib/colors";
+import {AdapterProps} from "@/app/lib/modular-monoliths/diagrams/AbstractAdapter";
 
 type Frame = {
   movesDbFill: string,
