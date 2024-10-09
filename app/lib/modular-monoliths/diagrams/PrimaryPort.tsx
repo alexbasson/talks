@@ -1,27 +1,12 @@
-import {PortProps} from "@/app/lib/definitions";
+import AbstractPort, {PortProps} from "@/app/lib/modular-monoliths/diagrams/AbstractPort";
 
-export default function PrimaryPort({sideLength, fill, port = {center: {x: 0, y: 0}, rotate: 0}, translate = {x: 0, y: 0}, displayOutline = false}: PortProps) {
+export default function PrimaryPort(props: PortProps) {
   const points = `
-  ${sideLength / 10}, 0
-  ${sideLength / 5}, ${sideLength / 8}
-  -${sideLength / 5}, ${sideLength / 8}
-  -${sideLength / 10}, 0
+  ${props.sideLength / 10}, 0
+  ${props.sideLength / 5}, ${props.sideLength / 8}
+  -${props.sideLength / 5}, ${props.sideLength / 8}
+  -${props.sideLength / 10}, 0
   `;
 
-  const transform = `
-  translate(${port.center.x + translate.x}, ${port.center.y + translate.y}),
-  rotate(${port.rotate}, 0, 0)
-  `;
-
-  return (
-    <g transform={transform}>
-      <polygon points={points} fill={fill} />
-
-      {
-        displayOutline ?
-          <polyline points={points} fill="none" stroke="yellow" strokeWidth={8} />
-          : null
-      }
-    </g>
-  )
+  return AbstractPort(points, props)
 }
