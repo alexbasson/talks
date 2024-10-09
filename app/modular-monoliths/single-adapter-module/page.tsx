@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, deployableGreen, Geometry, Point, policyBlue, Port} from "@/app/lib/definitions";
+import {Geometry, Point, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
@@ -11,6 +11,7 @@ import SecondaryPort from "@/app/lib/modular-monoliths/diagrams/SecondaryPort";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
 import {stringifyForSvg} from "@/app/lib/modular-monoliths/diagrams/stringifyForSvg";
+import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/colors";
 
 export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);

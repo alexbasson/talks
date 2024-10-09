@@ -1,8 +1,8 @@
 'use client'
 
-import {adapterRed, deployableGreen, highlightYellow, policyBlue} from "@/app/lib/definitions";
 import clsx from "clsx";
 import useFrame from "@/app/lib/useFrame";
+import {adapterRed, deployableGreen, highlightYellow, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   settings: boolean,

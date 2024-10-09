@@ -1,10 +1,11 @@
 'use client'
 
-import {adapterRed, arrowPurple, deployableGreen, policyBlue, Rect} from "@/app/lib/definitions";
+import {Rect} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/modular-monoliths/diagrams/Arrow";
 import ModuleRect from "@/app/lib/modular-monoliths/diagrams/ModuleRect";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";
+import {adapterRed, arrowPurple, deployableGreen, policyBlue} from "@/app/lib/colors";
 
 export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);

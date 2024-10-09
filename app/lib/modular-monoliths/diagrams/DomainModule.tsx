@@ -1,6 +1,16 @@
 import PrimaryPort from "./PrimaryPort";
 import SecondaryPort from "./SecondaryPort";
-import {DomainModuleProps, policyBlue} from "@/app/lib/definitions";
+import {Geometry} from "@/app/lib/definitions";
+import {policyBlue} from "@/app/lib/colors";
+
+type DomainModuleProps = {
+  geometry: Geometry;
+  fill?: string;
+  text: string;
+  rotate?: number;
+  displayPrimaryPorts?: boolean;
+  displaySecondaryPorts?: boolean;
+}
 
 export default function DomainModule({geometry, fill = policyBlue.hexValue, text, rotate = 0, displayPrimaryPorts = false, displaySecondaryPorts = false}: DomainModuleProps) {
   const {scale, center, nwPort, swPort, nePort, sePort} = geometry;

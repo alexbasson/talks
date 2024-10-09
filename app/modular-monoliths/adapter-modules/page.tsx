@@ -1,7 +1,7 @@
 'use client'
 
-import {adapterRed} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
+import {adapterRed} from "@/app/lib/colors";
 
 type Frame = {
   bullet1: boolean,

@@ -1,6 +1,6 @@
 'use client'
 
-import {adapterRed, arrowPurple, Geometry, Point, policyBlue, Port} from "@/app/lib/definitions";
+import {Geometry, Point, Port} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import SecondaryPort from "@/app/lib/modular-monoliths/diagrams/SecondaryPort";
 import PrimaryPort from "@/app/lib/modular-monoliths/diagrams/PrimaryPort";
@@ -8,6 +8,7 @@ import useFrame from "@/app/lib/useFrame";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";
 import {stringifyForSvg} from "@/app/lib/modular-monoliths/diagrams/stringifyForSvg";
+import {adapterRed, arrowPurple, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   displayText: boolean,

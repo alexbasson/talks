@@ -1,8 +1,8 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import {highlightYellow} from "@/app/lib/definitions";
 import Arrow from "@/app/lib/modular-monoliths/diagrams/Arrow";
+import {highlightYellow} from "@/app/lib/colors";
 
 type Frame = {
   friendsLanguageColor: string,

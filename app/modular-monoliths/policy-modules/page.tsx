@@ -1,7 +1,7 @@
 'use client'
 
-import {policyBlue} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
+import {policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   bullet1: boolean,

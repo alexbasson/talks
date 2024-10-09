@@ -2,7 +2,8 @@
 
 import useFrame from "@/app/lib/useFrame";
 import clsx from "clsx";
-import {highlightYellow} from "@/app/lib/definitions";
+
+import {highlightYellow} from "@/app/lib/colors";
 
 type Frame = {
   highlightDeployableMitosis: boolean,

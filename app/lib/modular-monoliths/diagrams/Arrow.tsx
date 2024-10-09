@@ -1,6 +1,15 @@
-import {ArrowProps, arrowPurple, Point} from "@/app/lib/definitions";
+import {Point} from "@/app/lib/definitions";
 import {arrowPoints} from "@/app/lib/modular-monoliths/diagrams/arrowPoints";
 import {stringifyForSvg} from "@/app/lib/modular-monoliths/diagrams/stringifyForSvg";
+import {arrowPurple} from "@/app/lib/colors";
+
+type ArrowProps = {
+  points: Point[],
+  width: number,
+  color?: string,
+  opacity?: number,
+  dashArray?: number,
+}
 
 export default function Arrow({points, width, color = arrowPurple.hexValue, opacity = 1, dashArray = 0}: ArrowProps) {
   const {line, arrowhead} = arrowPoints({

@@ -5,10 +5,10 @@ import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableMod
 import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
 import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
 import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
-import {adapterRed, deployableGreen, gray, highlightYellow, policyBlue} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
+import {adapterRed, deployableGreen, gray, highlightYellow, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   domainFill: string,

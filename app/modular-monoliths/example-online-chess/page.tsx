@@ -1,6 +1,5 @@
 'use client'
 
-import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
@@ -9,6 +8,7 @@ import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry"
 import useFrame from "@/app/lib/useFrame";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
+import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   displayPolicy: boolean,

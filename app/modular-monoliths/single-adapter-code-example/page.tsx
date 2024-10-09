@@ -2,11 +2,12 @@
 
 import useFrame from "@/app/lib/useFrame";
 import clsx from "clsx";
-import {Geometry, highlightYellow, policyBlue, Port} from "@/app/lib/definitions";
+import {Geometry, Port} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
+import {highlightYellow, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   displayDiagram: boolean,

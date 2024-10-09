@@ -1,7 +1,8 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/definitions";
+
+import {adapterRed, deployableGreen, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   bullet1: boolean,

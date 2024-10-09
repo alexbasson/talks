@@ -1,7 +1,6 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import {arrowPurple, deployableGreen, policyBlue} from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
 import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
@@ -9,6 +8,7 @@ import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdap
 import DeployableModule from "@/app/lib/modular-monoliths/diagrams/DeployableModule";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
+import {arrowPurple, deployableGreen, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   displaySingleDeployable: boolean,

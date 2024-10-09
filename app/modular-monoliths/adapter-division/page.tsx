@@ -1,12 +1,8 @@
 'use client'
 
 import {
-  adapterRed,
-  arrowPurple,
-  deployableGreen,
   Geometry,
-  highlightYellow, Point,
-  policyBlue,
+  Point,
   Port
 } from "@/app/lib/definitions";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
@@ -20,6 +16,7 @@ import useFrame from "@/app/lib/useFrame";
 import useDimensions from "@/app/lib/useDimensions";
 import {useRef} from "react";
 import {stringifyForSvg} from "@/app/lib/modular-monoliths/diagrams/stringifyForSvg";
+import {adapterRed, arrowPurple, deployableGreen, highlightYellow, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
   singleAdapterFill: string,

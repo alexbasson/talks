@@ -1,4 +1,12 @@
-import {deployableGreen, DeployableModuleProps} from "@/app/lib/definitions";
+import {Geometry} from "@/app/lib/definitions";
+import {deployableGreen} from "@/app/lib/colors";
+
+type DeployableModuleProps = {
+  geometry: Geometry;
+  stroke?: string;
+  width: number;
+  height: number;
+}
 
 export default function DeployableModule({geometry, stroke = deployableGreen.hexValue, width, height}: DeployableModuleProps) {
   const {center} = geometry;

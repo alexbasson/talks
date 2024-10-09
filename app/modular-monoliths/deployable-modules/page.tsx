@@ -1,7 +1,7 @@
 'use client'
 
-import {deployableGreen} from "@/app/lib/definitions";
 import useFrame from "@/app/lib/useFrame";
+import {deployableGreen} from "@/app/lib/colors";
 
 type Frame = {
   bullet1: boolean,

@@ -1,12 +1,12 @@
 'use client'
 
 import DomainModule from "@/app/lib/modular-monoliths/diagrams/DomainModule";
-import {policyBlue} from "@/app/lib/definitions";
 import PrimaryAdapter from "@/app/lib/modular-monoliths/diagrams/PrimaryAdapter";
 import SecondaryAdapter from "@/app/lib/modular-monoliths/diagrams/SecondaryAdapter";
 import systemGeometry from "@/app/lib/modular-monoliths/diagrams/systemGeometry";
 import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
+import {policyBlue} from "@/app/lib/colors";
 
 export default function Page() {
   const targetRef = useRef<HTMLDivElement>(null);

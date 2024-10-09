@@ -1,4 +1,4 @@
-import {highlightYellow} from "@/app/lib/definitions";
+import {highlightYellow} from "@/app/lib/colors";
 
 export default function Page() {
   return (
