@@ -494,7 +494,7 @@ This is all kind of abstract.
 
 -------------------------------> single-adapter-code-example?frame=0
 
-To get a little bit concrete, looking at our online chess example, this is a cross-context adapter that could bridge the gap between the `GameInitializer` port and the `SetupBoard` port. So what this looks like,
+To get a little bit concrete, looking at our online chess example, this is a cross-context adapter that could bridge the gap between the `GameInitializer` port and the `setup_board` port. So what this looks like,
 
 -------------------------------> single-adapter-code-example?frame=1
 
@@ -502,23 +502,23 @@ from the perspective of the Organizing Games policy, this is a secondary adapter
 
 -------------------------------> single-adapter-code-example?frame=2
 
-Secondary adapter means that it implements an interface. So the GameInitializer interface comes from Organizing Games. We implement that interface and define a corresponding `initializeGame()` function. But this same object is also
+Secondary adapter means that it implements an interface. So the `GameInitializer` interface comes from Organizing Games. We implement that interface and define a corresponding `initialize_game()` function. But this same object is also
 
 -------------------------------> single-adapter-code-example?frame=3
 
-a primary adapter for the Gameplay policy. And as a primary adapter, it has to invoke an operation in Gameplay. So we're going to get constructed with a `SetupBoard` operation object that comes from the Gameplay policy module, and then inside of our `initializeGame()` function, we're going to invoke the `setupBoard` operation.
+a primary adapter for the Gameplay policy. And as a primary adapter, it has to invoke an operation in Gameplay. So we're going to get constructed with a `setup_board` operation object that comes from the Gameplay policy module, and then inside of our `initialize_game()` function, we're going to invoke the `setup_board` operation.
 
-In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have the concept of Player; I've imagined here that Player is a data class that comes from Organizing Games, and so that's the argument that gets passed into `initializeGame()`. We can't take those Player objects and pass them directly into `setupBoard` because `setupBoard` doesn't have that concept of Player; it wouldn't compile because it wouldn't know what a Player is.
+In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have the concept of Player; I've imagined here that Player is a data class that comes from Organizing Games, and so that's the argument that gets passed into `initialize_game()`. We can't take those Player objects and pass them directly into `setup_board` because `setup_board` doesn't have that concept of Player; it wouldn't run because it wouldn't know what a Player is.
 
 What it _does_ expect is two names, which presumably it can use to label the two different sides of the board. And so the job of our cross-context adapter here is
 
 -------------------------------> single-adapter-code-example?frame=4
 
-to translate from one language into the other. So it knows how extract the names off of the Player objects from Organizing Games so that it can pass those into the `setupBoard` operation from Gameplay. I've similarly imagined that Organizing Games defines a concept of a gameId, and Gameplay has this concept of a boardId, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
+to translate from one language into the other. So the adapter knows how extract the names off of the Player objects from Organizing Games so that it can pass those into the `setup_board` operation from Gameplay. I've similarly imagined that Organizing Games defines a concept of a `GameId`, and Gameplay has this concept of a `board_id`, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
 
 -------------------------------> single-adapter-code-example?frame=5
 
-that boardId back from Gameplay and then constructs a gameId out of it.
+that `board_id` back from Gameplay and then constructs a `GameId` out of it.
 
 -------------------------------> why-is-single-adapter-nice?frame=0
 
