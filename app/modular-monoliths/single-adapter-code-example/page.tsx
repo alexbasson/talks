@@ -81,11 +81,12 @@ export default function Page() {
     <div className='padding-horizontal w-full flex flex-col flex-grow flex-shrink-0'>
       <div>
         <p className={"pb-0 mb-0 font-mono text-sm"}>
-          class GameplayGameInitializer implements <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span> &#123;<br/>
-          &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>private final SetupBoard setupBoard;</span><br/><br/>
-          &nbsp;&nbsp;public GameplayGameInitializer(SetupBoard setupBoard) &#123;<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;this.setupBoard = setupBoard;<br/>
-          &nbsp;&nbsp;&#125;<br/>
+          <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>from organizing_games.game_initializer import GameInitializer, Player, GameId</span><br/>
+          <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>from gameplay.setup_board import setup_board</span><br/><br/>
+
+          class GameplayGameInitializer(<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span>):<br/>
+          &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>__init__(setup_board: Function):</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;self.setup_board = setup_board<br/>
         </p>
       </div>
 
@@ -93,19 +94,15 @@ export default function Page() {
         <div className='w-2/5'>
           <p className='py-0 my-0 font-mono text-sm'>
             <br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>@Override</span><br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>public GameId initializeGame</span>(<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;Player whitePlayer,<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;Player blackPlayer<br/>
-            &nbsp;&nbsp;) &#123;<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;BoardId boardId = <br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>setupBoard.execute</span>(<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>whitePlayer.name,</span><br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>blackPlayer.name</span><br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId(boardId.value)</span>;<br/>
-            &nbsp;&nbsp;&#125;<br/>
-            &#125;<br/>
+            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;white_player: Player<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;black_player: Player<br/>
+            &nbsp;&nbsp;) -&gt; GameId:<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;board_id = <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>self.setup_board</span>(<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>white_player.name,</span><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>black_player.name</span><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;)<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId(board_id.value)</span><br/>
           </p>
         </div>
         <div className='svg-container' ref={targetRef}>
