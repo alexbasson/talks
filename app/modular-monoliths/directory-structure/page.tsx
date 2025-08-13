@@ -5,7 +5,6 @@ import useFrame from "@/app/lib/useFrame";
 import {adapterRed, deployableGreen, highlightYellow, policyBlue} from "@/app/lib/colors";
 
 type Frame = {
-  settings: boolean,
   deployable: boolean,
   highlightDeployable: boolean,
   apiAdapter: boolean,
@@ -18,7 +17,6 @@ type Frame = {
 export default function Page() {
   const frames: Frame[] = [
     {
-      settings: false,
       deployable: false,
       highlightDeployable: false,
       apiAdapter: false,
@@ -28,17 +26,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: true,
-      deployable: false,
-      highlightDeployable: false,
-      apiAdapter: false,
-      highlightApiAdapter: false,
-      sqlAdapter: false,
-      highlightSqlAdapter: false,
-      policy: false,
-    },
-    {
-      settings: false,
       deployable: true,
       highlightDeployable: false,
       apiAdapter: false,
@@ -48,7 +35,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: false,
       deployable: true,
       highlightDeployable: true,
       apiAdapter: false,
@@ -58,7 +44,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: false,
       deployable: false,
       highlightDeployable: false,
       apiAdapter: true,
@@ -68,7 +53,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: false,
       deployable: false,
       highlightDeployable: false,
       apiAdapter: true,
@@ -78,7 +62,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: false,
       deployable: false,
       highlightDeployable: false,
       apiAdapter: false,
@@ -88,7 +71,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: false,
       deployable: false,
       highlightDeployable: false,
       apiAdapter: false,
@@ -98,7 +80,6 @@ export default function Page() {
       policy: false,
     },
     {
-      settings: false,
       deployable: false,
       highlightDeployable: false,
       apiAdapter: false,
@@ -120,77 +101,45 @@ export default function Page() {
       <div className='font-mono leading-normal mr-16'>
         <p className='mb-4'>online-chess/</p>
         <ul className='pl-16 list-none'>
-          <li className={`${border(frame.settings)} mb-2 p-2`}>
-            <p>settings.gradle</p>
-          </li>
           <li className={`${deployableGreen.className} ${border(frame.deployable)} mb-2 p-2`}>
-            <p>chess-app/</p>
+            <p>chess_app/</p>
             <ul className={"pl-16 list-none"}>
-              <li>src/main/.../ChessApplication.java</li>
+              <li>chess_application.py</li>
             </ul>
           </li>
           <li className={`${adapterRed.className} ${border(frame.apiAdapter)} mb-2 p-2`}>
-            <p>game-api-adapter/</p>
+            <p>game_api_adapter/</p>
             <ul className={"pl-16 list-none"}>
-              <li>src/main/.../MovesController.java</li>
+              <li>moves_routers.py</li>
             </ul>
           </li>
           <li className={`${adapterRed.className} ${border(frame.sqlAdapter)} mb-2 p-2`}>
-            <p>game-db-adapter/</p>
+            <p>game_db_adapter/</p>
             <ul className={"pl-16 list-none"}>
-              <li>src/main/.../SqlMoveRepository.java</li>
+              <li>sql_move_repository.py</li>
             </ul>
           </li>
           <li className={`${policyBlue.className} ${border(frame.policy)} p-2`}>
-            <p>game-policy/</p>
+            <p>game_policy/</p>
             <ul className={"pl-16 list-none"}>
-              <li>src/main/.../MakeMove.java</li>
-              <li>src/main/.../MoveRepository.java</li>
+              <li>make_move.py</li>
+              <li>move_repository.py</li>
             </ul>
           </li>
         </ul>
       </div>
 
       <div className={"font-mono text-sm leading-loose"}>
-        {frame.settings ?
-          <div>
-            <p className={"mb-8"}>&#47;&#47; settings.gradle</p>
-            <p>include(</p>
-            <ul className={"pl-16 list-none"}>
-              <li>&ldquo;chess-app&rdquo;,</li>
-              <li>&ldquo;game-db-adapter&rdquo;,</li>
-              <li>&ldquo;game-api-adapter&rdquo;,</li>
-              <li>&ldquo;game-policy&rdquo;</li>
-            </ul>
-            <p>)</p>
-          </div> : <></>
-        }
-
         {frame.deployable ?
           <div className={`font-mono text-sm leading-normal ${deployableGreen.className}`}>
-            <div className={"mb-8"}>
-              <p>&#47;&#47; build.gradle</p>
-            </div>
-
-            <div className={"mb-16"}>
-              <p>dependencies &#123;</p>
-              <div>
-                <ul className={"pl-16 list-none"}>
-                  <li>project(&ldquo;:game-db-adapter&rdquo;)</li>
-                  <li>project(&ldquo;:game-api-adapter&rdquo;)</li>
-                  <li>project(&ldquo;:game-policy&rdquo;)</li>
-                </ul>
-                <p>&#125;</p>
-              </div>
-            </div>
-
             <div>
-              <p className={"mb-8"}>&#47;&#47; ChessApplication.java</p>
-              <p className={clsx({[highlightYellow.className]: frame.highlightDeployable})}>@SpringBootApplication</p>
-              <p>@Import(SqlMoveRepo.class)</p>
-              <p>@Import(MovesCtlr.class)</p>
-              <p>@Import(MakeMove.class)</p>
-              <p>class ChessApplication</p>
+              <p className={"mb-8"}>&#35; chess_application.py</p>
+              <p>import game_api_adapter.sql_move_repository</p>
+              <p>import game_db_adapter.import moves_routers</p>
+              <p>import game_policy.make_move</p>
+              <p>import game_policy.move_repository</p>
+              <p className={clsx('mt-8', {[highlightYellow.className]: frame.highlightDeployable})}>def create_app():</p>
+              <p className={clsx('pl-16', {[highlightYellow.className]: frame.highlightDeployable})}>...</p>
             </div>
           </div> : <></>
         }
@@ -198,24 +147,18 @@ export default function Page() {
         {frame.apiAdapter ?
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
             <div className={"mb-8"}>
-              <p>&#47;&#47; build.gradle</p>
+              <p>&#35; moves_routers.py</p>
             </div>
 
             <div className={"mb-16"}>
-              <p>dependencies &#123;</p>
-              <ul className={"pl-16 list-none"}>
-                <li>project(&ldquo;:game-policy&rdquo;)</li>
-              </ul>
-              <p>&#125;</p>
+              <p>from game_policy.make_move import make_move</p>
             </div>
 
             <div>
-              <p className={"mb-8"}>&#47;&#47; MovesController.java</p>
-              <p>@RestController</p>
-              <p>class MovesController &#123;</p>
-              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-16')}>private final MakeMove makeMove;</p>
-              <p className={"pl-16"}>...</p>
-              <p>&#125;</p>
+              <p>@chess_game.route(&ldquo;/&rdquo;)</p>
+              <p>class Moves(Resource):</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-16')}>__init__(make_move):</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-32')}>...</p>
             </div>
           </div> : <></>
         }
@@ -223,21 +166,15 @@ export default function Page() {
         {frame.sqlAdapter ?
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
             <div className={"mb-8"}>
-              <p>&#47;&#47; build.gradle</p>
+              <p>&#35; sql_move_repository.py</p>
             </div>
 
             <div className={"mb-16"}>
-              <p>dependencies &#123;</p>
-              <ul className={"pl-16 list-none"}>
-                <li>project(&ldquo;:game-policy&rdquo;)</li>
-              </ul>
-              <p>&#125;</p>
+              <p>from game_policy.move_repository import MoveRepository</p>
             </div>
 
             <div>
-              <p className={"mb-8"}>&#47;&#47; SqlMoveRepository.java</p>
-              <p>class <span className={clsx({[highlightYellow.className]: frame.highlightSqlAdapter})}>SqlMoveRepository implements MoveRepository</span>
-              </p>
+              <p>class <span className={clsx({[highlightYellow.className]: frame.highlightSqlAdapter})}>SqlMoveRepository(MoveRepository):</span></p>
             </div>
           </div> : <></>
         }
@@ -245,14 +182,11 @@ export default function Page() {
         {frame.policy ?
           <div className={`font-mono text-sm leading-normal ${policyBlue.className}`}>
             <div className={"mb-8"}>
-              <p>&#47;&#47; build.gradle</p>
+              <p>&#35; make_move.py</p>
             </div>
 
             <div>
-              <p>dependencies &#123;</p>
-              <ul>
-              </ul>
-              <p>&#125;</p>
+              <p>def make_move():</p>
             </div>
           </div> : <></>
         }

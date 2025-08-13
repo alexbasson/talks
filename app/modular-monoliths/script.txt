@@ -242,43 +242,37 @@ And then finally we would have our deployable module where our dependency inject
 
 If we suppose that this was, for example, a Spring application, the actual codebase
 
--------------------------------> spring-directory-structure?frame=0
+-------------------------------> directory-structure?frame=0
 
-might look like this. You'll note that all of this is in one git repository. We're using gradle because gradle makes this a little bit nicer than maven does; it doesn't really matter. In your
+might look like this. You'll note that all of this is in one git repository. In our deployable module,
 
--------------------------------> spring-directory-structure?frame=1
+-------------------------------> directory-structure?frame=1
 
-`settings.gradle` file, you would have a list of all of the subprojects in the system—we have four of them; we have our deployable chess app, our two adapters, and our policy.
+we have a list of all of the dependencies; we depend on everything, and then we have also a `create_app` function that creates the application.
 
-In our deployable module,
+-------------------------------> directory-structure?frame=2
 
--------------------------------> spring-directory-structure?frame=2
-
-we have a list of all of the dependencies; we depend on everything, and then we have also a Spring Boot application class.
-
--------------------------------> spring-directory-structure?frame=3
-
-So the class with the Spring Boot annotation goes here, because this is the actual shipping thing.
+So the file with the `create_app` function goes here, because this is the actual shipping thing.
 
 We then have our
 
--------------------------------> spring-directory-structure?frame=4
+-------------------------------> directory-structure?frame=3
 
 API adapter. This is our primary adapter that is going to invoke operations inside the policy. You can see that it depends on fewer things: instead of depending on everything, it only depends on game policy. And then, because it is a primary adapter, it needs to invoke operations, and so it's going to get
 
--------------------------------> spring-directory-structure?frame=5
+-------------------------------> directory-structure?frame=4
 
 constructed with an operation object that comes out of the policy module.
 
--------------------------------> spring-directory-structure?frame=6
+-------------------------------> directory-structure?frame=5
 
 Our database adapter, same thing: it depends only on the game policy, and because it is a secondary adapter, it is going to implement an interface, so
 
--------------------------------> spring-directory-structure?frame=7
+-------------------------------> directory-structure?frame=6
 
 it provides a class `SqlMoveRepository` implementing an interface that comes from the policy module.
 
--------------------------------> spring-directory-structure?frame=8
+-------------------------------> directory-structure?frame=7
 
 And the policy module depends on nothing. No dependencies, it's just its own thing.
 
