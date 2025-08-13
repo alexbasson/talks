@@ -24,6 +24,6 @@ export const gray = {
 };
 
 export const arrowPurple = {
-  className: "text-purple-700",
-  hexValue: "#7e22ce"
+  className: "text-purple-400",
+  hexValue: "#a855f7"
 };

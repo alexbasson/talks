@@ -48,14 +48,14 @@ export default function Layout({children}: { children: ReactNode }) {
 
   return (
     <div
-      className='bg-neutral-800 h-screen w-screen text-base'
+      className='bg-neutral-800 h-screen w-screen text-base text-amber-50'
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       {displayPresentButton ?
         <button
           onClick={toggleFullscreen}
-          className='absolute top-0 right-0 bg-blue-500 text-white text-sm px-4 py-2 rounded'>
+          className='absolute top-0 right-0 bg-blue-500 text-amber-50 text-sm px-4 py-2 rounded'>
           Present
         </button>
         : <></>}
