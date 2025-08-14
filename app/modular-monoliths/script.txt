@@ -1,7 +1,7 @@
 
 -------------------------------> title?frame=0
 
-Hi everyone, thanks for coming. My name is Alex Basson, I'm an engineering leader at Tanzu Labs.
+Hi everyone, thanks for coming. My name is Alex Basson, I'm a Director of Engineering at Primer.
 
 -------------------------------> acknowledgement?frame=0
 
