@@ -530,7 +530,7 @@ actually keeps each piece small. It avoids that moment where your model has beco
 
 -------------------------------> why-is-single-adapter-nice?frame=2
 
-Each policy module stays specialized. For example, you could conceivably have a Player class, a Player data type in _both_ models. But in the Organizing Games model, Player is likely going to have a bunch of things on it that are specific to that context, so it might
+Each policy module stays specialized. For example, you could conceivably have a `Player` class, a `Player` data type in _both_ models. But in the Organizing Games model, `Player` is likely going to have a bunch of things on it that are specific to that context, so it might
 
 -------------------------------> why-is-single-adapter-nice?frame=3
 
@@ -538,7 +538,7 @@ have something like a username or an email that the person uses to sign in. Wher
 
 -------------------------------> why-is-single-adapter-nice?frame=4
 
-you don't care about the player's email, but you do care about which color they are. And so rather than having one Player model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
+you don't care about the player's email, but you do care about which color they are. And so rather than having one `Player` model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
 
 -------------------------------> why-is-single-adapter-nice?frame=5
 
