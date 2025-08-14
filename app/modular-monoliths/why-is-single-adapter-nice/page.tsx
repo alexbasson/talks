@@ -91,34 +91,28 @@ export default function Page() {
           <p className='mb-4'>online-chess/</p>
           <ul className='pl-16 list-none'>
             <li className={`${policyBlue.className} p-2`}>
-              <p>organizing-games-policy/</p>
-              <ul className={"pl-16 list-none"}>
-                <li>src/main/.../Player.java</li>
-              </ul>
+              <p>organizing-games-policy/player.py</p>
             </li>
             { frame.orgGamesPlayer ?
-              <li className='ml-32'>
+              <li className='ml-16'>
                 <p>
-                  class Player &#123;<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;String username;<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;String email;<br/>
-                  &#125;
+                  class Player():<br/>
+                  &nbsp;&nbsp;__init__(username, email):<br/>
+                  &nbsp;&nbsp;&nbsp;&nbsp;self.username = username<br/>
+                  &nbsp;&nbsp;&nbsp;&nbsp;self.email = email<br/>
                 </p>
               </li>
               : <></>
             }
             <li className={`${policyBlue.className} p-2 mt-16`}>
-              <p>gameplay-policy/</p>
-              <ul className={"pl-16 list-none"}>
-                <li>src/main/.../Player.java</li>
-              </ul>
+              <p>gameplay-policy/player.py</p>
             </li>
             { frame.gamePlayPlayer ?
-              <li className='ml-32'>
+              <li className='ml-16'>
                 <p>
-                  class Player &#123;<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;String color;<br/>
-                  &#125;
+                  class Player():<br/>
+                  &nbsp;&nbsp;__init__(color):<br/>
+                  &nbsp;&nbsp;&nbsp;&nbsp;self.color = color<br/>
                 </p>
               </li>
               : <></>
