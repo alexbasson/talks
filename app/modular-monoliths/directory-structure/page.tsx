@@ -137,28 +137,26 @@ export default function Page() {
         {frame.deployable ?
           <div className={`font-mono text-sm leading-normal ${deployableGreen.className}`}>
             <div>
-              <p className={"mb-8"}>&#35; chess_application.py</p>
+              <p>&#35; chess_application.py</p>
+              <br/>
               <p>import game_api_adapter.sql_move_repository</p>
               <p>import game_db_adapter.import moves_routers</p>
               <p>import game_policy.make_move</p>
               <p>import game_policy.move_repository</p>
-              <p className={clsx('mt-8', {[highlightYellow.className]: frame.highlightDeployable})}>def create_app():</p>
-              <p className={clsx('pl-16', {[highlightYellow.className]: frame.highlightDeployable})}>...</p>
+              <br/>
+              <p className={clsx({[highlightYellow.className]: frame.highlightDeployable})}>def create_app():</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightDeployable})}>&nbsp;&nbsp;...</p>
             </div>
           </div> : <></>
         }
 
         {frame.apiAdapter ?
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
-            <div className={"mb-8"}>
-              <p>&#35; moves_routers.py</p>
-            </div>
-
-            <div className={"mb-16"}>
-              <p>from game_policy.make_move import make_move</p>
-            </div>
-
             <div>
+              <p>&#35; moves_routers.py</p>
+              <br/>
+              <p>from game_policy.make_move import make_move</p>
+              <br/>
               <p>@chess_game.route(&ldquo;/&rdquo;)</p>
               <p>class Moves(Resource):</p>
               <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-16')}>__init__(make_move):</p>
@@ -169,16 +167,13 @@ export default function Page() {
 
         {frame.sqlAdapter ?
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
-            <div className={"mb-8"}>
-              <p>&#35; sql_move_repository.py</p>
-            </div>
-
-            <div className={"mb-16"}>
-              <p>from game_policy.move_repository import MoveRepository</p>
-            </div>
-
             <div>
+              <p>&#35; sql_move_repository.py</p>
+              <br/>
+              <p>from game_policy.move_repository import MoveRepository</p>
+              <br/>
               <p>class <span className={clsx({[highlightYellow.className]: frame.highlightSqlAdapter})}>SqlMoveRepository(MoveRepository):</span></p>
+              <p>&nbsp;&nbsp;...</p>
             </div>
           </div> : <></>
         }
