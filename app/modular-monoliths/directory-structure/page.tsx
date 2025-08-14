@@ -98,30 +98,34 @@ export default function Page() {
 
   return (
     <div className='padding-horizontal w-full flex justify-start'>
-      <div className='font-mono leading-normal mr-16'>
+      <div className='font-mono text-sm leading-normal mr-16'>
         <p className='mb-4'>online-chess/</p>
         <ul className='pl-16 list-none'>
-          <li className={`${deployableGreen.className} ${border(frame.deployable)} mb-2 p-2`}>
+          <li className={`${deployableGreen.className} ${border(frame.deployable)} mb-4 p-2`}>
             <p>chess_app/</p>
             <ul className={"pl-16 list-none"}>
+              <li>__init__.py</li>
               <li>chess_application.py</li>
             </ul>
           </li>
-          <li className={`${adapterRed.className} ${border(frame.apiAdapter)} mb-2 p-2`}>
+          <li className={`${adapterRed.className} ${border(frame.apiAdapter)} mb-4 p-2`}>
             <p>game_api_adapter/</p>
             <ul className={"pl-16 list-none"}>
+              <li>__init__.py</li>
               <li>moves_routers.py</li>
             </ul>
           </li>
-          <li className={`${adapterRed.className} ${border(frame.sqlAdapter)} mb-2 p-2`}>
+          <li className={`${adapterRed.className} ${border(frame.sqlAdapter)} mb-4 p-2`}>
             <p>game_db_adapter/</p>
             <ul className={"pl-16 list-none"}>
+              <li>__init__.py</li>
               <li>sql_move_repository.py</li>
             </ul>
           </li>
           <li className={`${policyBlue.className} ${border(frame.policy)} p-2`}>
             <p>game_policy/</p>
             <ul className={"pl-16 list-none"}>
+              <li>__init__.py</li>
               <li>make_move.py</li>
               <li>move_repository.py</li>
             </ul>
