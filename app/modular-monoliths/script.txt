@@ -240,7 +240,7 @@ And we can have a database module that knows how to write move records into a mo
 
 And then finally we would have our deployable module where our dependency injection container lives, where we read environment variables from the environment and know how to configure things. All of that lives at the deployable level.
 
-If we suppose that this was, for example, a Spring application, the actual codebase
+If we suppose that this was, for example, a Flask application, the actual codebase
 
 -------------------------------> directory-structure?frame=0
 
