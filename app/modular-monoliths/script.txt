@@ -25,11 +25,11 @@ What this is, is this talk is going to be about
 
 -------------------------------> what-this-talk-is?frame=1
 
-math. This is going to be about 
+math. This is going to be about
 
 -------------------------------> what-this-talk-is?frame=2
 
-weighing costs versus benefits and ways that 
+weighing costs versus benefits and ways that
 
 -------------------------------> what-this-talk-is?frame=3
 
@@ -174,11 +174,11 @@ is the definition of interfaces, data structures, operations, but exclusively in
 
 -------------------------------> adapter-modules?frame=0
 
-Adapter modules, then, are the 
+Adapter modules, then, are the
 
 -------------------------------> adapter-modules?frame=1
 
-_low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a 
+_low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a
 
 -------------------------------> adapter-modules?frame=2
 
