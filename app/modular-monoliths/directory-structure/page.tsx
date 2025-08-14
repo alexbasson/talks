@@ -105,7 +105,7 @@ export default function Page() {
             <p>chess_app/</p>
             <ul className={"pl-16 list-none"}>
               <li>__init__.py</li>
-              <li>chess_application.py</li>
+              <li>app.py</li>
             </ul>
           </li>
           <li className={`${adapterRed.className} ${border(frame.apiAdapter)} mb-4 p-2`}>
@@ -185,12 +185,16 @@ export default function Page() {
 
         {frame.policy ?
           <div className={`font-mono text-sm leading-normal ${policyBlue.className}`}>
-            <div className={"mb-8"}>
+            <div className='mb-16'>
               <p>&#35; make_move.py</p>
+              <p>def make_move():</p>
+              <p>&nbsp;&nbsp;...</p>
             </div>
 
             <div>
-              <p>def make_move():</p>
+              <p>&#35; move_repository.py</p>
+              <p>class MoveRepository(ABC):</p>
+              <p>&nbsp;&nbsp;...</p>
             </div>
           </div> : <></>
         }
