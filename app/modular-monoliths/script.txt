@@ -5,7 +5,7 @@ Hi everyone, thanks for coming. My name is Alex Basson, I'm a Director of Engine
 
 -------------------------------> acknowledgement?frame=0
 
-Before I get into the talk, I want to acknowledge my dear friend Cedar Edwards, who used to work at Tanzu Labs, and who is the original author of this talk. I think it's one of the greatest talks on software development I've ever seen. And so when Cedar left, I asked them whether I could give their talk to people who hadn't yet seen it, and they very graciously said yes. So I'm giving this talk, but I want to make sure I give all the credit for it to Cedar.
+Before I get into the talk, I want to acknowledge my dear friend Cedar Edwards, with whom I used to work at Pivotal Labs, and who is the original author of this talk. I think it's one of the greatest talks on software development I've ever seen. And so when Cedar left, I asked them whether I could give their talk to people who hadn't yet seen it, and they very graciously said yes. So I'm giving this talk, but I want to make sure I give all the credit for it to Cedar.
 
 -------------------------------> title?frame=1
 
@@ -17,7 +17,7 @@ this talk is not
 
 -------------------------------> what-this-talk-is-not?frame=1
 
-about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices _actually_ are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. this isn't about best practices for doing anything.
+about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices _actually_ are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. This isn't about best practices for doing anything.
 
 -------------------------------> what-this-talk-is?frame=0
 
@@ -35,7 +35,7 @@ weighing costs versus benefits and ways that
 
 you can get more benefits for less cost in certain situations, and some ways that folks might not have been familiar with or been aware of. So that's what this is all about.
 
-And to get started to talk about sort of the particular problem space in which we're going to be doing this calculus,
+And to get started to talk about the particular problem space in which we're going to be doing this calculus,
 
 -------------------------------> emerald-city?frame=0
 
@@ -53,7 +53,7 @@ And it sounds delightful! We're very excited to get there, we're walking along t
 
 And yet...
 
-For as magical as the Emerald City sounds, the place where we are
+For as magical as the Emerald City sounds, the place where we _are_
 
 -------------------------------> where-we-are-now?frame=0
 
@@ -65,7 +65,7 @@ doesn't feel as nice? The place where we are is kind of rough. We have maybe rig
 
 -------------------------------> where-we-are-now?frame=2
 
-which means you're going to have to start up all of the services locally on your workstation, so you can try to see what weird interaction is causing this problem. And that's going to be a bit of a hassle, especially if you're running on an underpowered virtual desktop that struggles to run all five of those Spring Boot apps at the same time.
+which means you're going to have to start up all of the services locally on your workstation, so you can try to see what weird interaction is causing this problem. And that's going to be a bit of a hassle, especially if you're running on an underpowered virtual desktop that struggles to run all five of those apps locally at the same time.
 
 -------------------------------> where-we-are-now?frame=3
 
@@ -101,7 +101,7 @@ And the answer is "No", and that's what this talk is about. This talk is about n
 
 -------------------------------> thesis-statement?frame=0
 
-So. Here is the idea on ways that we can make this nicer: By focusing less on services and more on boundaries, we can reach some early rewards at less cost, and without blocking ourselves off from the great and glorious Emerald City that we're trying to get to.
+So. Here is the idea on ways that we can make this nicer: By focusing less on _services_ and more on _boundaries_, we can reach some early rewards at less cost, and without blocking ourselves off from the great and glorious Emerald City that we're trying to get to.
 
 How are we going to do this? This is where I reveal that I don't actually have too much interesting to say, nothing that you haven't heard before.
 
