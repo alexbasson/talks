@@ -85,7 +85,7 @@ export default function Page() {
           <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>from gameplay.setup_board import setup_board</span><br/><br/>
 
           class GameplayGameInitializer(<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span>):<br/>
-          &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>__init__(setup_board: Function):</span><br/>
+          &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>def __init__(self, setup_board: Function):</span><br/>
           &nbsp;&nbsp;&nbsp;&nbsp;self.setup_board = setup_board<br/>
         </p>
       </div>
@@ -94,7 +94,7 @@ export default function Page() {
         <div className='w-2/5'>
           <p className='py-0 my-0 font-mono text-sm'>
             <br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(<br/>
+            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(self,<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;white_player: Player<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;black_player: Player<br/>
             &nbsp;&nbsp;) -&gt; GameId:<br/>
