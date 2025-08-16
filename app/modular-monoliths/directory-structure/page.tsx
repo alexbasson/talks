@@ -159,8 +159,8 @@ export default function Page() {
               <br/>
               <p>@chess_game.route(&ldquo;/&rdquo;)</p>
               <p>class Moves(Resource):</p>
-              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-16')}>__init__(make_move):</p>
-              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter}, 'pl-32')}>...</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter})}>&nbsp;&nbsp;def __init__(self, make_move):</p>
+              <p className={clsx({[highlightYellow.className]: frame.highlightApiAdapter})}>&nbsp;&nbsp;&nbsp;&nbsp;...</p>
             </div>
           </div> : <></>
         }
