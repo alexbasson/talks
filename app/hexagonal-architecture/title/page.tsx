@@ -21,7 +21,7 @@ export default function Page() {
 
   return (
     <div className='padding-horizontal'>
-      <p className='text-xl text-center py-[100px] px-[50px]'><span className={clsx({"text-yellow-600": frame.displayHighlights})}>hexagonal architecture</span><br />for fun and profit</p>
+      <p className='text-xl text-center py-[100px] px-[50px]'><span className={clsx({"text-yellow-600": frame.displayHighlights})}>hexagonal architecture</span><br />for managing complexity with maximum modularity</p>
       <p>Alex Basson</p>
       <p>alex.basson@primer.ai</p>
     </div>
