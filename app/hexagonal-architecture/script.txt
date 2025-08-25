@@ -1,0 +1,761 @@
+
+-------------------------------> title?frame=0
+
+Hi everyone, thanks for coming. My name is Alex Basson, I'm a Director of Engineering at Primer.
+
+-------------------------------> acknowledgement?frame=0
+
+Before I get into the talk, I want to acknowledge my dear friend Cedar Edwards, with whom I used to work at Pivotal Labs, and who is the original author of this talk. I think it's one of the greatest talks on software development I've ever seen. And so when Cedar left, I asked them whether I could give their talk to people who hadn't yet seen it, and they very graciously said yes. So I'm giving this talk, but I want to make sure I give all the credit for it to Cedar.
+
+-------------------------------> title?frame=1
+
+With that said, let's get into it. I am here to talk about "modular monoliths for maximum malleability and microservice magic". This title is somewhat problematic because people may want to look at it and be like "ah, modular monoliths versus microservices, the showdown of the century!" and that's really not what this talk is supposed to be.
+
+-------------------------------> what-this-talk-is-not?frame=0
+
+this talk is not
+
+-------------------------------> what-this-talk-is-not?frame=1
+
+about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices _actually_ are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. This isn't about best practices for doing anything.
+
+-------------------------------> what-this-talk-is?frame=0
+
+What this is, is this talk is going to be about
+
+-------------------------------> what-this-talk-is?frame=1
+
+math. This is going to be about
+
+-------------------------------> what-this-talk-is?frame=2
+
+weighing costs versus benefits and ways that
+
+-------------------------------> what-this-talk-is?frame=3
+
+you can get more benefits for less cost in certain situations, and some ways that folks might not have been familiar with or been aware of. So that's what this is all about.
+
+And to get started to talk about the particular problem space in which we're going to be doing this calculus,
+
+-------------------------------> emerald-city?frame=0
+
+I want to talk about the Emerald City. The Emerald City is something that we have all heard about. We've heard the stories and the legends, we're all excited to get there, it sounds like a lovely place to live. The Emerald City consists of approximately
+
+-------------------------------> emerald-city?frame=1
+
+10 bajilion microservices. All these microservices are
+
+-------------------------------> emerald-city?frame=2
+
+perfectly decoupled, they're all independently deployable, they're being worked on by all these different teams who are all autonomous and empowered and they're choreographed and they're using service discovery and they're highly available, they have fault tolerance and circuit breakers, all of this. We've heard about all of them, there are many, many conference talks that have told us this story.
+
+And it sounds delightful! We're very excited to get there, we're walking along the yellow brick road to arrive in this place.
+
+And yet...
+
+For as magical as the Emerald City sounds, the place where we _are_
+
+-------------------------------> where-we-are-now?frame=0
+
+doesn't feel as nice? The place where we are is kind of rough. We have maybe right now, say,
+
+-------------------------------> where-we-are-now?frame=1
+
+5 microservices. And while you can maybe see the brilliant Emerald City on the horizon, what's happening to you right now is that you're dealing with a bug that has just come up in the backlog. Some kind of weird interaction between different services going on, and you're not really sure what's happening. You feel like you're going to have to tinker with it,
+
+-------------------------------> where-we-are-now?frame=2
+
+which means you're going to have to start up all of the services locally on your workstation, so you can try to see what weird interaction is causing this problem. And that's going to be a bit of a hassle, especially if you're running on an underpowered virtual desktop that struggles to run all five of those apps locally at the same time.
+
+-------------------------------> where-we-are-now?frame=3
+
+Once you're done with that, you're excited to get to work on some features! It might be a little bit, though, because the next few things on your backlog aren't actually features, they're things like figuring out the security that you need to put in front of the APIs on these various microservices. And you need to, like, fix up a pipeline for the new microservice that has just been pushed, and various kinds of this.
+
+But there's some features after that, that you're excited to get to,
+
+-------------------------------> where-we-are-now?frame=4
+
+you're just going to have to remember which repo you're supposed to go to, there's like seven of them, and you need to track down where the code is that you're looking for.
+
+So this is an experience that folks have maybe had, where in route to the great and glorious microservice metropolis, the way there actually feels really expensive. Just the everyday ergonomics of development gets really hard when you have a lot of different pieces of your distributed system to work with.
+
+And of course, if you voice these concerns to certain types of folks, if you go before the Great and Powerful Oz and say "ah, this is kind of hard", what the Great and Powerful Oz might tell you is that
+
+-------------------------------> where-we-are-now?frame=5
+
+you should Get Good, you're Doing It Wrong. What, you have to run all of your different microservices locally in order to see... that just means that they're coupled, you were supposed to decouple your microservices, don't have coupled microservices, you shouldn't have to run more than one at a time! Or if you're talking about having to set up all of your service discovery and how that's holding you back from doing other features, the Great and Powerful Oz might say, "Eat your vegetables, mortal! Of course you want to have service discovery, if you don't have service discovery it's very bad!"
+
+And like, ok, but I'm not a wizard and I didn't, like, make my services wrong on purpose. I thought that I had drawn the boundaries in the right way or the architects that work with us, they thought that they had put the boundaries in the right spot. We didn't _think_ we were going to have to run all these different services at the same time to debug problems.
+
+But here we have arrived and here we are, trying to figure this out, and now it's really expensive and it's not great.
+
+-------------------------------> the-future-sounds-great?frame=0
+
+So the question is: As great as the future sounds,
+
+-------------------------------> the-future-sounds-great?frame=1
+
+does the road we take to get there have to hurt this bad?
+
+And the answer is "No", and that's what this talk is about. This talk is about not _abandoning_ the journey to the Emerald City, because the Emerald City is great, but just ways to make the yellow brick road that gets there not cost as much. Because it turns out that bricks made of gold are really expensive.
+
+-------------------------------> thesis-statement?frame=0
+
+So. Here is the idea on ways that we can make this nicer: By focusing less on _services_ and more on _boundaries_, we can reach some early rewards at less cost, and without blocking ourselves off from the great and glorious Emerald City that we're trying to get to.
+
+How are we going to do this? This is where I reveal that I don't actually have too much interesting to say, nothing that you haven't heard before.
+
+-------------------------------> the-classics?frame=0
+
+Just the classics, just some very old ideas,
+
+-------------------------------> the-classics?frame=1
+
+just some hexagonal architecture, some Domain-Driven Design, good old SOLID principles, nothing tremendously shiny. But it turns out that application of these things in particular ways can be really nice for our journey towards our glorious microservice world.
+
+With all that groundwork laid, let's go ahead and dive in.
+
+-------------------------------> hexagonal-architecture?frame=0
+
+Let's talk about Hexagonal Architecture. If you have not heard about Hexagonal Architecture before, the idea was coined by Alistair Cockburn. If you squint, if you lean in close, it's really just the Dependency Inversion Principle, but applied to codebase structure. The idea is that your system revolves around
+
+-------------------------------> hexagonal-architecture?frame=1
+
+and is grounded in a domain model. The core of the thing, the capstone for all the rest, is a domain model. This is an abstract description of your problem space.
+
+-------------------------------> hexagonal-architecture?frame=2
+
+That domain model then defines certain ports, certain slots where other things are supposed to plug in. These come in two flavors:
+
+-------------------------------> hexagonal-architecture?frame=3
+
+there are Primary Ports through which execution enters the domain model,
+
+-------------------------------> hexagonal-architecture?frame=4
+
+and Secondary Ports through which execution leaves the domain model. That distinction is going to be important here in a minute.
+
+-------------------------------> hexagonal-architecture?frame=5
+
+And then in addition to that, you have adapters, which are components that plug into the domain model in those different ports.
+
+-------------------------------> hexagonal-architecture?frame=6
+
+And all of these things together become your system.
+
+So, you can find diagrams about that, you can read blog posts about that, I want to come down a little bit from the abstract architectural discussion and talk a little bit about logistics, the particular ways that you might actually do this in a codebase. What I will submit is that one way that helps is to classify all of the modules in your system as being one of three different kinds.
+
+-------------------------------> three-kinds-of-modules?frame=0
+
+There are:
+- policy modules,
+- adapter modules, and
+- deployable modules.
+
+I'll go through each of those and talk about what they are.
+
+-------------------------------> policy-modules?frame=0
+
+A Policy Module is named after
+
+-------------------------------> policy-modules?frame=1
+
+"high-level policy", of the "high-level policy/low-level detail" divide. This gets thrown around a lot, there's sometimes confusion as to what counts as high-level policy. I'm going to do my best to define it here.
+
+-------------------------------> policy-modules?frame=2
+
+High-level policy in the policy module is the definition of the domain model for a specific bounded context. We're going to talk about bounded contexts here in a minute.
+
+What the domain model is,
+
+-------------------------------> policy-modules?frame=3
+
+is the definition of interfaces, data structures, operations, but exclusively in domain terms. This doesn't talk about any kind of technological solution to these things, things like the fact that this is being done in a SQL database, or the fact that this is being done over a Kafka queue. None of that has to do with the actual business problem being solved. The policy module is all about, if we forgot that computers were involved at all, what are the facts of the problem that we're dealing with. That's what lives here.
+
+-------------------------------> adapter-modules?frame=0
+
+Adapter modules, then, are the
+
+-------------------------------> adapter-modules?frame=1
+
+_low-level detail_ of the "high-level policy/low-level detail" split. Each adapter module contains a
+
+-------------------------------> adapter-modules?frame=2
+
+specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
+
+The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `WidgetRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `WidgetRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `WidgetService` that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
+
+In the Hexagonal Architecture terminology of primary and secondary ports, adapters come in two flavors.
+
+-------------------------------> adapter-modules?frame=3
+
+There are:
+- Primary Adapters, which invoke an operation in the policy, and then
+- Secondary Adapters, implementing interfaces from the policy.
+
+So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `WidgetRepository` adapter that I was just describing that accomplishes the `WidgetRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
+
+And then the third kind of module
+
+-------------------------------> deployable-modules?frame=0
+
+is a Deployable Module. The deployable module is the thing that actually gets shipped. So there's
+
+-------------------------------> deployable-modules?frame=1
+
+a one-to-one correspondence between the deployable module and the deployed service. The deployable module's job is
+
+-------------------------------> deployable-modules?frame=2
+
+to import everything that you want to deploy as part of that particular service, as well as
+
+-------------------------------> deployable-modules?frame=3
+
+defining configuration and any kind of knowledge about the environment in which the service is going to live. So things like environment variables, or application properties, all of those are things that would live in the deployable module, as well as database migrations because they depend on that particular service's database.
+
+So.
+
+-------------------------------> module-structure?frame=0
+
+The structure of those things looks like this: The deployable, because it has to import everything because that's how things get shipped, can depend on whatever it wants. Adapters depend only on policy modules, and policy modules depend on nothing. And when I'm saying "depends on" here, you can also think of this as "imports from", so deployable has a dependency on all three of these modules and it can import things out of them; adapters only import things out of policy, and policy imports things out of nowhere.
+
+-------------------------------> example-online-chess?frame=0
+
+All of that is somewhat abstract. But let us suppose that we are building an online chess game where people can play chess over the internet.
+
+-------------------------------> example-online-chess?frame=1
+
+We have a policy module where we define things like "moves", and "board state", these being useful data structures that we're going to need to work with. We might define operations like "making a move" or checking whether a move is illegal. We define the concept of "checkmate" inside the game policy.
+
+We would then have some adapter modules,
+
+-------------------------------> example-online-chess?frame=2
+
+like you would have an API module that exposes some endpoints that our frontend can call and which then invoke appropriate operations inside the policy.
+
+And we can have a database module that knows how to write move records into a move database, because that matters when you're checking whether a move is valid or not.
+
+-------------------------------> example-online-chess?frame=3
+
+And then finally we would have our deployable module where our dependency injection container lives, where we read environment variables from the environment and know how to configure things. All of that lives at the deployable level.
+
+If we suppose that this was, for example, a Flask application, the actual codebase
+
+-------------------------------> directory-structure?frame=0
+
+might look like this. You'll note that all of this is in one git repository. In our deployable module,
+
+-------------------------------> directory-structure?frame=1
+
+we have a list of all of the dependencies; we depend on everything, and then we have also a `create_app` function that creates the application.
+
+-------------------------------> directory-structure?frame=2
+
+So the file with the `create_app` function goes here, because this is the actual shipping thing.
+
+We then have our
+
+-------------------------------> directory-structure?frame=3
+
+API adapter. This is our primary adapter that is going to invoke operations inside the policy. You can see that it depends on fewer things: instead of depending on everything, it only depends on game policy. And then, because it is a primary adapter, it needs to invoke operations, and so it's going to get
+
+-------------------------------> directory-structure?frame=4
+
+constructed with an operation object that comes out of the policy module.
+
+-------------------------------> directory-structure?frame=5
+
+Our database adapter, same thing: it depends only on the game policy, and because it is a secondary adapter, it is going to implement an interface, so
+
+-------------------------------> directory-structure?frame=6
+
+it provides a class `SqlMoveRepository` implementing an interface that comes from the policy module.
+
+-------------------------------> directory-structure?frame=7
+
+And the policy module depends on nothing. No dependencies, it's just its own thing.
+
+And that's what the code might look like.
+
+-------------------------------> why-is-this-nice?frame=0
+
+But why? Why is that nice? What comes from that? Well, one thing that is true is that
+
+-------------------------------> why-is-this-nice?frame=1
+
+it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module, and just the classpath itself doesn't have anything else on it, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
+
+-------------------------------> why-is-this-nice?frame=2
+
+There's a kind of enforcement of separation of concerns there. I've had the experience on a project like this where a pair was working on something and they were trying to annotate a data class with something out of Spring JDBC, like a database annotation, and the IDE wasn't letting them do it, like they weren't able to import the annotation that they expected, and so then they came over and asked "hey, does anybody know why we wouldn't be able to import this thing here? I thought that we had the Spring Boot database jar in the application already" and the reason they couldn't import it is that they were in a policy module, where we didn't actually want it to know about database concerns. And so we were able to then have that conversation. The module boundaries created a fence, and when they walked into the fence, it was able flag that we needed to talk about what was going on. So the system itself was directing people towards doing the right thing and away from doing the wrong thing. This is especially true if you're working in a language with type checking, like Java or TypeScript.
+
+Another thing that is true, again because each piece stays small,
+
+-------------------------------> why-is-this-nice?frame=3
+
+is that adapters are very cheap. They start to feel disposable. If you decide at some point that instead of sourcing information out of a database, you instead want to get it from some service that somebody else has stood up, you're not going to go in and modify any code, really, you're just going to throw away the adapter you have which reads that data out of a database, because you don't want to do that anymore, and you're going to write a new adapter that calls that service instead. There's not any large chunk that you need to go into and modify. You just have this small thing that does a thing that's no longer necessary, so you throw it away, and you replace it. And replacing something wholesale like that is often a lot faster and easier to do than having to go through and modify a larger, more involved thing.
+
+-------------------------------> why-is-this-nice?frame=4
+
+It also facilitates testing modules in isolation. This is especially true with Spring, which likes to get very clever about doing things based on dependencies it finds on the classpath. If you're trying to run an API test, for example, it can be kind of frustrating if your test is refusing to start because it can't configure the database. If you don't need a database for this API test because you've provided a mock for the database, it doesn't matter, Spring is still going to try to wire it up and you're going to have a hard time. But with this kind of module breakout, when you're running an API test, there is no database dependency on the classpath anywhere, and so Spring isn't going to try to wire it up, and inside of that test, you have an opportunity to just make sure that _this_ thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
+
+-------------------------------> why-is-this-nice?frame=5
+
+Of course I am lying. All of these, every single thing on this list, doesn't necessarily happen. You can go through all of these steps, have all of these modules broken out, follow all of the dependency rules, and still get none of these benefits. And the way that happens is if, over time, as you build and build and build and build, you end up
+
+-------------------------------> how-does-this-go-wrong?frame=0
+
+with this. A policy module that is enormous, that is full of all of the business logic in the world, and an API module that defines all of the endpoints in the cosmos, and a database module that is now writing things into twelve different tables.
+
+Once you get here, then
+
+-------------------------------> why-is-this-nice?frame=6
+
+none of these things are true anymore. Each piece is no longer small. You have a _kind_ of separation of concerns in that your API is prevented from coupling directly to your database, but the API isn't prevented from coupling to itself. Inside the API there's probably lots of things going on for different reasons, and they're all tangled together.
+
+The bit about adapters being cheap and disposable is definitely not true; if you discover that there's one piece of data that you now don't want to get from a database but instead get from a remote service, you can't just throw away your database adapter because it's the thing that knows how to read from the eleven other tables which you still need to read from. So now you're going to be in the position you were trying to avoid where you have to go into that adapter and tease apart just the parts that you want to now do differently. It's going to be much harder.
+
+It is true that you can test the API in isolation from everything else (like in isolation from the database), but you can't test the API in isolation from itself, and if it gets big enough, you might end up wanting to do that.
+
+So if your models become this big, then a lot of these benefits go away.
+
+So. What do you do?
+
+This is where we move to our second very old, very classic idea:
+
+-------------------------------> bounded-contexts?frame=0
+
+Bounded Contexts.
+
+Bounded contexts are an idea out of Domain Driven Design, written about by Eric Evans, and the way Eric defined it in his book was,
+
+-------------------------------> bounded-contexts?frame=1
+
+"the scope of a particular model within which a single model will apply and will be kept as unified as possible"
+
+So this big insight is the kinds of problem spaces that we grapple with as we're building software tend to be quite large, and there's an instinct among engineers to create the One Model to Rule The Whole Thing, a single consistent model that just applies everywhere. The trouble is that if you attempt to do this, if you try to make such a model, you will have to make a lot of compromises because there's many things to consider. You'll have to meet halfway on a great many things, and when you do that enough times, what you end up with is a model that's... fine? It's kind of okay. It's not really good at any one job, because being good at that job would have meant tradeoffs elsewhere. And so it's... fine.
+
+But you don't actually have to do it this way. You can draw smaller contexts inside of the larger problem space and have multiple models, one for each of those contexts. Then as long as you can identify which context you're in, you know which model to be using. And now the model can be specialized, now it can be really good at its job, because you know where the boundaries are, you know when you're going to have to translate from one model to another, and you don't have to worry about having one model that handles the whole thing.
+
+And it's maybe worth clarifying here
+
+-------------------------------> bounded-contexts?frame=2
+
+what I mean by "model", because I think that's sometimes confusing, too. Eric defines the "model" as "team's agreed-upon way of structuring domain knowledge and distinguishing the elements of most interest". I think this is a really cool way of calling out that the domain model is very much about the knowledge of the _team_, it's about how the _team_ thinks about the problem, how the team talks about the problem. And you'll note also that this is very close to what we were talking about in our policy module definition. The thing that a policy module is doing is defining interfaces and data types and operations, which is a structuring of domain knowledge, it's a highlighting of "what are the elements of most interest that I want to give names to in this space?"
+
+So. Concretely what does this mean?
+
+-------------------------------> how-to-identify-a-bounded-context?frame=0
+
+How would you identify a bounded context? There's a variety of ways of doing this. You could do an Event Storming, which is one method for looking at a very complex process and then starting to see the bounded contexts that it contains. But one of my favorite methods, it's very cheap, is to just look at language, to look at terms and ideas that tend to co-occur and which don't tend to occur with other terms.
+
+So for example,
+
+-------------------------------> how-to-identify-a-bounded-context?frame=1
+
+suppose you have these feature come out of your backlog for your online chess game. We have one feature about a chess rule where if you manage to move a pawn all the way to the other side of the board, it gets to transform into some other kind of piece. And then we have another story about a rule of chess where you're not allowed to make a move that would put your king piece in jeopardy. These stories
+
+-------------------------------> how-to-identify-a-bounded-context?frame=2
+
+share a lot of language, they both talk about "turns", and whose turn it is. They talk about "moves" and whether that move is legal or illegal. They both talk about "pieces" and the various kinds of pieces.
+
+But there are other stories in the backlog that don't do that.
+
+-------------------------------> how-to-identify-a-bounded-context?frame=3
+
+You might also see some things, because this is an _online_ chess game, some stories might come out of the backlog talking about wanting to look at your friends list and see your win/loss record with each of your friends. Or the ability to invite a friend to play a game with you. These stories also
+
+-------------------------------> how-to-identify-a-bounded-context?frame=4
+
+share some language. They both talk about "friends", the friends list. They both talk about "games" that you can create and invite people to. They both have this idea of an opponent. But they don't share a lot of terminology with those other stories. If I put them
+
+-------------------------------> how-to-identify-a-bounded-context?frame=5
+
+side-by-side, there's not a lot of shared language here. When you're talking about inviting your friend to play or that space where you're looking at a friends list, there's not really an opportunity in _that_ conversation to talk about knights or bishops or particular kinds of pieces. It would be weird if somehow those were showing up. When you are promoting a pawn and talking about the rules of the game, there's no invitation to the game involved in that moment; it would be weird if the friends list was somehow going to be involved when you're promoting a pawn. So you can imagine that these different languages that are being spoken are not likely to cross and show up in the other space. And this is an indication that what you might have, is two different bounded contexts.
+
+Once you identify that, it can be rather exciting,
+
+-------------------------------> one-giant-model?frame=0
+
+because it means that instead of having one giant module for the entire online chess game, you can instead have
+
+-------------------------------> two-smaller-models?frame=0
+
+multiple smaller, more manageable models, than you can then give names to. So you might have a model for Organizing Games, which is the context in which we talk about your friends and inviting a friend to be an opponent, and how many games you've won and lost with a particular person. And then a Gameplay model, where in this context, we're talking about the rules of chess, and inside the scope of a specific game, how that game works.
+
+You'll note that these _aren't_ two different services. I've drawn both of them inside of one deployable green circle. So the way that looks in the code structure
+
+-------------------------------> single-service-multiple-modules?frame=0
+
+is that you still have just the one deployable service, and it depends on everything that is going to be deployed here: a couple of adapters, which each depend on a corresponding policy. And you'll note that the two different families, the two different bounded contexts of policies and adapters, they don't have any dependencies on each other. And so they are decoupled from each other, they know nothing about each other. The only merging that happens is in the deployable, which scoops them all together so that they can be shipped.
+
+-------------------------------> what-about-times-when-bcs-interact?frame=0
+
+That is the simplest case, but there are places where two different bounded contexts might interact. So suppose you pulled this story off of the backlog, which talked about the process the starting a game. So suppose you've invited somebody to play a game with you and they've said yes, then you click the "Start" button, and you arrive at a board ready to make your first move.
+
+At the beginning of the story,
+
+-------------------------------> what-about-times-when-bcs-interact?frame=1
+
+you see a lot of language that suggests that we're in the Organizing Games context. We're talking about an "invitation" to a game, which can be "accepted" by an "opponent". But when you get to the
+
+-------------------------------> what-about-times-when-bcs-interact?frame=2
+
+latter half of the story, suddenly there's all this language that comes from the Gameplay context, talking about a board and pieces and their positions. So it seems like
+
+-------------------------------> what-about-times-when-bcs-interact?frame=3
+
+in our two bounded contexts, this story lives somewhere in the middle, it tries to live inside of both. And this _can_ be a problem. If this happens a lot, if you're seeing lots and lots of stories that come through that are riding the fence between what you thought were two bounded contexts, what you might have is _not_ two bounded contexts. You might have drawn your context boundaries incorrectly.
+
+The way that you can respond to that can go in a couple of different ways. If you observe that the overlap between what you thought were two different contexts
+
+-------------------------------> what-about-times-when-bcs-interact?frame=4
+
+is enormous, and there's actually very few things that are unique to one or the other, then what you probably have is not two contexts. You just have
+
+-------------------------------> what-about-times-when-bcs-interact?frame=5
+
+one, and you should create one model that unifies them both.
+
+On the other hand, if you see a lot of things
+
+-------------------------------> what-about-times-when-bcs-interact?frame=6
+
+that overlap, a lot of places where you need to talk about both contexts, but there's also a good many things that are unique to one that don't occur in the other, then instead of two contexts, what you might actually have is
+
+-------------------------------> what-about-times-when-bcs-interact?frame=7
+
+three. You might need to create a third context that represents the overlap between these two things, and that way you now have contexts that have unique purposes.
+
+But let's suppose that neither of those is the case,
+
+-------------------------------> what-about-times-when-bcs-interact?frame=8
+
+and that we've observed that for our purposes, the Organizing Games context and the Gameplay context do seem to be pretty distinct. It's just that every now and again, there'll be a story like this one that rides in the middle. That's fine; it just means that we need to model an interaction between two different contexts. And we do that in the following way.
+
+-------------------------------> describe-the-interaction-twice?frame=0
+
+What you do is you describe the interaction twice, once from the perspective of the one context and the other from the perspective of the other context. So from the perspective of Organizing Games, we can start defining operations and interfaces and say,
+
+-------------------------------> describe-the-interaction-twice?frame=1
+
+ok, there's this operation called "starting a game", and there's probably logic in here like making sure that the opponent has accepted the invitation and things like that. But assuming they have, then we need to actually get a game going. So we can invent a concept of a `GameInitializer`, we'll call it a secondary port that we're going to call out to and say "alright, the game should in fact begin, let's begin it now". And having done that, having described the process of starting a game from the perspective of our Organizing Games context, we can now move to the Gameplay context and describe the same interaction again.
+
+The Gameplay context doesn't care about invitations or opponents. The only thing that needs to happen here is that the board needs to get set up. So we can define an operation
+
+-------------------------------> describe-the-interaction-twice?frame=2
+
+called Setup Board which knows about things like boards and pieces and the positions they need to have. And in this way, we've now described our feature in two different languages. In the language of Organizing Games where we don't know about things like boards or pieces, we just know about things like games that need to get started, that need to get initialized. Whereas in Gameplay, where we don't know things about players and invitations being accepted, all we know about are boards and here we've described as well. So once we have these two definitions, all we need is some way to bridge the gap between our game initializer port and our setup board port.
+
+The most obvious way to do this, if you want to be thinking about services, is to just forget about the fact
+
+-------------------------------> cross-adapter-communication?frame=0
+
+that you're deployed on one service and just make
+
+-------------------------------> cross-adapter-communication?frame=1
+
+an API that you plug into `SetupBoard` port, and then make a client that you plug into your `GameInitializer` port. The client is going to call the API, and the fact that the caller and the API are both living on the same service doesn't actually matter. That's only slightly true; there are stacks where you have to be careful about whether your application is going to be able to process another API call before it responds to the first API call, because if it can't, it might block itself. But in many stacks, this is a totally fine thing to do.
+
+That's not the _only_ interaction model, of course; you could also do something asynchronous with a queue. So you could
+
+-------------------------------> cross-adapter-communication?frame=2
+
+create a module that you plug into the one policy that subscribes to a queue, and when it gets messages off that queue it invokes an appropriate operation. And then in your other model, on your other policy module, you plug in an adapter that _publishes_ things to that queue. And the fact that both of these things are running on the same deployable isn't really the point. They're still decoupled from each other. They don't know that the other policy is there, they're just listening to the same queue or listening to the same endpoints the other one is posting to.
+
+But there is some cost here. Like, if you expose an API, you're probably going to want to go through the security dance and make sure that the API is secured. If you want to use a queue to interact between the two different models, that is some infrastructure that you're going to have to get set up. And if you don't strictly need that right now, it can feel a little bit unfortunate, especially if you're trying to get something out the door to validate a product assumption.
+
+So if you want to not deal with any of that infrastructure, there is a cheaper thing that you can do, which is this:
+
+-------------------------------> single-adapter-module?frame=0
+
+You can create a single adapter module which is both a secondary adapter for one policy and a primary adapter for another, at the same time.
+
+-------------------------------> zoom-in-on-single-adapter?frame=0
+
+Let me zoom in and talk a little bit about what that looks like.
+
+So you've got an adapter,
+
+-------------------------------> zoom-in-on-single-adapter?frame=1
+
+and it's a secondary adapter for Policy A and a primary adapter for Policy B. Which, thinking back to our definitions for secondary and primary adapters, this means it
+
+-------------------------------> zoom-in-on-single-adapter?frame=2
+
+_implements an interface_ from Policy A, by _performing an operation_ in Policy B. This means that it is
+
+-------------------------------> zoom-in-on-single-adapter?frame=3
+
+going to have to depend on both policies, it's going to have to speak both languages, so that it can translate between them.
+
+This is all kind of abstract.
+
+-------------------------------> single-adapter-code-example?frame=0
+
+To get a little bit concrete, looking at our online chess example, this is a cross-context adapter that could bridge the gap between the `GameInitializer` port and the `setup_board` port. So what this looks like,
+
+-------------------------------> single-adapter-code-example?frame=1
+
+from the perspective of the Organizing Games policy, this is a secondary adapter.
+
+-------------------------------> single-adapter-code-example?frame=2
+
+Secondary adapter means that it implements an interface. So the `GameInitializer` interface comes from Organizing Games. We implement that interface and define a corresponding `initialize_game()` function. But this same object is also
+
+-------------------------------> single-adapter-code-example?frame=3
+
+a primary adapter for the Gameplay policy. And as a primary adapter, it has to invoke an operation in Gameplay. So we're going to get constructed with a `setup_board` operation object that comes from the Gameplay policy module, and then inside of our `initialize_game()` function, we're going to invoke the `setup_board` operation.
+
+In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have the concept of Player; I've imagined here that Player is a data class that comes from Organizing Games, and so that's the argument that gets passed into `initialize_game()`. We can't take those Player objects and pass them directly into `setup_board` because `setup_board` doesn't have that concept of Player; it wouldn't run because it wouldn't know what a Player is.
+
+What it _does_ expect is two names, which presumably it can use to label the two different sides of the board. And so the job of our cross-context adapter here is
+
+-------------------------------> single-adapter-code-example?frame=4
+
+to translate from one language into the other. So the adapter knows how extract the names off of the Player objects from Organizing Games so that it can pass those into the `setup_board` operation from Gameplay. I've similarly imagined that Organizing Games defines a concept of a `GameId`, and Gameplay has this concept of a `board_id`, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
+
+-------------------------------> single-adapter-code-example?frame=5
+
+that `board_id` back from Gameplay and then constructs a `GameId` out of it.
+
+-------------------------------> why-is-single-adapter-nice?frame=0
+
+Why is this nice, though? This seems like an awful lot of work. What this does is it
+
+-------------------------------> why-is-single-adapter-nice?frame=1
+
+actually keeps each piece small. It avoids that moment where your model has become very big, that it's doing a lot of things.
+
+-------------------------------> why-is-single-adapter-nice?frame=2
+
+Each policy module stays specialized. For example, you could conceivably have a `Player` class, a `Player` data type in _both_ models. But in the Organizing Games model, `Player` is likely going to have a bunch of things on it that are specific to that context, so it might
+
+-------------------------------> why-is-single-adapter-nice?frame=3
+
+have something like a username or an email that the person uses to sign in. Whereas for purposes of Gameplay,
+
+-------------------------------> why-is-single-adapter-nice?frame=4
+
+you don't care about the player's email, but you do care about which color they are. And so rather than having one `Player` model that has to serve all needs and have all of those fields on it at all times, you get to have these much more specialized models that do a better job of one thing. And this can be nice to use.
+
+-------------------------------> why-is-single-adapter-nice?frame=5
+
+And yet there's still no extra deployment overhead, because you're not actually deploying these as separate services (yet), you're deploying them as one service. Which means you don't have to set up multiple pipelines, you don't have jump through any hoops if you need to start the whole thing up on your local machine for whatever reason. You just have an application which you can start.
+
+-------------------------------> why-is-single-adapter-nice?frame=6
+
+And this lets you try out the context boundary without paying for it too much. The module boundaries do prevent you from accessing things in the other bounded context that you're not supposed to have access to, and that kind of friction might be painful. You might discover that there's actually a lot of stories coming through the backlog that are requiring you to jump over the fence over and over again. Having to build out a whole swath of those cross-context adapters doesn't feel very nice. And if that's happening, that's an indication that maybe what you thought were two separate independent things are actually not two separate independent things. And you're able to learn that without building out a pipeline, without having to secure a whole new API, without having to ask for a bunch of infrastructure. You're able to learn it in a cheaper way, inside of your one codebase.
+
+-------------------------------> but-microservices?frame=0
+
+So. How have we cracked the code? Do we never have to deploy microservices ever again? I mean, no.
+
+-------------------------------> but-microservices?frame=1
+
+Microservices, while they cost an amount of overhead, they're also valuable for a lot of reasons. All the reasons that people want to deploy microservices, like they want things to be decoupled, or they want to be able to scale components independently, or they want another team to be able to take this thing and work on it independently. But there's a couple of observations you can make about that list.
+
+-------------------------------> but-microservices?frame=2
+
+One observation is that some of those reasons don't require microservices. Putting a network call in the middle of a flow doesn't necessary make the two sides of the network call decoupled from each other. They do prevent you from importing a code class from the other side of the boundary, if it's living on the other side of the network. But that's not the only way to do that. The module breakup that we described above also prevents you from directly importing things that you're not supposed to be coupled to. And it does it without that network overhead. So some of these things can be accomplished in less costly ways.
+
+The second observation is that a lot of the things
+
+-------------------------------> but-microservices?frame=3
+
+that microservices give you which can't be achieved any other way, don't kick in for a bit. Things like, oh it would be really nice if another team could work on this independently. I mean, _is_ there another team to work in it independently? If it's just your team right now, and we're imagining that in the future, another team might take this and run with it, well they're not here yet, so if we deploy a special service just for them, then we're having the pay the tax of maintaining that service and all of the ergonomic drawbacks that has for our development right now, in service of a thing that has not yet occurred.
+
+Or similarly, if you want to be able to scale different parts of the system independently—I mean, do you need to scale them now? You're probably not going to, at the beginning of the effort, immediately deploy out to millions of users worth of traffic. If you are setting yourself up to be able to do this very advanced scaling maneuver from the outset, then you're probably paying tax on a thing that isn't going to return dividends to you for some time.
+
+-------------------------------> when-to-transition?frame=0
+
+So this suggests that what we would like to do is start out not paying that overhead, and then in the moment when it's going to start being valuable, we would like to transition to a microservice deployment where we can start reaping those benefits.
+
+And this sounds obvious when you say it out loud, but the time take that transition is
+
+-------------------------------> when-to-transition?frame=1
+
+when the balance tips! I don't want to sound like I'm minimizing that, I rather want to highlight that there's nothing I can tell you now that will always be true. This is the only generally correct statement.
+
+The thing you have to be doing to decide when the right time is,
+
+-------------------------------> when-to-transition?frame=2
+
+is you have to be constantly doing the math. You have to be measuring and thinking about the value that the microservice extraction will provide you, versus the cost that it's going to incur. And it's maybe worth pointing out here that if you're an architect and you're trying to architect a system that you can then hand off to other teams to execute on,
+
+-------------------------------> when-to-transition?frame=3
+
+you should be aware that you are probably underestimating the cost, because the cost is not felt by you. You might underestimate the ergonomic impact, just to day-to-day development, of having things deployed as separate services. Because again, sometimes, if things don't go exactly according to plan, you end up having to debug things across a service boundary, which can be a real hassle. Or if we determine after working with it for a bit that actually things in Service A should be in Service B... well now they're in separate git repositories, and now we're going to have to move a bunch of code or we're going to have to tell everybody to stop working for a minute so there aren't really messy merge conflicts. And that can be very involved.
+
+-------------------------------> when-to-transition?frame=4
+
+So you need to have feedback channels open. You need to be talking and paying attention to the cost that your current strategy has and the cost that your proposed strategy might have. And if you're paying attention to that and also, y'know, thinking about the value that you want to get out of your new deployment and whether that's going to kick in, you might discover that, like, oh yeah! no, the time has come! The cost for this is going to be relatively low, and if we pull this out into a separate service, it's going to equip other teams to start consuming it, which they would like to be able to do soon. And you can make that decision.
+
+So
+
+-------------------------------> when-to-transition?frame=5
+
+Suppose the time has come. Suppose you're doing your math and you've determined yes, now is the time to take our thing that is deployed together and deploy it separately.
+
+-------------------------------> how-to-transition?frame=0
+
+How do we do this? I want to talk about three different ways that this can be done.
+
+The first is
+
+-------------------------------> how-to-transition?frame=1
+
+Deployable Mitosis. This is maybe the simplest case. It's applicable in
+
+-------------------------------> deployable-mitosis?frame=0
+
+this kind of situation, where you have two different boundaries which either don't interact with each other at all, or do interact but already through out-of-band channels like API calls or queue publishing. If this is your situation, then the operation is very very cheap. You just
+
+-------------------------------> deployable-mitosis?frame=1
+
+create another deployable. And that's it.
+
+-------------------------------> deployable-mitosis-dependency-diagram?frame=0
+
+In terms of the actual code, you have this kind of structure starting out. The first thing that you do is that you just
+
+-------------------------------> deployable-mitosis-dependency-diagram?frame=1
+
+duplicate the deployable module, you just straight up copy it. And then in one of the copies,
+
+-------------------------------> deployable-mitosis-dependency-diagram?frame=2
+
+you delete all of dependencies and configuration for one of the bounded contexts,
+
+-------------------------------> deployable-mitosis-dependency-diagram?frame=3
+
+and in the other copy you delete all of the dependencies and configuration for the other context.
+
+-------------------------------> deployable-mitosis-dependency-diagram?frame=4
+
+And voila! you now have two separate deployables which each only import one of the contexts, and they can each be deployed separately and everything is fine.
+
+And I want to highlight how cheap that is, because when you think about separating deployables, it feels like you're talking about moving things. But you're not actually moving things.
+
+-------------------------------> deployable-mitosis-git-show?frame=0
+
+This is a git command that you can run that will show you in a commit which files were touched and in what way they changed. "A" means "added" and "M" means "modified". This is the entire operation for splitting a deployable in this way. You create a new deployable module which didn't previously exist, and this doesn't really show the size of that thing, but that application class is not large. That's, y'know, a couple of import statements.
+
+And the modifications in Deployable 1, if you crack them open, they're actually just line deletions. You're just deleting dependencies and configuration out of the application class. And this is it. This is the whole thing. And voila, we now have two separately deployable things. Nothing else moves, nothing else even changes, it all just stays there. And if you imagine that you were doing this while active development was happening—while, y'know, you have a whole team and they're all doing stuff—there's not going to be any merge conflict here. You don't have to say, "hey folks, we're separating the deployables, everybody hold on for a minute so we don't step on each others' toes". You just do this, and everybody's who's working in these different components, they just keep doing it and this works fine. And it's very nice.
+
+-------------------------------> how-to-transition?frame=2
+
+So here's method number 2, Adapter Division. This one applies if you're in
+
+-------------------------------> adapter-division?frame=0
+
+this situation, where you've used that kind of double-sided cross-context adapter.
+
+-------------------------------> adapter-division?frame=1
+
+That's the whole problem, right there. That's the thing that's gluing the pieces together. But because our adapters are so disposable, you just
+
+-------------------------------> adapter-division?frame=2
+
+delete it. You just blow up the whole thing, `rm -rf` and then
+
+-------------------------------> adapter-division?frame=3
+
+create two new modules: an API to plug into the one model, and a client to plug into the other. The client knows how to call the other API. And having done this, you've now reduced the problem to Deployable Mitosis and you just go through exactly the same maneuver that I just described above. And again, nothing moves. You deleted something wholesale and then created two new things out of nothing. So there's not going to be merge conflicts, you're not going to have to worry about having messed up something because adding something new is much less risky than modifying something that already exists.
+
+-------------------------------> how-to-transition?frame=3
+
+The last one, Adapter Extraction, this is the one that's slightly more interesting. And I've kind of alluded to where this would be valuable already. So suppose you have
+
+-------------------------------> adapter-extraction?frame=0
+
+just one bounded context and you've been working in it for a while, but now it has come to pass that this
+
+-------------------------------> adapter-extraction?frame=1
+
+"Moves Database" where you've been recording the moves of a game, well there's another team that wants to read that data. Maybe they're, like, doing something clever with analytics or they want to be able to show historical games, reports of historical games, and they don't want to go through your Game API, which is for actually playing games, they just want to have access to the list of all those moves. And so you want to expose that to them, using a service. You don't want them to directly connect to the database, obviously, you want to put an API in front of it.
+
+So this maneuver is as follows. We're going to
+
+-------------------------------> adapter-extraction?frame=2
+
+remove the Moves DB adapter from the deployable. And again, the diagram suggests that there's something moving here, but it's really not. All that this actually means is that we went into the deployable module and removed its dependency and then any configuration it had for the Moves DB adapter module. So now it's no longer in the deployable.
+
+-------------------------------> adapter-extraction?frame=3
+
+Then we're going to create two new modules. One will be an API that we throw in front Moves DB, and then we'll create a client object that will fit the same interface that Moves DB did, which now calls that API. And lastly, we will
+
+-------------------------------> adapter-extraction?frame=4
+
+create a new deployable module which imports the Moves DB and Moves API modules, and now that's a separately deployable thing. And we're done.
+
+Again, almost nothing changes and nothing actually moves. You just create a couple of new things. And I should mention that this is, like, the cheapest and most non-destructive way of doing this. There is a drawback, which is that the Moves DB adapter, initially it had to implement an interface from GamePlay policy, that's what allowed it to fit into the port. And so actually it still
+
+-------------------------------> adapter-extraction?frame=5
+
+has a code dependency on GamePlay policy. The GamePlay policy module has effectively become a shared library between these two services. And if you don't want that to be true, then you are going to have to make some modifications to the Moves DB module. But they're going to be pretty cheap. It's going to be, like, deleting the reference to the interface, maybe creating a copy of whatever data objects it's supposed to construct. So fairly simple things. But it is a little bit more work if you want to remove that shared library dependency. And it's maybe also worth mentioning: if you're going to be doing that anyway, the fact that you needed to do this extraction suggests that Moves DB might be a separate bounded context. The evidence for this is that there's a team that wants to do something, and to do that they need the data that lives inside of Moves DB. But what they're doing has nothing to do with GamePlay, and that's why you didn't want to just service it as part of your GamePlay policy object.
+
+And so, you might want to
+
+-------------------------------> separate-deployables?frame=0
+
+create some high-level policy describing this new bounded context. You might want to use the same techniques and wrap that up in this service. So it might end up looking similar. Those moves are, strictly speaking, optional. If you want it to just be very lightweight and scrappy, you can skip those steps, but that's available if you want to do it.
+
+-------------------------------> nothing-moves?frame=0
+
+So. Again, just to highlight. What makes this nice, what makes these extractions cheap is that barely anything changes and nothing moves. You're adding new things that weren't there before, and then deleting things wholesale that are no longer necessary.
+
+And so our system is abiding by the Open/Closed principle. We're open for extension, but closed for modification. The system is encouraging you to add or make meaningful changes to its functionality not by modifying what is already there, but by extending it with new things that weren't there before. This is nice because it's less risky, you don't have to worry about modifying something and messing up its behavior. And it's also just ergonomically nice because it's easier to do that in a codebase where lots of other people are making changes at the same time.
+
+-------------------------------> what-does-this-mean?frame=0
+
+So. Bringing this all back together, what does this mean? Well hopefully what it means is
+
+-------------------------------> thesis-statement?frame=1
+
+that by focusing less on services and more on boundaries, we can reap early rewards with less cost, and without blocking ourselves off from the beautiful microservices that we're eventually going to need.
+
+-------------------------------> what-does-this-mean?frame=1
+
+And the thing that makes this true is that reshaping deployables doesn't actually have to be expensive. A lot of times teams really focus in the beginning on making sure they get the services right because they feel that if they don't get them right, it's going to be really hard to reshape them later. But there are moves you can make and constraints you can give yourself that make that actually not true. And if it's not true that reshaping deployables are expensive,
+
+-------------------------------> what-does-this-mean?frame=2
+
+then you don't actually need to take on overhead before it provides value. This does mean that you need to be paying attention to the value that you're getting and the cost that you're paying, so that you, y'know, don't wait too long. But there's not actually a reason to take on overhead if it's not paying for itself yet. You can defer and then make the change when it becomes valuable.
+
+-------------------------------> what-does-this-mean?frame=3
+
+And in general, I think the observation is that _if_ in fact you can make the reshaping of deployable boundaries very cheap, then it means that service boundaries aren't actually that interesting. Sometimes folks define "architectural" as meaning "some kind of expensive decision that is hard to reverse". But if a service boundary is not an expensive decision that's hard to reverse, then it's not really an architectural decision. The architectural decision is the domain boundary. It's identifying where the boundaries are between the different domains and making sure that you have respected those correctly and that you've got dependencies between them in the appropriate way. Because if that is right, the service boundaries are much more malleable in a nice way.
+
+-------------------------------> what-does-this-not-mean?frame=0
+
+So. Some things that this does not mean, to highlight again from what I was saying before. This doesn't mean
+
+-------------------------------> what-does-this-not-mean?frame=1
+
+that starting out with separate deployable is never a good idea. It is about math. It is about whether you are getting value for your investment right now, or if you're just paying cost on a thing that isn't paying for itself yet. So for example, if you are working with some kind of large monolithic system and deploying that thing is really expensive and hard to do, then if you were to extract out a small piece of that system that contains the stuff that you really want to work on, now that's paying for itself immediately because now you can start rapidly iterating on that piece that you've extracted, and you don't have to deal with the very difficult deployment of the whole monolith anymore. So if it's going to pay for itself right out of the gate, don't wait. Do do that, because the math is already in your favor. Just pay attention and make sure that you're not saying "oh, we definitely need services" when you haven't actually done the calculation.
+
+-------------------------------> what-does-this-not-mean?frame=2
+
+This also doesn't mean "aha! wonderful! I will never think about deployment strategy ever again because it can always be deferred!" You do need to think ahead a little bit, you need to be careful because there are some ways where you can back yourself into a corner. For example, you might define a model around this abstraction of a Widget Repository you come up with, and you bake into that model the assumption that immediately after saving a Widget you can then look it up and have those results. If you, for example, then end up needing to swap out that adapter with something that uses a eventually-consistent data store, and it's no longer ACID compliant, that could have really bad consequences for a lot of your system because a lot of your system might be resting on that assumption that the writes are immediately consistent. So, if you're thinking that that might happen, make sure that you're considering that in your model.
+
+Another way that people can get bitten is if you bake into your high-level policy this assumption that a bunch of different database operations can be done, and if anything goes wrong, the whole transaction can get rolled back. If that is something that your system assumes, and then you decide that you're going to take one domain idea and instead of sourcing it from a database, source it from an external service, now that assumption doesn't hold anymore that you can just roll back an entire transaction, and that can have really gnarly impacts on a lot of the things you've done.
+
+So the thing to _not_ say is, "well, ok, I'm just not going to think about deployment at all because we can just do it later". Still think about what kinds of doors you want to leave open for yourself. If you think that something could end up being on a different service, then make sure you're thinking about that in terms of transaction handling. Make sure that you're not assuming that this is going to be a super-fast operation, because if it becomes an asynchronous service call, that might not be true.
+
+And then to reiterate this point again because I can't say it enough,
+
+-------------------------------> what-does-this-not-mean?frame=3
+
+this does not mean that modular monoliths are a best practice. They're just a trick, they're just a technique which, in certain situations, provides more value than it's costing. And if you identify a situation where that's true, if you do the math and determine "oh yeah, we'll actually get more value for less cost by deploying these things together, provided we do them in this way such that we can transition later", then do that. But if it looks like the math doesn't play out that way in your particular context, then don't. You can't just rest on the fact that "ah, this is a best practice and so I will always do it" because sometimes it won't be.
+
+-------------------------------> thank-you
+
+That is the talk. Thank you all very much for coming. And thanks again to Cedar for letting me give this talk.
+
+
+
+
+
+

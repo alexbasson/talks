@@ -4,7 +4,7 @@ import Link from "next/link";
 import {useRouter} from 'next/navigation';
 import {KeyboardEvent, ReactNode, useEffect, useState} from "react";
 import {useNextHref} from "@/app/lib/useNextHref";
-import {slides} from "@/app/lib/modular-monoliths/slides/slides";
+import {slides} from "@/app/modular-monoliths/slides";
 
 export default function Layout({children}: { children: ReactNode }) {
   const router = useRouter();
