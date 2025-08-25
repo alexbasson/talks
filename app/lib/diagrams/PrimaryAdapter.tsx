@@ -1,6 +1,6 @@
 import PrimaryPort from "./PrimaryPort";
 import {adapterRed} from "@/app/lib/colors";
-import AbstractAdapter, {AdapterProps} from "@/app/lib/modular-monoliths/diagrams/AbstractAdapter";
+import AbstractAdapter, {AdapterProps} from "@/app/lib/diagrams/AbstractAdapter";
 
 export default function PrimaryAdapter(props: AdapterProps) {
   return (

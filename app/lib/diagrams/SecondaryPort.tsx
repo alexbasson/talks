@@ -1,4 +1,4 @@
-import AbstractPort, {PortProps} from "@/app/lib/modular-monoliths/diagrams/AbstractPort";
+import AbstractPort, {PortProps} from "@/app/lib/diagrams/AbstractPort";
 
 export default function SecondaryPort(props: PortProps) {
   const points = `
