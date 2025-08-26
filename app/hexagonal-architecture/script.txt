@@ -118,9 +118,9 @@ _low-level detail_ of the "high-level policy/low-level detail" split. Each adapt
 
 -------------------------------> adapter-modules?frame=2
 
-specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
+specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a `Widget` record to be saved and then later look up a record and then have all data in it that was there when you saved it.
 
-The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `WidgetRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `WidgetRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `WidgetService` that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
+The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `WidgetRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `WidgetRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `WidgetService` that exists somewhere else". So one adapter module is a very specific technological solution to a specific problem.
 
 In the Hexagonal Architecture terminology of primary and secondary ports, adapters come in two flavors.
 
@@ -128,9 +128,9 @@ In the Hexagonal Architecture terminology of primary and secondary ports, adapte
 
 There are:
 - Primary Adapters, which invoke an operation in the policy, and then
-- Secondary Adapters, implementing interfaces from the policy.
+- Secondary Adapters, implementing interfaces from the policy. Those interfaces might be _explicitly_ defined in the form of abstract classes or protocols, or they might be _implicitly_ defined simply by how things in the policy module expect to interact with them.
 
-So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `WidgetRepository` adapter that I was just describing that accomplishes the `WidgetRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
+So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `SQLWidgetRepository` adapter that I was just describing that accomplishes the `WidgetRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
 
 And then the third kind of module
 
@@ -220,11 +220,11 @@ But why? Why is that nice? What comes from that? Well, one thing that is true is
 
 -------------------------------> why-is-this-nice?frame=1
 
-it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module, and just the classpath itself doesn't have anything else on it, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
+it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
 
 -------------------------------> why-is-this-nice?frame=2
 
-There's a kind of enforcement of separation of concerns there. I've had the experience on a project like this where a pair was working on something and they were trying to annotate a data class with something out of Spring JDBC, like a database annotation, and the IDE wasn't letting them do it, like they weren't able to import the annotation that they expected, and so then they came over and asked "hey, does anybody know why we wouldn't be able to import this thing here? I thought that we had the Spring Boot database jar in the application already" and the reason they couldn't import it is that they were in a policy module, where we didn't actually want it to know about database concerns. And so we were able to then have that conversation. The module boundaries created a fence, and when they walked into the fence, it was able flag that we needed to talk about what was going on. So the system itself was directing people towards doing the right thing and away from doing the wrong thing. This is especially true if you're working in a language with type checking, like Java or TypeScript.
+There's a kind of enforcement of separation of concerns there. The module boundaries create a fence of sorts, so that the system itself directs people towards doing the right thing and away from doing the wrong thing.
 
 Another thing that is true, again because each piece stays small,
 
@@ -234,7 +234,7 @@ is that adapters are very cheap. They start to feel disposable. If you decide at
 
 -------------------------------> why-is-this-nice?frame=4
 
-It also facilitates testing modules in isolation. This is especially true with Spring, which likes to get very clever about doing things based on dependencies it finds on the classpath. If you're trying to run an API test, for example, it can be kind of frustrating if your test is refusing to start because it can't configure the database. If you don't need a database for this API test because you've provided a mock for the database, it doesn't matter, Spring is still going to try to wire it up and you're going to have a hard time. But with this kind of module breakout, when you're running an API test, there is no database dependency on the classpath anywhere, and so Spring isn't going to try to wire it up, and inside of that test, you have an opportunity to just make sure that _this_ thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
+It also facilitates testing modules in isolation. If you're trying to run an API test, for example, it can be kind of frustrating if your test is refusing to start because it can't configure the database. If you don't need a database for this API test because you've provided a mock for the database, you have an opportunity to just make sure that _this_ thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
 
 -------------------------------> why-is-this-nice?frame=5
 
