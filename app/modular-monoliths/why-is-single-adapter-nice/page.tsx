@@ -93,12 +93,12 @@ export default function Page() {
 
           <div className='pl-16'>
             <div className='mb-8'>
-              <p className={`${policyBlue.className} p-2`}>organizing-games-policy/player.py</p>
+              <p className={`${policyBlue.className} p-2`}>{language === 'java' ? 'organizing-games-policy/Player.java' : 'organizing-games-policy/player.py'}</p>
               { frame.orgGamesPlayer ? <PlayerClass params={['username', 'email']} /> : <></> }
             </div>
 
             <div>
-              <p className={`${policyBlue.className} p-2`}>gameplay-policy/player.py</p>
+              <p className={`${policyBlue.className} p-2`}>{language === 'java' ? 'gameplay-policy/Player.java' : 'gameplay-policy/player.py'}</p>
               { frame.gamePlayPlayer ? <PlayerClass params={['color']}/> : <></> }
             </div>
           </div>
