@@ -11,6 +11,9 @@ export default function Page() {
             <li>A&nbsp;&nbsp;deployable-2/src/main/.../Deployable2Application.java</li>
             <li>M&nbsp;&nbsp;deployable-1/build.gradle</li>
             <li>M&nbsp;&nbsp;deployable-1/src/main/.../Deployable1Application.java</li>
+          </> : language === 'ruby' ? <>
+            <li>A&nbsp;&nbsp;deployable-2/app.rb</li>
+            <li>M&nbsp;&nbsp;deployable-1/app.rb</li>
           </> : <>
             <li>A&nbsp;&nbsp;deployable-2/app.py</li>
             <li>M&nbsp;&nbsp;deployable-1/app.py</li>

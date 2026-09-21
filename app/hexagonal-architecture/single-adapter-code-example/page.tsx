@@ -88,6 +88,15 @@ export default function Page() {
             &nbsp;&nbsp;public GameplayGameInitializer(SetupBoard setupBoard) &#123;<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;this.setupBoard = setupBoard;<br/>
             &nbsp;&nbsp;&#125;<br/>
+          </> : language === 'ruby' ? <>
+            <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>require &apos;organizing_games/game_initializer&apos;</span><br/>
+            <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>require &apos;gameplay/setup_board&apos;</span><br/><br/>
+
+            class GameplayGameInitializer<br/>
+            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>include GameInitializer</span><br/><br/>
+            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>def initialize(setup_board)</span><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>@setup_board = setup_board</span><br/>
+            &nbsp;&nbsp;end<br/>
           </> : <>
             from typing import Callable<br/>
             <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>from organizing_games.game_initializer import GameInitializer, Player, GameId</span><br/>
@@ -118,6 +127,18 @@ export default function Page() {
               &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId(boardId.value)</span>;<br/>
               &nbsp;&nbsp;&#125;<br/>
               &#125;<br/>
+            </> : language === 'ruby' ? <>
+              &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;white_player,<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;black_player<br/>
+              &nbsp;&nbsp;)<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;board_id = <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>@setup_board.call</span>(<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>white_player.name,</span><br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>black_player.name</span><br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;)<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId.new(board_id.value)</span><br/>
+              &nbsp;&nbsp;end<br/>
+              end<br/>
             </> : <>
               &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(self,<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;white_player: Player,<br/>

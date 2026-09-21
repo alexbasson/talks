@@ -93,12 +93,12 @@ export default function Page() {
 
           <div className='pl-16'>
             <div className='mb-8'>
-              <p className={`${policyBlue.className} p-2`}>{language === 'java' ? 'organizing-games-policy/Player.java' : 'organizing-games-policy/player.py'}</p>
+              <p className={`${policyBlue.className} p-2`}>{language === 'java' ? 'organizing-games-policy/Player.java' : language === 'ruby' ? 'organizing_games_policy/player.rb' : 'organizing-games-policy/player.py'}</p>
               { frame.orgGamesPlayer ? <PlayerClass params={['username', 'email']} /> : <></> }
             </div>
 
             <div>
-              <p className={`${policyBlue.className} p-2`}>{language === 'java' ? 'gameplay-policy/Player.java' : 'gameplay-policy/player.py'}</p>
+              <p className={`${policyBlue.className} p-2`}>{language === 'java' ? 'gameplay-policy/Player.java' : language === 'ruby' ? 'gameplay_policy/player.rb' : 'gameplay-policy/player.py'}</p>
               { frame.gamePlayPlayer ? <PlayerClass params={['color']}/> : <></> }
             </div>
           </div>
@@ -117,6 +117,13 @@ function PlayerClass({ params }: { params: string[] }) {
         class Player &#123;<br/>
         { params.map(param => <>&nbsp;&nbsp;&nbsp;&nbsp;String {param};<br/></>) }
         &#125;
+      </p>
+    )
+  }
+  if (language === 'ruby') {
+    return (
+      <p className='ml-16'>
+        Player = Struct.new({params.map((p, i) => <>{i > 0 ? ', ' : ''}:{p}</>)})<br/>
       </p>
     )
   }
