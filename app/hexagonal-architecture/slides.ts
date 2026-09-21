@@ -4,6 +4,15 @@ const directoryStructureSlides = language === 'java'
   ? Array.from({ length: 9 }, (_, i) => `spring-directory-structure?frame=${i}`)
   : Array.from({ length: 8 }, (_, i) => `directory-structure?frame=${i}`)
 
+const pythonOnlySlides = language === 'python'
+  ? [
+    "looks-like-java?frame=0",
+    "looks-like-java?frame=1",
+    "looks-like-java?frame=2",
+    "implicit-abstraction?frame=0",
+  ]
+  : []
+
 export const slides: string[] = [
   "title?frame=0",
   "acknowledgement?frame=0",
@@ -89,10 +98,7 @@ export const slides: string[] = [
   "single-adapter-code-example?frame=3",
   "single-adapter-code-example?frame=4",
   "single-adapter-code-example?frame=5",
-  "looks-like-java?frame=0",
-  "looks-like-java?frame=1",
-  "looks-like-java?frame=2",
-  "implicit-abstraction?frame=0",
+  ...pythonOnlySlides,
   "why-is-single-adapter-nice?frame=0",
   "why-is-single-adapter-nice?frame=1",
   "why-is-single-adapter-nice?frame=2",
