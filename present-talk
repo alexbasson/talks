@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LANGUAGE=python
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --language)
+      LANGUAGE="$2"
+      shift 2
+      ;;
+    *)
+      echo "Usage: ./present-talk [--language java|python]" >&2
+      exit 1
+      ;;
+  esac
+done
+
+NEXT_PUBLIC_CODE_LANGUAGE="$LANGUAGE" npm run dev
