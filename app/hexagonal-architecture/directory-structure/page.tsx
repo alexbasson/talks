@@ -139,8 +139,8 @@ export default function Page() {
             <div>
               <p>&#35; chess_application.py</p>
               <br/>
-              <p>import game_api_adapter.sql_move_repository</p>
-              <p>import game_db_adapter.import moves_routers</p>
+              <p>from game_api_adapter import moves_routers</p>
+              <p>from game_db_adapter import sql_move_repository</p>
               <p>import game_policy.make_move</p>
               <p>import game_policy.move_repository</p>
               <br/>
@@ -154,8 +154,6 @@ export default function Page() {
           <div className={`font-mono text-sm leading-normal ${adapterRed.className}`}>
             <div>
               <p>&#35; moves_routers.py</p>
-              <br/>
-              <p>from game_policy.make_move import make_move</p>
               <br/>
               <p>@chess_game.route(&ldquo;/&rdquo;)</p>
               <p>class Moves(Resource):</p>
@@ -188,6 +186,8 @@ export default function Page() {
 
             <div>
               <p>&#35; move_repository.py</p>
+              <p>from abc import ABC</p>
+              <br/>
               <p>class MoveRepository(ABC):</p>
               <p>&nbsp;&nbsp;...</p>
             </div>

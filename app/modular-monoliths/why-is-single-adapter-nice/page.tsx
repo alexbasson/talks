@@ -112,9 +112,11 @@ export default function Page() {
 function PlayerClass({ params }: { params: string[] }) {
   return (
     <p className='ml-16'>
+      from dataclasses import dataclass<br/>
+      <br/>
+      @dataclass<br/>
       class Player:<br/>
-      &nbsp;&nbsp;def __init__(self, {params.join(', ')}):<br/>
-      { params.map(param => <>&nbsp;&nbsp;&nbsp;&nbsp;self.{param} = {param}<br/></>) }
+      { params.map(param => <>&nbsp;&nbsp;{param}: str<br/></>) }
       <br/>
     </p>
   )
