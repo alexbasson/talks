@@ -137,7 +137,7 @@ export default function Page() {
             <div className={"mb-8"}>
               <p>Given Cedar is in my <span className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>friends list</span>
               </p>
-              <p>And ahs been my <span
+              <p>And has been my <span
                 className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>opponent</span> in 6 <span
                 className={clsx({[highlightYellow.className]: frame.highlightFriendsLanguage})}>games</span></p>
               <p>And I won 3, Cedar won 2, and 1 was a stalemate</p>
