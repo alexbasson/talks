@@ -17,7 +17,7 @@ this talk is not
 
 ### what-this-talk-is-not?frame=1
 
-about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices _actually_ are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to short cut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. This isn't about best practices for doing anything.
+about best practices. I don't love the phrase "Best Practices". I feel like a lot of times when we talk about best practices, the things that best practices _actually_ are is they're just techniques that are a good idea more often than not. But when we talk about them as being _best_ practices it kind of encourages people to shortcut the whole decision-making process and just be like "oh, well, we have to be using the best practices, what's the alternative? second-best practices? let's not use those" and so this isn't about that. This isn't about best practices for doing anything.
 
 ### what-this-talk-is?frame=0
 
@@ -43,7 +43,7 @@ I want to talk about the Emerald City. The Emerald City is something that we hav
 
 ### emerald-city?frame=1
 
-10 bajilion microservices. All these microservices are
+10 bajillion microservices. All these microservices are
 
 ### emerald-city?frame=2
 
@@ -77,7 +77,7 @@ But there's some features after that, that you're excited to get to,
 
 you're just going to have to remember which repo you're supposed to go to, there's like seven of them, and you need to track down where the code is that you're looking for.
 
-So this is an experience that folks have maybe had, where in route to the great and glorious microservice metropolis, the way there actually feels really expensive. Just the everyday ergonomics of development gets really hard when you have a lot of different pieces of your distributed system to work with.
+So this is an experience that folks have maybe had, where en route to the great and glorious microservice metropolis, the way there actually feels really expensive. Just the everyday ergonomics of development gets really hard when you have a lot of different pieces of your distributed system to work with.
 
 And of course, if you voice these concerns to certain types of folks, if you go before the Great and Powerful Oz and say "ah, this is kind of hard", what the Great and Powerful Oz might tell you is that
 
@@ -101,7 +101,7 @@ And the answer is "No", and that's what this talk is about. This talk is about n
 
 ### thesis-statement?frame=0
 
-So. Here is the idea on ways that we can make this nicer: By focusing less on _services_ and more on _boundaries_, we can reach some early rewards at less cost, and without blocking ourselves off from the great and glorious Emerald City that we're trying to get to.
+So. Here is the idea on ways that we can make this nicer: By focusing less on _services_ and more on _boundaries_, we can reap some early rewards at less cost, and without blocking ourselves off from the great and glorious Emerald City that we're trying to get to.
 
 How are we going to do this? This is where I reveal that I don't actually have too much interesting to say, nothing that you haven't heard before.
 
@@ -360,7 +360,7 @@ So for example,
 
 ### how-to-identify-a-bounded-context?frame=1
 
-suppose you have these feature come out of your backlog for your online chess game. We have one feature about a chess rule where if you manage to move a pawn all the way to the other side of the board, it gets to transform into some other kind of piece. And then we have another story about a rule of chess where you're not allowed to make a move that would put your king piece in jeopardy. These stories
+suppose you have these features come out of your backlog for your online chess game. We have one feature about a chess rule where if you manage to move a pawn all the way to the other side of the board, it gets to transform into some other kind of piece. And then we have another story about a rule of chess where you're not allowed to make a move that would put your king piece in jeopardy. These stories
 
 ### how-to-identify-a-bounded-context?frame=2
 
@@ -388,7 +388,7 @@ because it means that instead of having one giant module for the entire online c
 
 ### two-smaller-models?frame=0
 
-multiple smaller, more manageable models, than you can then give names to. So you might have a model for Organizing Games, which is the context in which we talk about your friends and inviting a friend to be an opponent, and how many games you've won and lost with a particular person. And then a Gameplay model, where in this context, we're talking about the rules of chess, and inside the scope of a specific game, how that game works.
+multiple smaller, more manageable models, that you can then give names to. So you might have a model for Organizing Games, which is the context in which we talk about your friends and inviting a friend to be an opponent, and how many games you've won and lost with a particular person. And then a Gameplay model, where in this context, we're talking about the rules of chess, and inside the scope of a specific game, how that game works.
 
 You'll note that these _aren't_ two different services. I've drawn both of them inside of one deployable green circle. So the way that looks in the code structure
 
@@ -398,7 +398,7 @@ is that you still have just the one deployable service, and it depends on everyt
 
 ### what-about-times-when-bcs-interact?frame=0
 
-That is the simplest case, but there are places where two different bounded contexts might interact. So suppose you pulled this story off of the backlog, which talked about the process the starting a game. So suppose you've invited somebody to play a game with you and they've said yes, then you click the "Start" button, and you arrive at a board ready to make your first move.
+That is the simplest case, but there are places where two different bounded contexts might interact. So suppose you pulled this story off of the backlog, which talked about the process of starting a game. So suppose you've invited somebody to play a game with you and they've said yes, then you click the "Start" button, and you arrive at a board ready to make your first move.
 
 At the beginning of the story,
 
@@ -452,7 +452,7 @@ The Gameplay context doesn't care about invitations or opponents. The only thing
 
 ### describe-the-interaction-twice?frame=2
 
-called Setup Board which knows about things like boards and pieces and the positions they need to have. And in this way, we've now described our feature in two different languages. In the language of Organizing Games where we don't know about things like boards or pieces, we just know about things like games that need to get started, that need to get initialized. Whereas in Gameplay, where we don't know things about players and invitations being accepted, all we know about are boards and here we've described as well. So once we have these two definitions, all we need is some way to bridge the gap between our game initializer port and our setup board port.
+called Setup Board which knows about things like boards and pieces and the positions they need to have. And in this way, we've now described our feature in two different languages. In the language of Organizing Games where we don't know about things like boards or pieces, we just know about things like games that need to get started, that need to get initialized. Whereas in Gameplay, where we don't know things about players and invitations being accepted, all we know about are boards, and here we've described that as well. So once we have these two definitions, all we need is some way to bridge the gap between our game initializer port and our setup board port.
 
 The most obvious way to do this, if you want to be thinking about services, is to just forget about the fact
 
@@ -462,7 +462,7 @@ that you're deployed on one service and just make
 
 ### cross-adapter-communication?frame=1
 
-an API that you plug into `SetupBoard` port, and then make a client that you plug into your `GameInitializer` port. The client is going to call the API, and the fact that the caller and the API are both living on the same service doesn't actually matter. That's only slightly true; there are stacks where you have to be careful about whether your application is going to be able to process another API call before it responds to the first API call, because if it can't, it might block itself. But in many stacks, this is a totally fine thing to do.
+an API that you plug into `SetupBoard` port, and then make a client that you plug into your `GameInitializer` port. The client is going to call the API, and the fact that the caller and the API are both living on the same service doesn't actually matter. There is one caveat to that; there are stacks where you have to be careful about whether your application is going to be able to process another API call before it responds to the first API call, because if it can't, it might block itself. But in many stacks, this is a totally fine thing to do.
 
 That's not the _only_ interaction model, of course; you could also do something asynchronous with a queue. So you could
 
@@ -520,7 +520,7 @@ What it _does_ expect is two names, which presumably it can use to label the two
 
 ### single-adapter-code-example?frame=4
 
-to translate from one language into the other. So it knows how extract the names off of the Player objects from Organizing Games so that it can pass those into the `setupBoard` operation from Gameplay. I've similarly imagined that Organizing Games defines a concept of a gameId, and Gameplay has this concept of a boardId, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
+to translate from one language into the other. So it knows how to extract the names off of the Player objects from Organizing Games so that it can pass those into the `setupBoard` operation from Gameplay. I've similarly imagined that Organizing Games defines a concept of a gameId, and Gameplay has this concept of a boardId, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
 
 ### single-adapter-code-example?frame=5
 
@@ -532,7 +532,7 @@ Why is this nice, though? This seems like an awful lot of work. What this does i
 
 ### why-is-single-adapter-nice?frame=1
 
-actually keeps each piece small. It avoids that moment where your model has become very big, that it's doing a lot of things.
+actually keeps each piece small. It avoids that moment where your model has become so big that it's doing a lot of things.
 
 ### why-is-single-adapter-nice?frame=2
 
@@ -548,7 +548,7 @@ you don't care about the player's email, but you do care about which color they 
 
 ### why-is-single-adapter-nice?frame=5
 
-And yet there's still no extra deployment overhead, because you're not actually deploying these as separate services (yet), you're deploying them as one service. Which means you don't have to set up multiple pipelines, you don't have jump through any hoops if you need to start the whole thing up on your local machine for whatever reason. You just have an application which you can start.
+And yet there's still no extra deployment overhead, because you're not actually deploying these as separate services (yet), you're deploying them as one service. Which means you don't have to set up multiple pipelines, you don't have to jump through any hoops if you need to start the whole thing up on your local machine for whatever reason. You just have an application which you can start.
 
 ### why-is-single-adapter-nice?frame=6
 
@@ -560,17 +560,17 @@ So. How have we cracked the code? Do we never have to deploy microservices ever 
 
 ### but-microservices?frame=1
 
-Microservices, while they cost an amount of overhead, they're also valuable for a lot of reasons. All the reasons that people want to deploy microservices, like they want things to be decoupled, or they want to be able to scale components independently, or they want another team to be able to take this thing and work on it independently. But there's a couple of observations you can make about that list.
+Microservices, while they cost an amount of overhead, they're also valuable for a lot of reasons. All the reasons that people want to deploy microservices, like they want things to be decoupled, or they want to be able to scale components independently, or they want another team to be able to take this thing and work on it independently. But there are a couple of observations you can make about that list.
 
 ### but-microservices?frame=2
 
-One observation is that some of those reasons don't require microservices. Putting a network call in the middle of a flow doesn't necessary make the two sides of the network call decoupled from each other. They do prevent you from importing a code class from the other side of the boundary, if it's living on the other side of the network. But that's not the only way to do that. The module breakup that we described above also prevents you from directly importing things that you're not supposed to be coupled to. And it does it without that network overhead. So some of these things can be accomplished in less costly ways.
+One observation is that some of those reasons don't require microservices. Putting a network call in the middle of a flow doesn't necessarily make the two sides of the network call decoupled from each other. They do prevent you from importing a code class from the other side of the boundary, if it's living on the other side of the network. But that's not the only way to do that. The module breakup that we described above also prevents you from directly importing things that you're not supposed to be coupled to. And it does it without that network overhead. So some of these things can be accomplished in less costly ways.
 
 The second observation is that a lot of the things
 
 ### but-microservices?frame=3
 
-that microservices give you which can't be achieved any other way, don't kick in for a bit. Things like, oh it would be really nice if another team could work on this independently. I mean, _is_ there another team to work in it independently? If it's just your team right now, and we're imagining that in the future, another team might take this and run with it, well they're not here yet, so if we deploy a special service just for them, then we're having the pay the tax of maintaining that service and all of the ergonomic drawbacks that has for our development right now, in service of a thing that has not yet occurred.
+that microservices give you which can't be achieved any other way, don't kick in for a bit. Things like, oh it would be really nice if another team could work on this independently. I mean, _is_ there another team to work on it independently? If it's just your team right now, and we're imagining that in the future, another team might take this and run with it, well they're not here yet, so if we deploy a special service just for them, then we're having the pay the tax of maintaining that service and all of the ergonomic drawbacks that has for our development right now, in service of a thing that has not yet occurred.
 
 Or similarly, if you want to be able to scale different parts of the system independently—I mean, do you need to scale them now? You're probably not going to, at the beginning of the effort, immediately deploy out to millions of users worth of traffic. If you are setting yourself up to be able to do this very advanced scaling maneuver from the outset, then you're probably paying tax on a thing that isn't going to return dividends to you for some time.
 
@@ -578,7 +578,7 @@ Or similarly, if you want to be able to scale different parts of the system inde
 
 So this suggests that what we would like to do is start out not paying that overhead, and then in the moment when it's going to start being valuable, we would like to transition to a microservice deployment where we can start reaping those benefits.
 
-And this sounds obvious when you say it out loud, but the time take that transition is
+And this sounds obvious when you say it out loud, but the time to take that transition is
 
 ### when-to-transition?frame=1
 
@@ -648,7 +648,7 @@ And I want to highlight how cheap that is, because when you think about separati
 
 This is a git command that you can run that will show you in a commit which files were touched and in what way they changed. "A" means "added" and "M" means "modified". This is the entire operation for splitting a deployable in this way. You create a new deployable module which didn't previously exist, and this doesn't really show the size of that thing, but that application class is not large. That's, y'know, a couple of bean methods or import statements.
 
-And the modifications in Deployable 1, if you crack them open, they're actually just line deletions. You're just deleting dependencies out of the build file and then deleting bean methods or configuration in the application class. And this is it. This is the whole thing. And voila, we now have two separately deployable things. Nothing else moves, nothing else even changes, it all just stays there. And if you imagine that you were doing this while active development was happening—while, y'know, you have a whole team and they're all doing stuff—there's not going to be any merge conflict here. You don't have to say, "hey folks, we're separating the deployables, everybody hold on for a minute so we don't step on each others' toes". You just do this, and everybody's who's working in these different components, they just keep doing it and this works fine. And it's very nice.
+And the modifications in Deployable 1, if you crack them open, they're actually just line deletions. You're just deleting dependencies out of the build file and then deleting bean methods or configuration in the application class. And this is it. This is the whole thing. And voila, we now have two separately deployable things. Nothing else moves, nothing else even changes, it all just stays there. And if you imagine that you were doing this while active development was happening—while, y'know, you have a whole team and they're all doing stuff—there's not going to be any merge conflict here. You don't have to say, "hey folks, we're separating the deployables, everybody hold on for a minute so we don't step on each others' toes". You just do this, and everybody who's working in these different components, they just keep doing it and this works fine. And it's very nice.
 
 ### how-to-transition?frame=2
 
@@ -690,7 +690,7 @@ remove the Moves DB adapter from the deployable. And again, the diagram suggests
 
 ### adapter-extraction?frame=3
 
-Then we're going to create two new modules. One will be an API that we throw in front Moves DB, and then we'll create a client object that will fit the same interface that Moves DB did, which now calls that API. And lastly, we will
+Then we're going to create two new modules. One will be an API that we throw in front of Moves DB, and then we'll create a client object that will fit the same interface that Moves DB did, which now calls that API. And lastly, we will
 
 ### adapter-extraction?frame=4
 
@@ -724,7 +724,7 @@ that by focusing less on services and more on boundaries, we can reap early rewa
 
 ### what-does-this-mean?frame=1
 
-And the thing that makes this true is that reshaping deployables doesn't actually have to be expensive. A lot of times teams really focus in the beginning on making sure they get the services right because they feel that if they don't get them right, it's going to be really hard to reshape them later. But there are moves you can make and constraints you can give yourself that make that actually not true. And if it's not true that reshaping deployables are expensive,
+And the thing that makes this true is that reshaping deployables doesn't actually have to be expensive. A lot of times teams really focus in the beginning on making sure they get the services right because they feel that if they don't get them right, it's going to be really hard to reshape them later. But there are moves you can make and constraints you can give yourself that make that actually not true. And if it's not true that reshaping deployables is expensive,
 
 ### what-does-this-mean?frame=2
 
@@ -740,7 +740,7 @@ So. Some things that this does not mean, to highlight again from what I was sayi
 
 ### what-does-this-not-mean?frame=1
 
-that starting out with separate deployable is never a good idea. It is about math. It is about whether you are getting value for your investment right now, or if you're just paying cost on a thing that isn't paying for itself yet. So for example, if you are working with some kind of large monolithic system and deploying that thing is really expensive and hard to do, then if you were to extract out a small piece of that system that contains the stuff that you really want to work on, now that's paying for itself immediately because now you can start rapidly iterating on that piece that you've extracted, and you don't have to deal with the very difficult deployment of the whole monolith anymore. So if it's going to pay for itself right out of the gate, don't wait. Do do that, because the math is already in your favor. Just pay attention and make sure that you're not saying "oh, we definitely need services" when you haven't actually done the calculation.
+that starting out with separate deployable is never a good idea. It is about math. It is about whether you are getting value for your investment right now, or if you're just paying cost on a thing that isn't paying for itself yet. So for example, if you are working with some kind of large monolithic system and deploying that thing is really expensive and hard to do, then if you were to extract out a small piece of that system that contains the stuff that you really want to work on, now that's paying for itself immediately because now you can start rapidly iterating on that piece that you've extracted, and you don't have to deal with the very difficult deployment of the whole monolith anymore. So if it's going to pay for itself right out of the gate, don't wait. Do _do_ that, because the math is already in your favor. Just pay attention and make sure that you're not saying "oh, we definitely need services" when you haven't actually done the calculation.
 
 ### what-does-this-not-mean?frame=2
 
