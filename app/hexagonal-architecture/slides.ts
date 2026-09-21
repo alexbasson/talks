@@ -1,3 +1,9 @@
+import { language } from '@/app/lib/language'
+
+const directoryStructureSlides = language === 'java'
+  ? Array.from({ length: 9 }, (_, i) => `spring-directory-structure?frame=${i}`)
+  : Array.from({ length: 8 }, (_, i) => `directory-structure?frame=${i}`)
+
 export const slides: string[] = [
   "title?frame=0",
   "acknowledgement?frame=0",
@@ -36,14 +42,7 @@ export const slides: string[] = [
   "example-online-chess?frame=1",
   "example-online-chess?frame=2",
   "example-online-chess?frame=3",
-  "directory-structure?frame=0",
-  "directory-structure?frame=1",
-  "directory-structure?frame=2",
-  "directory-structure?frame=3",
-  "directory-structure?frame=4",
-  "directory-structure?frame=5",
-  "directory-structure?frame=6",
-  "directory-structure?frame=7",
+  ...directoryStructureSlides,
   "why-is-this-nice?frame=0",
   "why-is-this-nice?frame=1",
   "why-is-this-nice?frame=2",

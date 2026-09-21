@@ -1,6 +1,7 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
+import {language} from "@/app/lib/language";
 
 import {policyBlue} from "@/app/lib/colors";
 
@@ -110,6 +111,15 @@ export default function Page() {
 }
 
 function PlayerClass({ params }: { params: string[] }) {
+  if (language === 'java') {
+    return (
+      <p className='ml-16'>
+        class Player &#123;<br/>
+        { params.map(param => <>&nbsp;&nbsp;&nbsp;&nbsp;String {param};<br/></>) }
+        &#125;
+      </p>
+    )
+  }
   return (
     <p className='ml-16'>
       from dataclasses import dataclass<br/>
