@@ -1,7 +1,6 @@
 'use client'
 
 import useFrame from "@/app/lib/useFrame";
-import clsx from "clsx";
 import {Geometry, Port} from "@/app/lib/definitions";
 import DomainModule from "@/app/lib/diagrams/DomainModule";
 import systemGeometry from "@/app/lib/diagrams/systemGeometry";
@@ -9,6 +8,11 @@ import {useRef} from "react";
 import useDimensions from "@/app/lib/useDimensions";
 import {highlightYellow, policyBlue} from "@/app/lib/colors";
 import {language} from "@/app/lib/language";
+import * as java from "./java";
+import * as python from "./python";
+import * as ruby from "./ruby";
+
+const { TopSection, MethodSection } = language === 'java' ? java : language === 'ruby' ? ruby : python;
 
 type Frame = {
   displayDiagram: boolean,
@@ -82,30 +86,7 @@ export default function Page() {
     <div className='padding-horizontal w-full flex flex-col flex-grow flex-shrink-0'>
       <div>
         <p className={"pb-0 mb-0 font-mono text-sm"}>
-          {language === 'java' ? <>
-            class GameplayGameInitializer implements <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span> &#123;<br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>private final SetupBoard setupBoard;</span><br/><br/>
-            &nbsp;&nbsp;public GameplayGameInitializer(SetupBoard setupBoard) &#123;<br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;this.setupBoard = setupBoard;<br/>
-            &nbsp;&nbsp;&#125;<br/>
-          </> : language === 'ruby' ? <>
-            <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>require &apos;organizing_games/game_initializer&apos;</span><br/>
-            <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>require &apos;gameplay/setup_board&apos;</span><br/><br/>
-
-            class GameplayGameInitializer<br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>include GameInitializer</span><br/><br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>def initialize(setup_board)</span><br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>@setup_board = setup_board</span><br/>
-            &nbsp;&nbsp;end<br/>
-          </> : <>
-            from typing import Callable<br/>
-            <span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>from organizing_games.game_initializer import GameInitializer, Player, GameId</span><br/>
-            <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>from gameplay.setup_board import setup_board</span><br/><br/>
-
-            class GameplayGameInitializer(<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>GameInitializer</span>):<br/>
-            &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>def __init__(self, setup_board: Callable):</span><br/>
-            &nbsp;&nbsp;&nbsp;&nbsp;self.setup_board = setup_board<br/>
-          </>}
+          <TopSection {...frame} />
         </p>
       </div>
 
@@ -113,43 +94,7 @@ export default function Page() {
         <div className='w-2/5'>
           <p className='py-0 my-0 font-mono text-sm'>
             <br/>
-            {language === 'java' ? <>
-              &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>@Override</span><br/>
-              &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>public GameId initializeGame</span>(<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;Player whitePlayer,<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;Player blackPlayer<br/>
-              &nbsp;&nbsp;) &#123;<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;BoardId boardId =<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>setupBoard.execute</span>(<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>whitePlayer.name,</span><br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>blackPlayer.name</span><br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId(boardId.value)</span>;<br/>
-              &nbsp;&nbsp;&#125;<br/>
-              &#125;<br/>
-            </> : language === 'ruby' ? <>
-              &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;white_player,<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;black_player<br/>
-              &nbsp;&nbsp;)<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;board_id = <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>@setup_board.call</span>(<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>white_player.name,</span><br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>black_player.name</span><br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;)<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId.new(board_id.value)</span><br/>
-              &nbsp;&nbsp;end<br/>
-              end<br/>
-            </> : <>
-              &nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightSecondaryAdapter})}>def initialize_game</span>(self,<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;white_player: Player,<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;black_player: Player<br/>
-              &nbsp;&nbsp;) -&gt; GameId:<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;board_id = <span className={clsx({[highlightYellow.className]: frame.highlightPrimaryAdapter})}>self.setup_board</span>(<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>white_player.name,</span><br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: frame.highlightNames})}>black_player.name</span><br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;)<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: frame.highlightGameId})}>GameId(board_id.value)</span><br/>
-            </>}
+            <MethodSection {...frame} />
           </p>
         </div>
         <div className='svg-container' ref={targetRef}>
