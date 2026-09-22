@@ -92,7 +92,7 @@ export default function Page() {
 
       <div className='flex flex-start flex-grow'>
         <div className='w-2/5'>
-          <p className='py-0 my-0 font-mono text-sm'>
+          <p className='py-0 my-0 font-mono text-[26px] leading-[35px]'>
             <br/>
             <MethodSection {...frame} />
           </p>
