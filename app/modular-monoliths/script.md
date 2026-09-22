@@ -308,7 +308,7 @@ It also facilitates testing modules in isolation. This is especially true with S
 
 ### why-is-this-nice?frame=5
 
-Of course I am lying. All of these, every single thing on this list, doesn't necessarily happen. You can go through all of these steps, have all of these modules broken out, follow all of the dependency rules, and still get none of these benefits. And the way that happens is if, over time, as you build and build and build and build, you end up
+But this can, of course, go very wrong. All of these, every single thing on this list, doesn't necessarily happen. You can go through all of these steps, have all of these modules broken out, follow all of the dependency rules, and still get none of these benefits. And the way that happens is if, over time, as you build and build and build and build, you end up
 
 ### how-does-this-go-wrong?frame=0
 
