@@ -31,14 +31,16 @@ export default function Page() {
       </div>
 
       <div className='overlay-text padding-horizontal'>
-        {frame.displayTitle ? <p>10 bajillion microservices</p> : <></>}
-        {frame.displayList ?
-          <ul className='pl-16 list-disc'>
-            <li>all perfectly decoupled</li>
-            <li>all independently deployable</li>
-            <li>all maintained by autonomous teams innovating without friction</li>
-            <li>all choreographed with high availability and resiliency and telemetry and and and</li>
-          </ul> : <></>}
+        <div style={{display: 'inline-block', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: '8px', padding: '12px 24px'}}>
+          {frame.displayTitle ? <p>10 bajillion microservices</p> : <></>}
+          {frame.displayList ?
+            <ul className='pl-16 list-disc'>
+              <li>all perfectly decoupled</li>
+              <li>all independently deployable</li>
+              <li>all maintained by autonomous teams innovating without friction</li>
+              <li>all choreographed with high availability and resiliency and telemetry and and and</li>
+            </ul> : <></>}
+        </div>
       </div>
     </div>
   )
