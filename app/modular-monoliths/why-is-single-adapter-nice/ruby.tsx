@@ -4,7 +4,7 @@ export const gameplayPath = 'gameplay_policy/player.rb'
 export default function PlayerClass({ params }: { params: string[] }) {
   return (
     <p className='ml-16'>
-      Player = Struct.new({params.map((p, i) => <>{i > 0 ? ', ' : ''}:{p}</>)})<br/>
+      Player = Data.define({params.map((p, i) => <>{i > 0 ? ', ' : ''}:{p}</>)})<br/>
     </p>
   )
 }

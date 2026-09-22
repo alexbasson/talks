@@ -30,10 +30,10 @@ export function MethodSection({ highlightSecondaryAdapter, highlightPrimaryAdapt
       &nbsp;&nbsp;) &#123;<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;BoardId boardId =<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightPrimaryAdapter})}>setupBoard.execute</span>(<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightNames})}>whitePlayer.name,</span><br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightNames})}>blackPlayer.name</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightNames})}>whitePlayer.name(),</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightNames})}>blackPlayer.name()</span><br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: highlightGameId})}>GameId(boardId.value)</span>;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: highlightGameId})}>new GameId(boardId.value())</span>;<br/>
       &nbsp;&nbsp;&#125;<br/>
       &#125;<br/>
     </>

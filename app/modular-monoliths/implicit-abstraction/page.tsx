@@ -31,7 +31,7 @@ export default function Page() {
         <div>
           <div className='mb-16'>
             <div>
-              def make_move(save_move: Function):<br/>
+              def make_move(save_move: Callable):<br/>
               &nbsp;&nbsp;&#35; game logic; is this move legal?<br/>
               &nbsp;&nbsp;save_move(move)<br/>
             </div>

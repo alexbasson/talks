@@ -174,8 +174,10 @@ export default function RubyDirectoryStructure() {
           <div className={`font-mono text-sm leading-normal ${policyBlue.className}`}>
             <div className='mb-16'>
               <p>&#35; make_move.rb</p>
-              <p>def make_move</p>
-              <p>&nbsp;&nbsp;...</p>
+              <p>class MakeMove</p>
+              <p>&nbsp;&nbsp;def call</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p>&nbsp;&nbsp;end</p>
               <p>end</p>
             </div>
 

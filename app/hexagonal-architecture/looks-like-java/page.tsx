@@ -70,7 +70,7 @@ export default function Page() {
 
             <div>
               class MoveRepository(ABC):<br/>
-              &nbsp;&nbsp;@abstract_method<br/>
+              &nbsp;&nbsp;@abstractmethod<br/>
               &nbsp;&nbsp;def save_move(self, move):<br/>
             </div>
           </div> : <></>

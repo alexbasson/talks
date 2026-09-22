@@ -6,7 +6,7 @@ export default function PlayerClass({ params }: { params: string[] }) {
     <p className='ml-16'>
       from dataclasses import dataclass<br/>
       <br/>
-      @dataclass<br/>
+      @dataclass(frozen=True)<br/>
       class Player:<br/>
       { params.map(param => <>&nbsp;&nbsp;{param}: str<br/></>) }
       <br/>

@@ -33,7 +33,7 @@ export function MethodSection({ highlightSecondaryAdapter, highlightPrimaryAdapt
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightNames})}>white_player.name,</span><br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className={clsx({[highlightYellow.className]: highlightNames})}>black_player.name</span><br/>
       &nbsp;&nbsp;&nbsp;&nbsp;)<br/>
-      &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: highlightGameId})}>GameId(board_id.value)</span><br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;return <span className={clsx({[highlightYellow.className]: highlightGameId})}>GameId(value=board_id.value)</span><br/>
     </>
   )
 }
