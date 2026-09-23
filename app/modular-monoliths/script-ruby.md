@@ -182,9 +182,9 @@ _low-level detail_ of the "high-level policy/low-level detail" split. Each adapt
 
 ### adapter-modules?frame=2
 
-specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `WidgetRepository`, this being an interface where you can provide a Widget record to be saved and then later look up a record and then have all data in it that was there when you saved it.
+specific technological solution to a problem defined by a policy module. So for example, you might have in your policy module, a definition of a `MoveRepository`, this being an interface where you can provide a Move record to be saved and then later look up a record and then have all data in it that was there when you saved it.
 
-The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `WidgetRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `WidgetRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `WidgetService` that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
+The policy module doesn't say how that works or how it happens, it just says that there exists a thing called a `MoveRepository` and I can interact with it in this way. An adapter module then says "ok, the policy module needs something to be a `MoveRepository`, and I can be that thing by using a SQL database, or by using a Mongo database, or by calling this `MoveService` that exists somewhere else" So one adapter module is a very specific technological solution to a specific problem.
 
 In the Hexagonal Architecture terminology of primary and secondary ports, adapters come in two flavors.
 
@@ -194,7 +194,7 @@ There are:
 - Primary Adapters, which invoke an operation in the policy, and then
 - Secondary Adapters, implementing interfaces from the policy.
 
-So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `WidgetRepository` adapter that I was just describing that accomplishes the `WidgetRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
+So for example, you might have an API module, which is an adapter, and that is a primary adapter because the thing that it does is that it exposes some endpoints, and in the handlers for those endpoints, it invokes corresponding operations defined by the policy. The `MoveRepository` adapter that I was just describing that accomplishes the `MoveRepository` role by integrating with the database, is a secondary adapter because it implements an interface defined by the policy.
 
 And then the third kind of module
 
@@ -238,49 +238,43 @@ And we can have a database module that knows how to write move records into a mo
 
 ### example-online-chess?frame=3
 
-And then finally we would have our deployable module where our dependency injection container lives, where we read environment variables from the environment and know how to configure things. All of that lives at the deployable level.
+And then finally we would have our deployable module where our wiring lives, where we require everything and know how to configure things. All of that lives at the deployable level.
 
-If we suppose that this was, for example, a Spring application, the actual codebase
+If we suppose that this was, for example, a Ruby application using Rack and Sinatra, the actual codebase
 
-### spring-directory-structure?frame=0
+### directory-structure?frame=0
 
-might look like this. You'll note that all of this is in one git repository. We're using gradle because gradle makes this a little bit nicer than maven does; it doesn't really matter. In your
+might look like this. You'll note that all of this is in one git repository, with our deployable, our two adapters, and our policy all living side by side as directories. In our
 
-### spring-directory-structure?frame=1
+### directory-structure?frame=1
 
-`settings.gradle` file, you would have a list of all of the subprojects in the system—we have four of them; we have our deployable chess app, our two adapters, and our policy.
+deployable module, we have all of our require statements at the top—we're requiring all the adapters and the policy. And we have a `config.ru` which is the Rack entry point that boots the server. And in addition to that, we have
 
-In our deployable module,
+### directory-structure?frame=2
 
-### spring-directory-structure?frame=2
-
-we have a list of all of the dependencies; we depend on everything, and then we have also a Spring Boot application class.
-
-### spring-directory-structure?frame=3
-
-So the class with the Spring Boot annotation goes here, because this is the actual shipping thing.
+a `create_app` function. This is where all of the wiring happens—we assemble our components and hand our Rack application off to the server. So this function is the actual shipping thing.
 
 We then have our
 
-### spring-directory-structure?frame=4
+### directory-structure?frame=3
 
-API adapter. This is our primary adapter that is going to invoke operations inside the policy. You can see that it depends on fewer things: instead of depending on everything, it only depends on game policy. And then, because it is a primary adapter, it needs to invoke operations, and so it's going to get
+API adapter. This is our primary adapter that is going to invoke operations inside the policy. And because it is a primary adapter, it needs to invoke operations, and so it's going to get
 
-### spring-directory-structure?frame=5
+### directory-structure?frame=4
 
-constructed with an operation object that comes out of the policy module.
+initialized with an operation object that comes out of the policy module.
 
-### spring-directory-structure?frame=6
+### directory-structure?frame=5
 
-Our database adapter, same thing: it depends only on the game policy, and because it is a secondary adapter, it is going to implement an interface, so
+Our database adapter, same thing: it only knows about the game policy, and because it is a secondary adapter, it is going to extend a module from the policy, so
 
-### spring-directory-structure?frame=7
+### directory-structure?frame=6
 
-it provides a class `SqlMoveRepository` implementing an interface that comes from the policy module.
+it provides a class `SqlMoveRepository` that extends a module coming from the policy.
 
-### spring-directory-structure?frame=8
+### directory-structure?frame=7
 
-And the policy module depends on nothing. No dependencies, it's just its own thing.
+And the policy module has no external dependencies. No requires, it's just its own thing.
 
 And that's what the code might look like.
 
@@ -290,11 +284,11 @@ But why? Why is that nice? What comes from that? Well, one thing that is true is
 
 ### why-is-this-nice?frame=1
 
-it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module, and just the classpath itself doesn't have anything else on it, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
+it helps each piece stay small. Which especially for me, is very nice, because I struggle when I'm working with a complex system to hold a lot of detail in my head at once. And so I quite like systems where, if I'm thinking of database things and I'm trying to solve database problems, I don't have to think about anything other than database problems. And this kind of break out where I can go into the database module, and just the require graph itself doesn't have anything else in it, I can really focus on that one thing. And when I need to then go and think about the API, I can leave the database behind and think about API things.
 
 ### why-is-this-nice?frame=2
 
-There's a kind of enforcement of separation of concerns there. I've had the experience on a project like this where a pair was working on something and they were trying to annotate a data class with something out of Spring JDBC, like a database annotation, and the IDE wasn't letting them do it, like they weren't able to import the annotation that they expected, and so then they came over and asked "hey, does anybody know why we wouldn't be able to import this thing here? I thought that we had the Spring Boot database jar in the application already" and the reason they couldn't import it is that they were in a policy module, where we didn't actually want it to know about database concerns. And so we were able to then have that conversation. The module boundaries created a fence, and when they walked into the fence, it was able flag that we needed to talk about what was going on. So the system itself was directing people towards doing the right thing and away from doing the wrong thing. This is especially true if you're working in a language with type checking, like Java or TypeScript.
+There's a kind of enforcement of separation of concerns there. I've had the experience on a project like this where a pair was working on something and they were trying to require a database library from inside the policy module, and when they ran the tests for just the policy module, they got a LoadError because the database gem wasn't on the load path for that module. And so they came over and asked "hey, does anybody know why we can't require this gem here? I thought we had it in the project." And the reason it wasn't available is that they were in the policy module, where we didn't actually want it to know about database concerns. And so we were able to then have that conversation. The module boundaries created a fence, and when they walked into the fence, it was able to flag that we needed to talk about what was going on. So the system itself was directing people towards doing the right thing and away from doing the wrong thing.
 
 Another thing that is true, again because each piece stays small,
 
@@ -304,7 +298,7 @@ is that adapters are very cheap. They start to feel disposable. If you decide at
 
 ### why-is-this-nice?frame=4
 
-It also facilitates testing modules in isolation. This is especially true with Spring, which likes to get very clever about doing things based on dependencies it finds on the classpath. If you're trying to run an API test, for example, it can be kind of frustrating if your test is refusing to start because it can't configure the database. If you don't need a database for this API test because you've provided a mock for the database, it doesn't matter, Spring is still going to try to wire it up and you're going to have a hard time. But with this kind of module breakout, when you're running an API test, there is no database dependency on the classpath anywhere, and so Spring isn't going to try to wire it up, and inside of that test, you have an opportunity to just make sure that _this_ thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
+It also facilitates testing modules in isolation. When you're testing the API adapter, you only require the API adapter and the policy module—the database adapter is simply never loaded. So rather than having to mock out the database, you just don't load the database module, and nothing is going to try to connect to it. Inside of that test, you have an opportunity to just make sure that _this_ thing in isolation is good. And you have fewer things to think about, you don't have to pay attention to as many other things going on.
 
 ### why-is-this-nice?frame=5
 
@@ -508,23 +502,23 @@ from the perspective of the Organizing Games policy, this is a secondary adapter
 
 ### single-adapter-code-example?frame=2
 
-Secondary adapter means that it implements an interface. So the GameInitializer interface comes from Organizing Games. We implement that interface and define a corresponding `initializeGame()` function. But this same object is also
+Secondary adapter means that it includes a module. So the `GameInitializer` module comes from Organizing Games. We include that module and define a corresponding `initialize_game` method. But this same object is also
 
 ### single-adapter-code-example?frame=3
 
-a primary adapter for the Gameplay policy. And as a primary adapter, it has to invoke an operation in Gameplay. So we're going to get constructed with a `SetupBoard` operation object that comes from the Gameplay policy module, and then inside of our `initializeGame()` function, we're going to invoke the `setupBoard` operation.
+a primary adapter for the Gameplay policy. And as a primary adapter, it has to invoke an operation in Gameplay. So we're going to get initialized with a `setup_board` callable that comes from the Gameplay policy module, and then inside of our `initialize_game` method, we're going to call it.
 
-In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have the concept of Player; I've imagined here that Player is a data class that comes from Organizing Games, and so that's the argument that gets passed into `initializeGame()`. We can't take those Player objects and pass them directly into `setupBoard` because `setupBoard` doesn't have that concept of Player; it wouldn't compile because it wouldn't know what a Player is.
+In this way, we fit into both. But again, the two different policy modules, you can think of them as speaking different languages. This framing of bounded contexts is very much about the terms and concepts that are relevant to different parts of our overall problem space. And so they don't share terminology. Gameplay, for example, doesn't have the concept of Player; I've imagined here that `white_player` and `black_player` are objects that come from Organizing Games, and so those are the arguments that get passed into `initialize_game`. We can't take those Player objects and pass them directly into `setup_board` because `setup_board` doesn't have that concept of Player—it simply doesn't know what a Player is.
 
 What it _does_ expect is two names, which presumably it can use to label the two different sides of the board. And so the job of our cross-context adapter here is
 
 ### single-adapter-code-example?frame=4
 
-to translate from one language into the other. So it knows how to extract the names off of the Player objects from Organizing Games so that it can pass those into the `setupBoard` operation from Gameplay. I've similarly imagined that Organizing Games defines a concept of a gameId, and Gameplay has this concept of a boardId, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
+to translate from one language into the other. So it knows how to extract the names off of the Player objects from Organizing Games so that it can pass those into the `setup_board` callable from Gameplay. I've similarly imagined that Organizing Games defines a concept of a `GameId`, and Gameplay has this concept of a `board_id`, and so our cross-context adapter in the middle is going to have to translate between both of them. So it gets
 
 ### single-adapter-code-example?frame=5
 
-that boardId back from Gameplay and then constructs a gameId out of it.
+that `board_id` back from Gameplay and constructs an `Organizing::GameId` from it.
 
 ### why-is-single-adapter-nice?frame=0
 
@@ -646,9 +640,9 @@ And I want to highlight how cheap that is, because when you think about separati
 
 ### deployable-mitosis-git-show?frame=0
 
-This is a git command that you can run that will show you in a commit which files were touched and in what way they changed. "A" means "added" and "M" means "modified". This is the entire operation for splitting a deployable in this way. You create a new deployable module which didn't previously exist, and this doesn't really show the size of that thing, but that application class is not large. That's, y'know, a couple of bean methods or import statements.
+This is a git command that you can run that will show you in a commit which files were touched and in what way they changed. "A" means "added" and "M" means "modified". This is the entire operation for splitting a deployable in this way. You create a new `app.rb` for the new deployable, and that file is not large. That's, y'know, just some require statements and a `create_app` function.
 
-And the modifications in Deployable 1, if you crack them open, they're actually just line deletions. You're just deleting dependencies out of the build file and then deleting bean methods or configuration in the application class. And this is it. This is the whole thing. And voila, we now have two separately deployable things. Nothing else moves, nothing else even changes, it all just stays there. And if you imagine that you were doing this while active development was happening—while, y'know, you have a whole team and they're all doing stuff—there's not going to be any merge conflict here. You don't have to say, "hey folks, we're separating the deployables, everybody hold on for a minute so we don't step on each others' toes". You just do this, and everybody who's working in these different components, they just keep doing it and this works fine. And it's very nice.
+And the modifications in Deployable 1, if you crack them open, they're actually just line deletions. You're just deleting some require statements and removing some wiring from `app.rb`. And this is it. This is the whole thing. And voila, we now have two separately deployable things. Nothing else moves, nothing else even changes, it all just stays there. And if you imagine that you were doing this while active development was happening—while, y'know, you have a whole team and they're all doing stuff—there's not going to be any merge conflict here. You don't have to say, "hey folks, we're separating the deployables, everybody hold on for a minute so we don't step on each others' toes". You just do this, and everybody who's working in these different components, they just keep doing it and this works fine. And it's very nice.
 
 ### how-to-transition?frame=2
 
@@ -686,7 +680,7 @@ So this maneuver is as follows. We're going to
 
 ### adapter-extraction?frame=2
 
-remove the Moves DB adapter from the deployable. And again, the diagram suggests that there's something moving here, but it's really not. All that this actually means is that we went into the deployable module and removed its dependency and then any configuration it had for the Moves DB adapter module. So now it's no longer in the deployable.
+remove the Moves DB adapter from the deployable. And again, the diagram suggests that there's something moving here, but it's really not. All that this actually means is that we went into the deployable module and removed its require and then any configuration it had for the Moves DB adapter module. So now it's no longer in the deployable.
 
 ### adapter-extraction?frame=3
 
@@ -694,13 +688,13 @@ Then we're going to create two new modules. One will be an API that we throw in 
 
 ### adapter-extraction?frame=4
 
-create a new deployable module which imports the Moves DB and Moves API modules, and now that's a separately deployable thing. And we're done.
+create a new deployable module which requires the Moves DB and Moves API modules, and now that's a separately deployable thing. And we're done.
 
-Again, almost nothing changes and nothing actually moves. You just create a couple of new things. And I should mention that this is, like, the cheapest and most non-destructive way of doing this. There is a drawback, which is that the Moves DB adapter, initially it had to implement an interface from GamePlay policy, that's what allowed it to fit into the port. And so actually it still
+Again, almost nothing changes and nothing actually moves. You just create a couple of new things. And I should mention that this is, like, the cheapest and most non-destructive way of doing this. There is a drawback, which is that the Moves DB adapter, initially it had to extend a module from GamePlay policy, that's what allowed it to fit into the port. And so actually it still
 
 ### adapter-extraction?frame=5
 
-has a code dependency on GamePlay policy. The GamePlay policy module has effectively become a shared library between these two services. And if you don't want that to be true, then you are going to have to make some modifications to the Moves DB module. But they're going to be pretty cheap. It's going to be, like, deleting the reference to the interface, maybe creating a copy of whatever data objects it's supposed to construct. So fairly simple things. But it is a little bit more work if you want to remove that shared library dependency. And it's maybe also worth mentioning: if you're going to be doing that anyway, the fact that you needed to do this extraction suggests that Moves DB might be a separate bounded context. The evidence for this is that there's a team that wants to do something, and to do that they need the data that lives inside of Moves DB. But what they're doing has nothing to do with GamePlay, and that's why you didn't want to just service it as part of your GamePlay policy object.
+has a code dependency on GamePlay policy. The GamePlay policy module has effectively become a shared library between these two services. And if you don't want that to be true, then you are going to have to make some modifications to the Moves DB module. But they're going to be pretty cheap. It's going to be, like, removing the include of the module, maybe creating a copy of whatever data objects it's supposed to construct. So fairly simple things. But it is a little bit more work if you want to remove that shared library dependency. And it's maybe also worth mentioning: if you're going to be doing that anyway, the fact that you needed to do this extraction suggests that Moves DB might be a separate bounded context. The evidence for this is that there's a team that wants to do something, and to do that they need the data that lives inside of Moves DB. But what they're doing has nothing to do with GamePlay, and that's why you didn't want to just service it as part of your GamePlay policy object.
 
 And so, you might want to
 
@@ -744,7 +738,7 @@ that starting out with separate deployable is never a good idea. It is about mat
 
 ### what-does-this-not-mean?frame=2
 
-This also doesn't mean "aha! wonderful! I will never think about deployment strategy ever again because it can always be deferred!" You do need to think ahead a little bit, you need to be careful because there are some ways where you can back yourself into a corner. For example, you might define a model around this abstraction of a Widget Repository you come up with, and you bake into that model the assumption that immediately after saving a Widget you can then look it up and have those results. If you, for example, then end up needing to swap out that adapter with something that uses a eventually-consistent data store, and it's no longer ACID compliant, that could have really bad consequences for a lot of your system because a lot of your system might be resting on that assumption that the writes are immediately consistent. So, if you're thinking that that might happen, make sure that you're considering that in your model.
+This also doesn't mean "aha! wonderful! I will never think about deployment strategy ever again because it can always be deferred!" You do need to think ahead a little bit, you need to be careful because there are some ways where you can back yourself into a corner. For example, you might define a model around this abstraction of a Move Repository you come up with, and you bake into that model the assumption that immediately after saving a Move you can then look it up and have those results. If you, for example, then end up needing to swap out that adapter with something that uses a eventually-consistent data store, and it's no longer ACID compliant, that could have really bad consequences for a lot of your system because a lot of your system might be resting on that assumption that the writes are immediately consistent. So, if you're thinking that that might happen, make sure that you're considering that in your model.
 
 Another way that people can get bitten is if you bake into your high-level policy this assumption that a bunch of different database operations can be done, and if anything goes wrong, the whole transaction can get rolled back. If that is something that your system assumes, and then you decide that you're going to take one domain idea and instead of sourcing it from a database, source it from an external service, now that assumption doesn't hold anymore that you can just roll back an entire transaction, and that can have really gnarly impacts on a lot of the things you've done.
 
@@ -759,9 +753,3 @@ this does not mean that modular monoliths are a best practice. They're just a tr
 ### thank-you
 
 That is the talk. Thank you all very much for coming. And thanks again to Cedar for letting me give this talk.
-
-
-
-
-
-
